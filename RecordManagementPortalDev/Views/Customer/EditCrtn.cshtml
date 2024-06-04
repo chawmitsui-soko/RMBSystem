@@ -1,0 +1,108 @@
+﻿@model RecordManagementPortalDev.Models.CrtnType
+@{
+    ViewData["Title"] = "EditCrtn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4 class="mt-3">Edit Carton Type</h4>
+<div class="border p-3 mt-4">
+	<form method="post" asp-action="EditCrtn">
+		<fieldset>					
+			<div class="row">
+				<div class="col-6">
+					<div class="form-group">
+						<label asp-for="CtnType" class="form-label mt-4">Carton Type</label>
+						<input asp-for="CtnType" type="text" class="form-control" id="CtnType" aria-describedby="Carton Type" placeholder="Enter Carton Type" readonly="" style="background-color:#adb5bd;">	
+						<span asp-validation-for="CtnType" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Description" class="form-label mt-4">Description</label>
+						<input asp-for="Description" type="text" class="form-control" id="Description" aria-describedby="Description" placeholder="Enter Description" readonly="" style="background-color:#adb5bd;">
+						<span asp-validation-for="Description" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Dimension" class="form-label mt-4">Dimension</label>
+						<input asp-for="Dimension" type="text" class="form-control" id="Dimension" aria-describedby="Dimension" placeholder="Enter Dimension">						
+					</div>
+					<div class="form-group">
+						<label class="form-label mt-4">Standard Material</label>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="StdBarcode" asp-for="StdBarcode">
+							<label class="form-check-label" asp-for="StdBarcode">
+								Barcode Label
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="StdPlasticBag" asp-for="StdPlasticBag">
+							<label class="form-check-label" asp-for="StdPlasticBag">
+								Plastic Bag
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="StdRIC" asp-for="StdRIC">
+							<label class="form-check-label" asp-for="StdRIC">
+								Record Index Card
+							</label>
+						</div>	
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="StdCableTies" asp-for="StdCableTies">
+							<label class="form-check-label" asp-for="StdCableTies">
+								Cable Ties
+							</label>
+						</div>	
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="StdZipBag" asp-for="StdZipBag">
+							<label class="form-check-label" asp-for="StdZipBag">
+								Zip Lock Bag
+							</label>
+						</div>	
+					</div>
+					<div class="form-group">
+						<label asp-for="Reorder" class="form-label mt-4">Reorder</label>
+						<input asp-for="Reorder" type="text" class="form-control" id="Reorder" aria-describedby="Reorder" placeholder="Enter Reorder">
+						<span asp-validation-for="Reorder" class="text-danger"></span>
+					</div>	
+					<div class="form-group">
+						<label asp-for="CloseBal" class="form-label mt-4">Close Balance</label>
+						<input asp-for="CloseBal" type="text" class="form-control" id="CloseBal" aria-describedby="Close Balance" placeholder="Enter Close Balance">
+						<span asp-validation-for="CloseBal" class="text-danger"></span>
+					</div>	
+					<div class="form-group">
+						<label asp-for="AsatDate" class="form-label mt-4">AsatDate</label>
+						<input asp-for="AsatDate" type="date" class="form-control" id="AsatDate" aria-describedby="AsatDate" placeholder="Enter AsatDate">
+						<span asp-validation-for="AsatDate" class="text-danger"></span>
+					</div>	
+					<button type="submit" class="btn btn-outline-warning mt-3">Update</button>
+					<a class="btn btn-outline-light mt-3 mx-4" href="javascript: history.go(-1)">Back To Carton Type List</a>
+				</div>				
+			</div>
+		</fieldset>
+	</form>	
+</div>
+<div class="mb-10">
+	&nbsp;
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+
+<script>	
+	$(".form-check-input").change(function() {			
+		//if(this.checked) {
+		//	$(this).val(true);
+		//}else{
+		//	$(this).val(false);
+		//}
+		var checkbox1 = document.querySelector('input#StdBarcode').checked;
+		document.getElementById("StdBarcode").setAttribute('value',checkbox1);	
+		var checkbox2 = document.querySelector('input#StdPlasticBag').checked;
+		document.getElementById("StdPlasticBag").setAttribute('value',checkbox2);	
+		var checkbox3 = document.querySelector('input#StdRIC').checked;
+		document.getElementById("StdRIC").setAttribute('value',checkbox3);	
+		var checkbox4 = document.querySelector('input#StdCableTies').checked;
+		document.getElementById("StdCableTies").setAttribute('value',checkbox4);	
+		var checkbox5 = document.querySelector('input#StdZipBag').checked;
+		document.getElementById("StdZipBag").setAttribute('value',checkbox5);	
+	});	
+	</script>
+}
+

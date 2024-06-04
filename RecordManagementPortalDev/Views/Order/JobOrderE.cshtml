@@ -1,0 +1,314 @@
+﻿@using RecordManagementPortalDev.Data
+@using Microsoft.AspNetCore.Identity
+@using RecordManagementPortalDev.Models
+@model RecordManagementPortalDev.Controllers.OrderController.GroupedCustDept
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+	var user = await UserManager.GetUserAsync(User);
+}
+@{
+	ViewData["Title"] = "JobOrder";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+	.nth-table {
+	}
+
+		.nth-table tr:nth-child(even) {
+			background: #444;
+		}
+
+		.nth-table tr:nth-child(odd) {
+			background: #375a7f;
+		}
+
+		.nth-table th {
+			padding-top: 13px;
+			padding-bottom: 13px;
+			background-color: #1d3850;
+		}
+</style>
+<h4 class="mt-3">Job Order</h4>
+<div id="OrderEmptyCartons">
+	<h4 class="mt-3">Order Empty Cartons</h4>
+	<div class="border p-3 mt-4">
+		<form method="post" asp-action="FOrderEmptyCartons">
+			<fieldset>
+				<div class="row">
+					<div class="col-6">
+						<div class="form-group mt-2">
+							<h6 class="text-warning">Contact Information</h6>
+						</div>
+						@if (user.UserRole == "RMB Super Admin")
+						{
+							<div class="form-group row">
+								<label for="CustomerCode" class="col-sm-4 col-form-label">Choose Customer Code</label>
+								<div class="col-sm-6">
+									<select class="form-select" id="CustomerCode" name="CustomerCode" asp-controller="Customer" asp-action="UserInfo" asp-items="@Model?.CustomerList">
+										<option value="0">--All Customer--</option>
+									</select>
+									<input type="hidden" name="CustomerCode" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label asp-for="OrderRequest.CustomerCode" class="col-form-label col-sm-4 mt-2">Customer Code : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.CustomerCode" value="" id="custcode" class="form-control-plaintext" readonly="" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-form-label col-sm-4 mt-2">Customer Name : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.CustomerName" value="" id="custname" class="form-control-plaintext" readonly="" />
+								</div>
+							</div>
+							<div class="form-group mt-2">
+								<h6 class="text-warning">Delivery Address</h6>
+							</div>
+							<div class="form-group row">
+								<label class="col-form-label col-sm-4 mt-2">Address : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Address1" id="add1" value="" class="form-control" />
+									<input asp-for="OrderRequest.Address2" id="add2" value="" class="form-control" />
+									<input asp-for="OrderRequest.Address3" id="add3" value="" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-form-label col-sm-4 mt-2">Postal Code : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Address4" id="add4" value="" class="form-control" />
+								</div>
+							</div>
+							@*<div class="form-group row">
+								<label class="col-form-label col-sm-4 mt-2">Postal Code : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Address4" id="add4" value="" class="form-control-plaintext" readonly="" />
+								</div>
+							</div>	*@						
+							<div class="form-group row">
+								<label for="ELDepartmentCode" class="col-form-label col-sm-4 mt-2">Choose Department Code</label>
+								<div class="col-sm-8 mt-2">
+									<select class="form-select" id="ELDepartmentCode" name="DepartmentCode" asp-controller="Customer" asp-action="UserInfo" asp-items="@Model?.DepartmentList">
+										<option value="0">--All Departments--</option>
+									</select>
+									<input type="hidden" name="DepartmentCode" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label asp-for="OrderRequest.ContactPerson" class="col-form-label col-sm-4 mt-2">Person Incharge : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.ContactPerson" id="pic" value="" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label asp-for="OrderRequest.Email" class="col-form-label col-sm-4 mt-2">Email : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Email" id="email" value="" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label asp-for="OrderRequest.Telephone" class="col-form-label col-sm-4 mt-2">Telephone : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Telephone" id="telephone" value="" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label asp-for="OrderRequest.Fax" class="col-form-label col-sm-4 mt-2">Fax : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Fax" id="fax" value="" class="form-control" />
+								</div>
+							</div>
+						}
+						else
+						{
+							<div class="form-group row">
+								<label asp-for="OrderRequest.CustomerCode" class="col-form-label col-sm-4 mt-2">Customer Code : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.CustomerCode" value="@Model.Customer.CustomerCode" class="form-control-plaintext" readonly="" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-form-label col-sm-4 mt-2">Customer Name : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.CustomerName" value="@Model.Customer.CustomerName" class="form-control-plaintext" readonly="" />
+								</div>
+							</div>
+							<div class="form-group mt-2">
+								<h6 class="text-warning">Delivery Address</h6>
+							</div>
+							<div class="form-group row">
+								<label class="col-form-label col-sm-4 mt-2">Address : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Address1" value="@Model.Customer.Address1" class="form-control" />
+									<input asp-for="OrderRequest.Address2" value="@Model.Customer.Address2" class="form-control" />
+									<input asp-for="OrderRequest.Address3" value="@Model.Customer.Address3" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-form-label col-sm-4 mt-2">Postal Code : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Address4" value="@Model.Customer.Address4" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="ELDepartmentCode" class="col-form-label col-sm-4 mt-2">Choose Department Code</label>
+								<div class="col-sm-8 mt-2">
+									<select class="form-select" id="ELDepartmentCode" name="DepartmentCode" asp-controller="Customer" asp-action="UserInfo" asp-items="@Model?.DepartmentList">
+										<option value="0">--All Departments--</option>
+									</select>
+									<input type="hidden" name="DepartmentCode" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label asp-for="OrderRequest.ContactPerson" class="col-form-label col-sm-4 mt-2">Person Incharge : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.ContactPerson" value="@user.UserName" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label asp-for="OrderRequest.Email" class="col-form-label col-sm-4 mt-2">Email : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Email" value="@user.Email" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label asp-for="OrderRequest.Telephone" class="col-form-label col-sm-4 mt-2">Telephone : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Telephone" value="@user.PhoneNumber" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label asp-for="OrderRequest.Fax" class="col-form-label col-sm-4 mt-2">Fax : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Fax" value="@Model.Customer.Fax" class="form-control" />
+								</div>
+							</div>
+						}
+					</div>					
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<div class="form-group mt-2">
+							<h6 class="text-warning">Order Information</h6>
+						</div>
+						<div class="form-group row">
+							<label asp-for="OrderRequest.OrderDate" class="form-label col-sm-6 mt-2">Delivery Date</label>
+							<div class="col-sm-6 mt-2">
+								<input asp-for="OrderRequest.OrderDate" type="date" class="form-control" id="OrderDate" aria-describedby="Order Date" placeholder="Enter Order Date">
+								<span asp-validation-for="OrderRequest.OrderDate" class="text-danger"></span>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label asp-for="OrderRequest.CartonQty" class="form-label col-sm-6 mt-2">Carton Quantity</label>
+							<div class="col-sm-6 mt-2">
+								<input asp-for="OrderRequest.CartonQty" type="text" class="form-control" id="CartonQty" aria-describedby="Carton Quantity" placeholder="Enter Carton Quantity">
+								<span asp-validation-for="OrderRequest.CartonQty" class="text-danger"></span>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-6">
+								<div class="row">
+									<label asp-for="OrderRequest.TamperSealQty" class="form-label col-sm-6 mt-2">Tamper Seal Quantity</label>
+									<div class="col-sm-6 mt-2">
+										<input asp-for="OrderRequest.TamperSealQty" type="text" class="form-control" id="TamperSealQty" aria-describedby="Tamper Seal Quantity" placeholder="Optional">
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="row">
+									<label asp-for="OrderRequest.PlasticBagQty" class="form-label col-sm-6 mt-2">Plastic Bag Quantity</label>
+									<div class="col-sm-6 mt-2">
+										<input asp-for="OrderRequest.PlasticBagQty" type="text" class="form-control" id="PlasticBagQty" aria-describedby="Plastic Bag Quantity" placeholder="Optional">										
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-6">
+								<div class="row">
+									<label asp-for="OrderRequest.RICQty" class="form-label col-sm-6 mt-2">RIC Quantity</label>
+									<div class="col-sm-6 mt-2">
+										<input asp-for="OrderRequest.RICQty" type="text" class="form-control" id="RICQty" aria-describedby="RIC Quantity" placeholder="Optional">										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="row">
+									<label asp-for="OrderRequest.TieQty" class="form-label col-sm-6 mt-2">Tie Quantity</label>
+									<div class="col-sm-6 mt-2">
+										<input asp-for="OrderRequest.TieQty" type="text" class="form-control" id="TieQty" aria-describedby="Tie Quantity" placeholder="Optional">										
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label asp-for="OrderRequest.Remark" class="form-label col-sm-6 mt-2">Remark</label>
+							<div class="col-sm-6 mt-2">
+								<input asp-for="OrderRequest.Remark" type="text" class="form-control" id="Remark" aria-describedby="Remark" placeholder="Enter Remark">								
+							</div>
+						</div>
+						<button type="submit" class="btn btn-outline-warning mt-3">Confirm Order</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+<div class="mb-10">
+	&nbsp;
+</div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+<script>
+	var counter = 1;	
+	$("#CustomerCode").change(function () {
+		var custcode = $(this).val();
+		$.post("/Order/Cust",
+		{ custcode: custcode },
+		function (response) {
+			$.each(response.departmentList, function (key, entry) {
+				  $("#ELDepartmentCode").append($('<option></option>').attr('value', entry.value).text(entry.value));
+			})
+			var custcode = response.customer.customerCode;
+			document.getElementById("custcode").setAttribute('value',custcode);
+			var custname = response.customer.customerName;
+			document.getElementById("custname").setAttribute('value',custname);
+			var add1 = response.customer.address1;
+			document.getElementById("add1").setAttribute('value',add1);
+			var add2 = response.customer.address2;
+			document.getElementById("add2").setAttribute('value',add2);
+			var add3 = response.customer.address3;
+			document.getElementById("add3").setAttribute('value',add3);
+			var add4 = response.customer.address4;
+			document.getElementById("add4").setAttribute('value',add4);
+			var pic = response.customer.pic;
+			document.getElementById("pic").setAttribute('value',pic);
+			var email = response.customer.email;
+			document.getElementById("email").setAttribute('value',email);
+			var telephone = response.customer.telephone;
+			document.getElementById("telephone").setAttribute('value',telephone);
+			var fax = response.customer.fax;
+			document.getElementById("fax").setAttribute('value',fax);
+		})
+	});		
+	$(function(){
+		var dtToday = new Date();
+ 
+		var month = dtToday.getMonth() + 1;
+		var day = dtToday.getDate() + 1;
+		var year = dtToday.getFullYear();
+		if(month < 10)
+			month = '0' + month.toString();
+		if(day < 10)
+			day = '0' + day.toString();
+    
+		var maxDate = year + '-' + month + '-' + day;    
+		$('#OrderDate').attr('min', maxDate);
+	});
+</script>
+}
+
+
+

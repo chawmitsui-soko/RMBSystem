@@ -1,0 +1,121 @@
+﻿@{
+	ViewData["Title"] = "MedMgnt";
+	Layout = "~/Views/Shared/_BeforeLoginLayout.cshtml";
+}
+<style>
+	.slider {
+		margin-bottom: 30px;
+		position: relative;
+	}
+
+		.slider .owl-item.active.center .slider-card {
+			transform: scale(1.15);
+			opacity: 1;
+			background: #45aeea; /*#ff9966; /* fallback for old browsers */
+			background: -webkit-linear-gradient(to bottom, #455e62, #45aeea); /* Chrome 10-25, Safari 5.1-6 */
+			background: linear-gradient(to bottom, #455e62, #45aeea); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+			color: #fff;
+		}
+
+	.slider-card {
+		background: #fff;
+		padding: 0px 0px;
+		margin: 15px 15px 15px 15px;
+		/*margin: 50px 15px 90px 15px;*/
+		border-radius: 5px;
+		box-shadow: 0 15px 45px -20px rgb(0 0 0 / 73%);
+		transform: scale(0.9);
+		opacity: 0.5;
+		transition: all 0.3s;
+	}
+
+		.slider-card img {
+			border-radius: 5px 5px 0px 0px;
+			height: 200px;
+		}
+
+	.owl-nav .owl-prev {
+		position: absolute;
+		top: calc(50% - 25px);
+		left: 0;
+		opacity: 1;
+		font-size: 30px !important;
+		z-index: 1;
+	}
+
+	.owl-nav .owl-next {
+		position: absolute;
+		top: calc(50% - 25px);
+		right: 0;
+		opacity: 1;
+		font-size: 30px !important;
+		z-index: 1;
+	}
+
+	.owl-dots {
+		text-align: center;
+		display: none;
+	}
+
+		.owl-dots .owl-dot {
+			height: 10px;
+			width: 10px;
+			border-radius: 10px;
+			background: #fff !important;
+			margin-left: 3px;
+			margin-right: 3px;
+			outline: none;
+		}
+
+			.owl-dots .owl-dot.active {
+				background: #f44336 !important;
+			}
+
+	.text-center {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box; /* fallback */
+		max-height: 100px; /* fallback */
+		-webkit-line-clamp: 4; /* number of lines to show */
+		-webkit-box-orient: vertical;
+	}
+</style>
+<section id="slider">
+	<div>
+		<h3 class="text-left"><b>Media Management</b></h3>
+		<div class="slider">
+			<div class="owl-carousel">
+				<div class="slider-card">
+					<div class="d-flex justify-content-center align-items-center mb-4">
+						<a href="#">
+							<img class="img-slide" src="../lib/images/services_mm/services_mm_1.jpg" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="slider-card">
+					<div class="d-flex justify-content-center align-items-center mb-4">
+						<a href="#">
+							<img class="img-slide" src="../lib/images/services_mm/services_mm_2.jpg" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="slider-card">
+					<div class="d-flex justify-content-center align-items-center mb-4">
+						<a href="#">
+							<img class="img-slide" src="../lib/images/services_mm/services_mm_3.jpg" alt="">
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<p class="about">
+		Our experience in media management started when we first trusted to collect store and retrieve movie films in huge cylindrical metal containers. Today in Japan, we managed huge quantity of movies films – our initial entry into the world of media management, long before many of our Records Management competitors started managing electronic media items such as microfilms, microfiche, CD Rom, tapes and even thumb drives.
+	</p>
+	<p class="about">
+		Media management involves a different approach and treatment from document management.
+	</p>
+	<div style="display: block; height: 30px;">
+		&nbsp;
+	</div>
+</section>

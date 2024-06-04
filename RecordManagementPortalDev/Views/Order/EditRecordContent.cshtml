@@ -1,0 +1,82 @@
+﻿@using RecordManagementPortalDev.Data
+@using Microsoft.AspNetCore.Identity
+@using RecordManagementPortalDev.Models
+@model RecordManagementPortalDev.Models.RecordDetail
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+	var user = await UserManager.GetUserAsync(User);
+}
+@{
+	ViewData["Title"] = "Edit Record Content";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4 class="mt-3">Edit Record Content</h4>
+<div class="border p-3 mt-4">
+	<form method="post" asp-action="EditRecordContent">
+		<fieldset>
+			<div class="row">
+				<div class="form-group mt-2">
+					<h6 class="text-warning">Edit Record Content</h6>
+				</div>
+				<div class="form-group row">
+					<label class="col-form-label col-sm-4 mt-2">Record No : </label>
+					<div class="col-sm-8 mt-2">
+						<input asp-for="@Model.RecordNo" class="form-control-plaintext" readonly="" />
+					</div>
+				</div>	
+				<div class="form-group row">
+					<label class="col-form-label col-sm-4 mt-2">Customer Code : </label>
+					<div class="col-sm-8 mt-2">
+						<input asp-for="@Model.CustomerCode" class="form-control-plaintext" readonly="" />
+					</div>
+				</div>	
+				<div class="form-group row">
+					<label asp-for="@Model.DepartmentCode" class="col-form-label col-sm-4 mt-2"> Department Code : </label>
+					<div class="col-sm-8 mt-2">
+						<input asp-for="@Model.DepartmentCode" class="form-control-plaintext" readonly="" />
+					</div>
+				</div>					
+				<div class="form-group row">
+					<label class="col-form-label col-sm-4 mt-2">File No : </label>
+					<div class="col-sm-8 mt-2">
+						<input asp-for="@Model.FileNo" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-form-label col-sm-4 mt-2">Reference 1 : </label>
+					<div class="col-sm-8 mt-2">
+						<input asp-for="@Model.Reference1" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-form-label col-sm-4 mt-2">Reference 2 : </label>
+					<div class="col-sm-8 mt-2">
+						<input asp-for="@Model.Reference2" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-form-label col-sm-4 mt-2">Reference 3 : </label>
+					<div class="col-sm-8 mt-2">
+						<input asp-for="@Model.Reference3" class="form-control" />
+					</div>
+				</div>	
+				<div class="col-sm-8 mt-2">
+					<input type="hidden" asp-for="@Model.CreatedDate" class="form-control" />
+				</div>
+				<div class="form-group row">
+					<div class="col-sm-2 mt-2">
+						<button type="submit" class="btn btn-outline-warning mt-3">Edit Record Content</button>						
+					</div>
+				</div>
+				<a class="btn btn-outline-light mt-3" href="javascript: history.go(-1)">Back To Inventory List</a>
+			</div>
+		</fieldset>
+	</form>
+</div>
+
+<div class="mb-10">
+	&nbsp;
+</div>
+
+

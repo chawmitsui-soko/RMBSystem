@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using RecordManagementPortalDev.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+	var user = await UserManager.GetUserAsync(User);
+}
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_DLM.cshtml";
+}
+<div class="fcontainer">
+        <div class="contentpadding">
+            <div class="disclaimer-container">                 
+                <div class="row mt-3">                    
+                    <div class="page-header">
+                        <h2>Disclaimer</h2>
+                    </div>
+                </div>
+                <section style="padding: 25px 0;">
+                    <ol class="muted">
+                        <li>
+                            <p style="margin-bottom:10px;">the system is to be used only by authorized users.</p>
+                        </li>
+                        <li>
+                            <p style="margin-bottom:10px;">by continuing to use the system, the user represents that he/she is an authorized user.</p>
+                        </li>
+                        <li>
+                            <p style="margin-bottom:10px;">use of this system constitutes consent to monitoring.</p>
+                        </li>
+                        <li>
+                            <p style="margin-bottom:10px;">user agree not to disclose this web site (include printed materials, and "online" or electronic documentation) to any unauthorised user without MITSUI-SOKO (Singapore) Pte Ltd.'s prior written approval.</p>
+                        </li>
+                        <li>
+                            <p>MITSUI-SOKO (SINGAPORE) PTE LTD. PROVIDES RMSWEB ON AN "AS-IS" AND "AS-AVAILABLE" BASIS WITHOUT ANY CONDITION OR WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, TO THE MAXIMUM EXTENT PERMITTED BY LAW, INCLUDING BUT NOT LIMITED TO THE IMPLIED CONDITIONS AND WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. TO THE MAXIMUM EXTENT PERMITTED BY LAW, MITSUI-SOKO (SINGAPORE) PTE LTD SHALL NOT BE LIABLE TO YOU FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA OR OTHER INTANGIBLE LOSSES (EVEN IF MITSUI-SOKO (SINGAPORE) PTE LTD HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES) RESULTING FROM THE USE OR THE INABILITY TO USE RMSWEB.</p>
+                        </li>
+                    </ol>
+                    <p class="text-danger">
+                        <strong>Terminate the login before accessing this site if you are not authorized to access.</strong>
+                    </p>
+                </section>
+                <a asp-controller="Customer" asp-action="Customer" class="btn btn-outline-warning" role="button" aria-disabled="true" asp-route-id="@user.Id">I Accept</a>
+                <a asp-controller="Customer" asp-action="Reject" class="btn btn-outline-warning mx-4" role="button" aria-disabled="true">I Reject</a>               
+            </div>
+        </div>
+    </div>

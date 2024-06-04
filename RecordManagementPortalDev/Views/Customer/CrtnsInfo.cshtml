@@ -1,0 +1,131 @@
+﻿@using RecordManagementPortalDev.Data
+@model IEnumerable<CrtnType>
+@{
+	ViewData["Title"] = "CrtnsInfo";
+	Pager pager = new Pager();
+	int pageNum = 0;
+	if (ViewBag.Pager != null)
+	{
+		pager = ViewBag.Pager;
+		pageNum = pager.CurrentPage;
+	}
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+	.nth-table {
+	}
+
+		.nth-table tr:nth-child(even) {
+			background: #444;
+		}
+
+		.nth-table tr:nth-child(odd) {
+			background: #375a7f;
+		}
+
+		.nth-table th {
+			padding-top: 13px;
+			padding-bottom: 13px;
+			background-color: #1d3850;
+		}
+</style>
+<div class="form-group pt-4 text-end">
+	<div class="btn-group mt-3">
+		<a asp-controller="Customer" asp-action="CreateCrtn" class="btn btn-outline-warning" role="button" aria-disabled="true">Create New Carton Type</a>
+	</div>
+</div>
+<br />
+<h4 class="mt-3">Cartons Type List</h4>
+<table class="nth-table table table-hover pt-3">
+	<thead>
+		<tr>
+			<th scope="col">No.</th>
+			<th scope="col">Carton Type</th>
+			<th scope="col">Description</th>
+			<th scope="col">Dimension</th>
+			<th style="width:5%"></th>
+			<th style="width:5%"></th>
+			<th style="width:5%"></th>
+		</tr>
+	</thead>
+	<tbody>
+		@{
+			long rowCount = 0;
+			if (pager.CurrentPage > 1)
+			{
+				rowCount = (pager.CurrentPage - 1) * pager.PageSize;
+			}
+		}
+		@foreach (var obj in Model)
+		{
+			rowCount = rowCount + 1;
+			<tr>
+				<td scope="row">@rowCount</td>
+				<td>@obj.CtnType</td>
+				<td>@obj.Description</td>
+				<td>@obj.Dimension</td>
+				<td><a asp-controller="Customer" asp-action="DetailCrtn" class="btn btn-outline-info" role="button" aria-disabled="true" asp-route-id="@obj.Id"><i class="bi bi-ticket-detailed-fill"></i></a></td>
+				<td><a asp-controller="Customer" asp-action="EditCrtn" class="btn btn-outline-warning" role="button" aria-disabled="true" asp-route-id="@obj.Id"><i class="bi bi-pencil-square"></i></a></td>
+				<td><a asp-controller="Customer" asp-action="DeleteCrtn" class="btn btn-outline-danger" role="button" aria-disabled="true" asp-route-id="@obj.Id"><i class="bi bi-trash3-fill"></i></a></td>
+			</tr>
+		}
+	</tbody>
+</table>
+<div>
+	@if (pager.TotalPages > 0)
+	{
+		<ul class="pagination justify-content-end">
+			<div class="pagination" style="margin-left: 400px">
+				Page @(pager.TotalPages < pager.CurrentPage ? 0 : pager.CurrentPage) of @pager.TotalPages
+			</div>
+		</ul>
+		<ul class="pagination justify-content-end">
+			@if (pager.CurrentPage > 1)
+			{
+				<li class="page-item">
+					<a class="page-link" asp-controller="Customer" asp-action="CrtnsInfo" asp-route-page="1">First</a>
+				</li>
+				<li class="page-item">
+					<a class="page-link" asp-controller="Customer" asp-action="CrtnsInfo" asp-route-page="@(pager.CurrentPage -1)">&laquo;</a>
+				</li>
+			}
+			@{
+				var pageSetting = 1;
+				var pages = pager.TotalPages >= 5 ? ((pager.CurrentPage + 4) < pager.TotalPages ? (pager.CurrentPage + 4) : pager.TotalPages) : ((pager.CurrentPage + 4) < pager.TotalPages ? (pager.CurrentPage + 4) : pager.TotalPages);
+			}
+			@for (var pge = pager.CurrentPage; pge <= pages; pge++)
+			{
+				if (pageSetting != 2 && pager.TotalPages >= 5 && (pager.CurrentPage + 4) > pager.TotalPages)
+				{
+					pageSetting = 2;
+					pge = pager.TotalPages - 4;
+				}
+				else if (pageSetting != 2 && pager.TotalPages < 5)
+				{
+					pageSetting = 2;
+					pge = 1;
+				}
+				<li class="page-item @(pge == pager.CurrentPage ? "active":"")">
+					<a class="page-link" asp-controller="Customer" asp-action="CrtnsInfo" asp-route-page="@pge">@pge</a>
+				</li>
+			}
+			@if (pager.CurrentPage < pager.TotalPages)
+			{
+				<li class="page-item">
+					<a class="page-link" asp-controller="Customer" asp-action="CrtnsInfo" asp-route-page="@(pager.CurrentPage +1)">&raquo;</a>
+				</li>
+				<li class="page-item">
+					<a class="page-link" asp-controller="Customer" asp-action="CrtnsInfo" asp-route-page="@(pager.TotalPages)">Last</a>
+				</li>
+			}
+		</ul>
+	}
+	<h1>@ViewBag.msg</h1>
+</div>
+<div class="mb-10">
+	&nbsp;
+</div>
+
+
+
+

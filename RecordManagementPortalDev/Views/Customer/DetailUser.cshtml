@@ -1,0 +1,144 @@
+﻿@model RecordManagementPortalDev.Data.ApplicationUser
+@{
+	ViewData["Title"] = "DetailUser";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4 class="mt-3">Detail User</h4>
+<div class="border p-3 mt-4">
+	<div class="row">
+		<div class="col-6">
+			<div class="form-group row">
+				<label asp-for="CustomerCode" class="col-form-label mt-4 col-sm-4">Customer Code</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="CustomerCode" type="text" class="form-control" id="CustomerCode" aria-describedby="Customer Code" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="DepartmentCode" class="col-form-label mt-4 col-sm-4">Department Code</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="DepartmentCode" type="text" class="form-control" id="DepartmentCode" aria-describedby="Department Code" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="DepartmentPermission" class="col-form-label mt-4 col-sm-4">Department Permission</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="DepartmentPermission" type="text" class="form-control" id="DepartmentPermission" aria-describedby="Department Permission" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="UserCode" class="col-form-label mt-4 col-sm-4">User Code</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="UserCode" type="text" class="form-control" id="UserCode" aria-describedby="User Code" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="Name" class="col-form-label mt-4 col-sm-4">User Name</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="Name" type="text" class="form-control" id="UserName" aria-describedby="User Name" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="UserRole" class="col-form-label mt-4 col-sm-4">User Role</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="UserRole" type="text" class="form-control" id="UserRole" aria-describedby="User Role" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="UserLevel" class="col-form-label mt-4 col-sm-4">User Level</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="UserLevel" type="text" class="form-control" id="UserLevel" aria-describedby="User Level" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="Email" class="col-form-label mt-4 col-sm-4">Email</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="Email" type="email" class="form-control" id="Email" aria-describedby="Email" readonly="">
+				</div>
+			</div>			
+			<a class="btn btn-outline-light mt-3" href="javascript: history.go(-1)">Back To User List</a>
+		</div>
+		<div class="col-6">
+			<div class="form-group row">
+				<label asp-for="CreatedBy" class="col-form-label mt-4 col-sm-4">Created By</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="CreatedBy" type="text" class="form-control" id="CreatedBy" aria-describedby="Created By" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="CreatedDate" class="col-form-label mt-4 col-sm-4">Created Date</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="CreatedDate" class="form-control" id="CreatedDate" aria-describedby="Created Date" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="UpdatedBy" class="col-form-label mt-4 col-sm-4">Updated By</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="UpdatedBy" type="text" class="form-control" id="UpdatedBy" aria-describedby="Updated By" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="UpdatedDate" class="col-form-label mt-4 col-sm-4">Updated Date</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="UpdatedDate" type="text" class="form-control" id="UpdatedDate" aria-describedby="Updated Date" readonly="">
+				</div>
+			</div>
+			@*<div class="form-group row">
+				<label asp-for="LastLogin" class="col-form-label mt-4 col-sm-4">Last Login Date</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="LastLogin" type="text" class="form-control" id="LastLogin" aria-describedby="Last Login Date" readonly="">
+				</div>
+			</div>*@
+			<div class="form-group row">
+				<label class="form-label mt-4">Services</label>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="RequestService" asp-for="RequestService" disabled>
+					<label class="form-check-label" asp-for="RequestService">
+						Request Service
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="RequestDestruct" asp-for="RequestDestruct" disabled>
+					<label class="form-check-label" asp-for="RequestDestruct">
+						Request Destruction
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="AppDestructService" asp-for="AppDestructService" disabled>
+					<label class="form-check-label" asp-for="AppDestructService">
+						Approve Destruction Service
+					</label>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="form-label mt-4">Controls</label>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="ViewFContent" asp-for="ViewFContent" disabled>
+					<label class="form-check-label" asp-for="ViewFContent">
+						View File Content
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="AmendFContent" asp-for="AmendFContent" disabled>
+					<label class="form-check-label" asp-for="AmendFContent">
+						Amend File Content
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="UploadRIC" asp-for="UploadRIC" disabled>
+					<label class="form-check-label" asp-for="UploadRIC">
+						Upload RIC
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="false" id="CanExport" asp-for="CanExport" disabled>
+					<label class="form-check-label" asp-for="CanExport">
+						Can Export
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="mb-10">
+	&nbsp;
+</div>

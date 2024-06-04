@@ -1,0 +1,43 @@
+﻿@model RecordManagementPortalDev.Models.CrtnType
+@{
+    ViewData["Title"] = "DeleteCrtn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4 class="mt-3">Delete Carton Type</h4>
+<div class="border p-3 mt-4">
+	<form method="post" asp-action="DeleteCrtn">
+		<input asp-for="Id" hidden />
+		<fieldset>					
+			<div class="row">
+				<div class="col-6">
+					<div class="form-group">
+						<label asp-for="CtnType" class="form-label mt-4">Carton Type</label>
+						<input asp-for="CtnType" type="text" class="form-control" id="CtnType" aria-describedby="Carton Type" readonly="" style="background-color:#adb5bd;">						
+					</div>
+					<div class="form-group">
+						<label asp-for="Description" class="form-label mt-4">Description</label>
+						<input asp-for="Description" type="text" class="form-control" id="DepartmentCode" aria-describedby="Department Code" readonly="" style="background-color:#adb5bd;">						
+					</div>
+					<div class="form-group">
+						<label asp-for="Reorder" class="form-label mt-4">Reorder</label>
+						<input asp-for="Reorder" type="text" class="form-control" id="Reorder" aria-describedby="Reorder" readonly="" style="background-color:#adb5bd;">						
+					</div>
+					<div class="form-group">
+						<label asp-for="CloseBal" class="form-label mt-4">Close Balance</label>
+						<input asp-for="CloseBal" type="text" class="form-control" id="CloseBal" aria-describedby="Close Balance" readonly="" style="background-color:#adb5bd;">						
+					</div>
+					<button type="submit" class="btn btn-outline-warning mt-3">Delete</button>
+					<a class="btn btn-outline-light mt-3 mx-4" href="javascript: history.go(-1)">Back To Carton Type List</a>
+				</div>
+				<div class="col-6">
+					
+				</div>
+			</div>
+		</fieldset>
+	</form>	
+</div>
+<div class="mb-10">
+	&nbsp;
+</div>
+
+

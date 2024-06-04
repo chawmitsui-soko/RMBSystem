@@ -1,0 +1,202 @@
+﻿@model RecordManagementPortalDev.Controllers.CustomerController.GroupedUserViewModel
+@using RecordManagementPortalDev.Data
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+	var user = await UserManager.GetUserAsync(User);
+}
+@{
+    ViewData["Title"] = "EditUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4 class="mt-3">Edit User</h4>
+<div class="border p-3 mt-4">
+	<form method="post" asp-action="EditUser">
+		<input asp-for="User.Id" hidden />
+		<fieldset>					
+			<div class="row">
+				<div class="col-6">
+					<div class="form-group">
+						<label asp-for="User.CustomerCode" class="form-label mt-4">Customer Code</label>
+						<input asp-for="User.CustomerCode" type="text" class="form-control" id="CustomerCode" aria-describedby="Customer Code" readonly="" style="background-color:#adb5bd;">							
+					</div>
+					<div class="form-group">
+						<label asp-for="User.DepartmentCode" class="form-label mt-4">Department Code</label>
+						<input asp-for="User.DepartmentCode" type="text" class="form-control" id="DepartmentCode" aria-describedby="Department Code" readonly="" style="background-color:#adb5bd;">						
+					</div>
+					<div class="form-group">
+						<label asp-for="User.UserCode" class="form-label mt-4">User Code</label>
+						<input asp-for="User.UserCode" type="text" class="form-control" id="UserCode" aria-describedby="User Code" placeholder="Enter User Code">	
+						<span asp-validation-for="User.UserCode" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="User.Name" class="form-label mt-4">User Name</label>
+						<input asp-for="User.Name" type="text" class="form-control" id="UserName" aria-describedby="User Name" placeholder="Enter User Name">
+						<span asp-validation-for="User.Name" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="User.Email" class="form-label mt-4">Email</label>
+						<input asp-for="User.Email" type="text" class="form-control" id="Email" aria-describedby="Email" placeholder="Enter Email">
+						<span asp-validation-for="User.Email" class="text-danger"></span>
+					</div>						
+					<button type="submit" class="btn btn-outline-warning mt-3">Update</button>
+					<a class="btn btn-outline-light mt-3 mx-4" href="javascript: history.go(-1)">Back To User List</a>
+				</div>
+				<div class="col-6">	
+					@if (user.UserRole == "RMB Super Admin")
+					{
+						<div class="form-group">
+							<label asp-for="User.DepartmentPermission" class="form-label mt-4">Department Permission Lists (For multiple select, pls use Ctrl Key) </label>
+							<input asp-for="User.DepartmentPermission" type="text" class="form-control" aria-describedby="Department Permission" readonly="" style="background-color:#adb5bd;">						
+							<select multiple="" class="form-select" id="DepartmentPermission" name="DepartmentPermission" asp-controller="Customer" asp-action="UserInfo" asp-items="@Model?.DepartmentList">
+								<option asp-for="User.DepartmentPermission" value="0">None</option>
+							</select>
+							<input asp-for="User.DepartmentPermission" type="hidden" name="DepartmentPermission" id="DepartmentPermission" />
+						</div>
+						<div class="form-group">
+							<label asp-for="User.UserRole" class="form-label mt-4">User Role</label>
+							<select asp-for="User.UserRole" class="form-select" id="UserRole">
+								<option>User</option>
+								<option>Approver</option>
+								<option>Backup Approver</option>
+								<option>Admin</option>
+								<option>RMB Super Admin</option>
+							</select>
+						</div>
+					}
+					else
+					{
+						<div class="form-group">
+							<label asp-for="User.DepartmentPermission" class="form-label mt-4">Department Permission Lists (For multiple select, pls use Ctrl Key) </label>
+							<input asp-for="User.DepartmentPermission" type="text" class="form-control" aria-describedby="Department Permission" readonly="" style="background-color:#adb5bd;">		
+							<select multiple="" class="form-select" name="DepartmentPermission" asp-controller="Customer" asp-action="UserInfo" asp-items="@Model?.DepartmentList">
+								@*<option asp-for="User.DepartmentPermission" value="0">--All Departments--</option>*@
+							</select>
+							<input asp-for="User.DepartmentPermission" type="hidden" name="DepartmentPermission" id="DepartmentPermission" />
+						</div>
+						<div class="form-group">
+							<label asp-for="User.UserRole" class="form-label mt-4">User Role</label>
+							<select asp-for="User.UserRole" class="form-select" id="UserRole">
+								<option>User</option>
+								<option>Approver</option>
+								<option>Backup Approver</option>
+								<option>Admin</option>
+							</select>
+						</div>
+					}					
+					<div class="form-group">
+						<label asp-for="User.UserLevel" class="form-label mt-4">User Level</label>
+						<select asp-for="User.UserLevel" class="form-select" id="UserLevel">
+							<option>Unlimited</option>
+							<option>Requester</option>
+							<option>1st Level</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="form-label mt-4">Services</label>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="RequestService" asp-for="User.RequestService">
+							<label class="form-check-label" asp-for="User.RequestService">
+								Request Service
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="RequestDestruct" asp-for="User.RequestDestruct">
+							<label class="form-check-label" asp-for="User.RequestDestruct">
+								Request Destruction
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="AppDestructService" asp-for="User.AppDestructService">
+							<label class="form-check-label" asp-for="User.AppDestructService">
+								Approve Destruction Service
+							</label>
+						</div>						
+					</div>
+					<div class="form-group">
+						<label class="form-label mt-4">Controls</label>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="ViewFContent" asp-for="User.ViewFContent">
+							<label class="form-check-label" asp-for="User.ViewFContent">
+								View File Content
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="AmendFContent" asp-for="User.AmendFContent">
+							<label class="form-check-label" asp-for="User.AmendFContent">
+								Amend File Content
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="UploadRIC" asp-for="User.UploadRIC">
+							<label class="form-check-label" asp-for="User.UploadRIC">
+								Upload RIC
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="false" id="CanExport" asp-for="User.CanExport">
+							<label class="form-check-label" asp-for="User.CanExport">
+								Can Export
+							</label>
+						</div>						
+					</div>	
+					@*<div class="form-group">
+						<label class="form-label mt-4">Is require approver YES/ NO?</label>
+						<select asp-for="User.NeedApproval" class="form-select" id="ApprovalRole">
+							<option>Yes</option>
+							<option>No</option>							
+						</select>
+					</div>*@
+				</div>
+			</div>
+		</fieldset>
+	</form>	
+</div>
+<div class="mb-10">
+	&nbsp;
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+
+<script>
+		var checkbox1 = document.querySelector('input#RequestService').checked;
+		document.getElementById("RequestService").setAttribute('value',checkbox1);	
+		var checkbox2 = document.querySelector('input#RequestDestruct').checked;
+		document.getElementById("RequestDestruct").setAttribute('value',checkbox2);	
+		var checkbox3 = document.querySelector('input#AppDestructService').checked;
+		document.getElementById("AppDestructService").setAttribute('value',checkbox3);	
+		var checkbox4 = document.querySelector('input#ViewFContent').checked;
+		document.getElementById("ViewFContent").setAttribute('value',checkbox4);	
+		var checkbox5 = document.querySelector('input#AmendFContent').checked;
+		document.getElementById("AmendFContent").setAttribute('value',checkbox5);
+		var checkbox6 = document.querySelector('input#UploadRIC').checked;
+		document.getElementById("UploadRIC").setAttribute('value',checkbox6);	
+		var checkbox7 = document.querySelector('input#CanExport').checked;
+		document.getElementById("CanExport").setAttribute('value',checkbox7);	
+	$(".form-check-input").change(function() {
+		//if(this.checked) {
+		//	$(this).val(true);
+		//}else{
+		//	$(this).val(false);
+		//}
+		var checkbox1 = document.querySelector('input#RequestService').checked;
+		document.getElementById("RequestService").setAttribute('value',checkbox1);	
+		var checkbox2 = document.querySelector('input#RequestDestruct').checked;
+		document.getElementById("RequestDestruct").setAttribute('value',checkbox2);	
+		var checkbox3 = document.querySelector('input#AppDestructService').checked;
+		document.getElementById("AppDestructService").setAttribute('value',checkbox3);	
+		var checkbox4 = document.querySelector('input#ViewFContent').checked;
+		document.getElementById("ViewFContent").setAttribute('value',checkbox4);	
+		var checkbox5 = document.querySelector('input#AmendFContent').checked;
+		document.getElementById("AmendFContent").setAttribute('value',checkbox5);
+		var checkbox6 = document.querySelector('input#UploadRIC').checked;
+		document.getElementById("UploadRIC").setAttribute('value',checkbox6);	
+		var checkbox7 = document.querySelector('input#CanExport').checked;
+		document.getElementById("CanExport").setAttribute('value',checkbox7);	
+	});
+</script>
+}
+
+

@@ -1,0 +1,618 @@
+﻿@model RecordManagementPortalDev.Controllers.BillingController.MonthlyBill
+@{
+	ViewData["Title"] = "MonthlyBilling";
+	Layout = "~/Views/Shared/_PrintLayout.cshtml";
+}
+<style>
+	.nth-table {
+	}
+		.nth-table th {
+			padding-top: 3px;
+			padding-bottom: 3px;			
+		}		
+</style>
+<div id="printarea" class="mb-10">
+	<h4 class="mt-3">Mitsui-Soko (Singapore) Pte Ltd</h4>
+	<div class="border p-3 mt-4">
+		<div class="form-group row">
+			<label class="col-form-label mt-4 text-right col-sm-12"><strong>Monthly Bill</strong></label>
+		</div>
+		<div class="row">
+			<div class="border col-6">
+				<label class="col-form-label mt-4"><strong>@Model.Bill.CustomerName</strong></label>	<br />
+				<label class="col-form-label">
+					Billing Report<label> From : </label>@Model.Bill.BillStartDate
+				</label>
+				<label class="col-form-label">
+					Billing Report<label> To : </label>@Model.Bill.BillEndDate
+				</label>
+				<label class="col-form-label">Invoice Code: @Model.Bill.InvoiceCode</label>
+				<label class="col-form-label">Invoice No: </label>
+			</div>
+			<div class="border col-6">
+				<label class="col-form-label">Date Printed: @Model.Bill.PrintedDate </label> <br />
+			</div>
+		</div>
+		<div class="row">
+			<label class="col-form-label col-sm-4"><strong>A. Storage</strong> </label> <br />
+		</div>
+		<div class="row">
+			<label class="col-form-label col-sm-4"><strong>A1. Monthly Management Fees</strong></label> <br />
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Details</strong></label>	<br />
+		</div>
+		<div class="row">
+			<table class="nth-table table table-hover pt-3">
+				<thead>
+					<tr>
+						<th style="width:8%">SNO.</th>
+						<th scope="col">Carton Quantity</th>
+						<th scope="col">Actual Rate ($)</th>
+						<th scope="col">Amount ($)</th>										
+					</tr>
+				</thead>
+				<tbody id="tbcolemp">
+				@if (Model.MngBillList != null)
+				{
+					int i = 1;					
+					<tr>
+						<td scope="row">@i</td>
+						<td>@Model.MngBillList.Cartons</td>
+						<td>@Model.MngBillList.ActualRate</td>
+						<td>@Model.MngBillList.Amount</td>											
+					</tr>
+				}
+				</tbody>
+			</table>		
+		</div>
+		<br />
+		<div class="row">
+		</div>
+		<div class="row">
+			<label class="col-form-label col-sm-4"><strong>A2. Prorated Management Fees</strong></label> <br />
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Details</strong></label>	<br />
+		</div>
+		<div class="row">
+			<table class="nth-table table table-hover pt-3">
+				<thead>
+					<tr>
+						<th style="width:8%">SNO.</th>
+						<th scope="col">Job Number</th>
+						<th scope="col">Request By</th>
+						<th scope="col">Request Date</th>
+						<th scope="col">Records Qty</th>						
+						<th scope="col">Unit Rate ($)</th>
+						<th scope="col">No. Of Days</th>
+						<th scope="col">Amount ($)</th>										
+					</tr>
+				</thead>
+				<tbody id="tbcolemp">
+				@if (Model.ProBillList != null)
+				{
+						int i = 1;
+						@foreach (Bill obj in Model.ProBillList)
+						{
+							<tr>
+								<td scope="row">@i</td>
+								<td>@obj.JobNo</td>
+								<td>@obj.RequestBy</td>
+								<td>@obj.RequestDate</td>
+								<td>@obj.Cartons</td>
+								<td>@obj.ActualRate ($)</td>
+								<td>@obj.NoOfDays</td>	
+								<td>@obj.Amount ($)</td>	
+							</tr>
+							i = i + 1;
+						}
+					}
+				</tbody>
+			</table>			
+		</div>
+		<div class="row">
+		</div>
+		<div class="row">
+			<label class="col-form-label col-sm-8"><strong>B. Pickup Of Cartons (New & Old)</strong></label> <br />
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Details</strong></label>	<br />
+		</div>
+		<div class="row">
+			<table class="nth-table table table-hover pt-3">
+				<thead>
+					<tr>
+						<th style="width:8%">SNO.</th>
+						<th scope="col">Job Number</th>
+						<th scope="col">Request By</th>
+						<th scope="col">Request Date</th>
+						<th scope="col">Records Qty</th>						
+						<th scope="col">Unit Rate ($)</th>
+						<th scope="col">Minimum Rate</th>
+						<th scope="col">Amount ($)</th>										
+					</tr>
+				</thead>
+				<tbody id="tbcolemp">
+				@if (Model.ProBillList != null)
+				{
+						int i = 1;
+						@foreach (Bill obj in Model.ProBillList)
+						{
+							<tr>
+								<td scope="row">@i</td>
+								<td>@obj.JobNo</td>
+								<td>@obj.RequestBy</td>
+								<td>@obj.RequestDate</td>
+								<td>@obj.Cartons</td>
+								<td>@obj.ActualRate ($)</td>
+								<td>@obj.MinRate</td>	
+								<td>@obj.Amount ($)</td>	
+							</tr>
+							i = i + 1;
+						}
+					}
+				</tbody>
+			</table>		
+		</div>
+		<div class="row">
+			<label class="col-form-label col-sm-4"><strong>C. Retrieval Service</strong></label> <br />
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Normal Retrieval</strong></label><br />
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Details</strong></label><br />
+		</div>
+		<div class="row">
+			<table class="nth-table table table-hover pt-3">
+				<thead>
+					<tr>
+						<th style="width:8%">SNO.</th>
+						<th scope="col">Job Number</th>
+						<th scope="col">Request By</th>
+						<th scope="col">Request Date</th>
+						<th scope="col">Records Qty</th>						
+						<th scope="col">Description</th>
+						<th scope="col">Rate [Ctn Delivery]</th>
+						<th scope="col">Amount ($)</th>										
+					</tr>
+				</thead>
+				<tbody id="tbcolemp">
+				@if (Model.ProBillList != null)
+				{
+						int i = 1;
+						@foreach (Bill obj in Model.ProBillList)
+						{
+							<tr>
+								<td scope="row">@i</td>
+								<td>@obj.JobNo</td>
+								<td>@obj.RequestBy</td>
+								<td>@obj.RequestDate</td>
+								<td>@obj.Cartons</td>
+								<td>@obj.Description</td>
+								<td>@obj.ActualRate</td>	
+								<td>@obj.Amount</td>	
+							</tr>
+							i = i + 1;
+						}
+					}
+				</tbody>
+			</table>		
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Priority Retrieval</strong></label><br />
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Details</strong></label><br />
+		</div>
+		<div class="row">
+			<table class="nth-table table table-hover pt-3">
+				<thead>
+					<tr>
+						<th style="width:8%">SNO.</th>
+						<th scope="col">Job Number</th>
+						<th scope="col">Request By</th>
+						<th scope="col">Request Date</th>
+						<th scope="col">Records Qty</th>						
+						<th scope="col">Description</th>
+						<th scope="col">Rate [Ctn Delivery]</th>
+						<th scope="col">Amount ($)</th>										
+					</tr>
+				</thead>
+				<tbody id="tbcolemp">
+				@if (Model.ProBillList != null)
+				{
+						int i = 1;
+						@foreach (Bill obj in Model.ProBillList)
+						{
+							<tr>
+								<td scope="row">@i</td>
+								<td>@obj.JobNo</td>
+								<td>@obj.RequestBy</td>
+								<td>@obj.RequestDate</td>
+								<td>@obj.Cartons</td>
+								<td>@obj.Description</td>
+								<td>@obj.ActualRate</td>	
+								<td>@obj.Amount</td>	
+							</tr>
+							i = i + 1;
+						}
+					}
+				</tbody>
+			</table>	
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Express Retrieval</strong></label><br />
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Details</strong></label><br />
+		</div>
+		<div class="row">
+			<table class="nth-table table table-hover pt-3">
+				<thead>
+					<tr>
+						<th style="width:8%">SNO.</th>
+						<th scope="col">Job Number</th>
+						<th scope="col">Request By</th>
+						<th scope="col">Request Date</th>
+						<th scope="col">Records Qty</th>						
+						<th scope="col">Description</th>
+						<th scope="col">Rate [Ctn Delivery]</th>
+						<th scope="col">Amount ($)</th>										
+					</tr>
+				</thead>
+				<tbody id="tbcolemp">
+				@if (Model.ProBillList != null)
+				{
+						int i = 1;
+						@foreach (Bill obj in Model.ProBillList)
+						{
+							<tr>
+								<td scope="row">@i</td>
+								<td>@obj.JobNo</td>
+								<td>@obj.RequestBy</td>
+								<td>@obj.RequestDate</td>
+								<td>@obj.Cartons</td>
+								<td>@obj.Description</td>
+								<td>@obj.ActualRate</td>	
+								<td>@obj.Amount</td>	
+							</tr>
+							i = i + 1;
+						}
+					}
+				</tbody>
+			</table>	
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>After Office Hour/Weekend & Public Holiday</strong></label><br />
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Details</strong></label><br />
+		</div>
+		<div class="row">
+			<table class="nth-table table table-hover pt-3">
+				<thead>
+					<tr>
+						<th style="width:8%">SNO.</th>
+						<th scope="col">Job Number</th>
+						<th scope="col">Request By</th>
+						<th scope="col">Request Date</th>
+						<th scope="col">Records Qty</th>						
+						<th scope="col">Description</th>
+						<th scope="col">Rate [Ctn Delivery]</th>
+						<th scope="col">Amount ($)</th>										
+					</tr>
+				</thead>
+				<tbody id="tbcolemp">
+				@if (Model.ProBillList != null)
+				{
+						int i = 1;
+						@foreach (Bill obj in Model.ProBillList)
+						{
+							<tr>
+								<td scope="row">@i</td>
+								<td>@obj.JobNo</td>
+								<td>@obj.RequestBy</td>
+								<td>@obj.RequestDate</td>
+								<td>@obj.Cartons</td>
+								<td>@obj.Description</td>
+								<td>@obj.ActualRate</td>	
+								<td>@obj.Amount</td>	
+							</tr>
+							i = i + 1;
+						}
+					}
+				</tbody>
+			</table>	
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Permanent Retrieval</strong></label><br />
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Details</strong></label><br />
+		</div>
+		<div class="row">
+			<table class="nth-table table table-hover pt-3">
+				<thead>
+					<tr>
+						<th style="width:8%">SNO.</th>
+						<th scope="col">Job Number</th>
+						<th scope="col">Request By</th>
+						<th scope="col">Request Date</th>
+						<th scope="col">Records Qty</th>						
+						<th scope="col">Description</th>
+						<th scope="col">Rate [Ctn Delivery]</th>
+						<th scope="col">Amount ($)</th>										
+					</tr>
+				</thead>
+				<tbody id="tbcolemp">
+				@if (Model.ProBillList != null)
+				{
+						int i = 1;
+						@foreach (Bill obj in Model.ProBillList)
+						{
+							<tr>
+								<td scope="row">@i</td>
+								<td>@obj.JobNo</td>
+								<td>@obj.RequestBy</td>
+								<td>@obj.RequestDate</td>
+								<td>@obj.Cartons</td>
+								<td>@obj.Description</td>
+								<td>@obj.ActualRate</td>	
+								<td>@obj.Amount</td>	
+							</tr>
+							i = i + 1;
+						}
+					}
+				</tbody>
+			</table>	
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Secured Destruction</strong></label><br />
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Details</strong></label><br />
+		</div>
+		<div class="row">
+			<table class="nth-table table table-hover pt-3">
+				<thead>
+					<tr>
+						<th style="width:8%">SNO.</th>
+						<th scope="col">Job Number</th>
+						<th scope="col">Request By</th>
+						<th scope="col">Request Date</th>
+						<th scope="col">Records Qty</th>						
+						<th scope="col">Description</th>
+						<th scope="col">Rate [Ctn Delivery]</th>
+						<th scope="col">Amount ($)</th>										
+					</tr>
+				</thead>
+				<tbody id="tbcolemp">
+				@if (Model.ProBillList != null)
+				{
+						int i = 1;
+						@foreach (Bill obj in Model.ProBillList)
+						{
+							<tr>
+								<td scope="row">@i</td>
+								<td>@obj.JobNo</td>
+								<td>@obj.RequestBy</td>
+								<td>@obj.RequestDate</td>
+								<td>@obj.Cartons</td>
+								<td>@obj.Description</td>
+								<td>@obj.ActualRate</td>	
+								<td>@obj.Amount</td>	
+							</tr>
+							i = i + 1;
+						}
+					}
+				</tbody>
+			</table>	
+		</div>
+		<div class="row">
+			<label class="col-form-label col-sm-4"><strong>D. Supply Of Meterials</strong></label> <br />
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Supply Of Cartons</strong></label><br />
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Details</strong></label><br />
+		</div>
+		<div class="row">
+			<table class="nth-table table table-hover pt-3">
+				<thead>
+					<tr>
+						<th style="width:8%">SNO.</th>
+						<th scope="col">Job Number</th>
+						<th scope="col">Request By</th>
+						<th scope="col">Request Date</th>
+						<th scope="col">Records Qty</th>						
+						<th scope="col">Description</th>
+						<th scope="col">Rate [Ctn Delivery]</th>
+						<th scope="col">Amount ($)</th>										
+					</tr>
+				</thead>
+				<tbody id="tbcolemp">
+				@if (Model.ProBillList != null)
+				{
+						int i = 1;
+						@foreach (Bill obj in Model.ProBillList)
+						{
+							<tr>
+								<td scope="row">@i</td>
+								<td>@obj.JobNo</td>
+								<td>@obj.RequestBy</td>
+								<td>@obj.RequestDate</td>
+								<td>@obj.Cartons</td>
+								<td>@obj.Description</td>
+								<td>@obj.ActualRate</td>	
+								<td>@obj.Amount</td>	
+							</tr>
+							i = i + 1;
+						}
+					}
+				</tbody>
+			</table>	
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Tamper-Proff Seal</strong></label><br />
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Details</strong></label><br />
+		</div>
+		<div class="row">
+			<table class="nth-table table table-hover pt-3">
+				<thead>
+					<tr>
+						<th style="width:8%">SNO.</th>
+						<th scope="col">Job Number</th>
+						<th scope="col">Request By</th>
+						<th scope="col">Request Date</th>
+						<th scope="col">Records Qty</th>						
+						<th scope="col">Description</th>
+						<th scope="col">Rate [Ctn Delivery]</th>
+						<th scope="col">Amount ($)</th>										
+					</tr>
+				</thead>
+				<tbody id="tbcolemp">
+				@if (Model.ProBillList != null)
+				{
+						int i = 1;
+						@foreach (Bill obj in Model.ProBillList)
+						{
+							<tr>
+								<td scope="row">@i</td>
+								<td>@obj.JobNo</td>
+								<td>@obj.RequestBy</td>
+								<td>@obj.RequestDate</td>
+								<td>@obj.Cartons</td>
+								<td>@obj.Description</td>
+								<td>@obj.ActualRate</td>	
+								<td>@obj.Amount</td>	
+							</tr>
+							i = i + 1;
+						}
+					}
+				</tbody>
+			</table>	
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Serialized Cable Tie Seal</strong></label><br />
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Details</strong></label><br />
+		</div>
+		<div class="row">
+			<table class="nth-table table table-hover pt-3">
+				<thead>
+					<tr>
+						<th style="width:8%">SNO.</th>
+						<th scope="col">Job Number</th>
+						<th scope="col">Request By</th>
+						<th scope="col">Request Date</th>
+						<th scope="col">Records Qty</th>						
+						<th scope="col">Description</th>
+						<th scope="col">Rate [Ctn Delivery]</th>
+						<th scope="col">Amount ($)</th>										
+					</tr>
+				</thead>
+				<tbody id="tbcolemp">
+				@if (Model.ProBillList != null)
+				{
+						int i = 1;
+						@foreach (Bill obj in Model.ProBillList)
+						{
+							<tr>
+								<td scope="row">@i</td>
+								<td>@obj.JobNo</td>
+								<td>@obj.RequestBy</td>
+								<td>@obj.RequestDate</td>
+								<td>@obj.Cartons</td>
+								<td>@obj.Description</td>
+								<td>@obj.ActualRate</td>	
+								<td>@obj.Amount</td>	
+							</tr>
+							i = i + 1;
+						}
+					}
+				</tbody>
+			</table>	
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Others (Plastic Bags, RIC, Cable Tie (1PKT))</strong></label><br />
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Details</strong></label><br />
+		</div>
+		<div class="row">
+			<table class="nth-table table table-hover pt-3">
+				<thead>
+					<tr>
+						<th style="width:8%">SNO.</th>
+						<th scope="col">Job Number</th>
+						<th scope="col">Request By</th>
+						<th scope="col">Request Date</th>
+						<th scope="col">Records Qty</th>						
+						<th scope="col">Description</th>
+						<th scope="col">Rate [Ctn Delivery]</th>
+						<th scope="col">Amount ($)</th>										
+					</tr>
+				</thead>
+				<tbody id="tbcolemp">
+				@if (Model.ProBillList != null)
+				{
+						int i = 1;
+						@foreach (Bill obj in Model.ProBillList)
+						{
+							<tr>
+								<td scope="row">@i</td>
+								<td>@obj.JobNo</td>
+								<td>@obj.RequestBy</td>
+								<td>@obj.RequestDate</td>
+								<td>@obj.Cartons</td>
+								<td>@obj.Description</td>
+								<td>@obj.ActualRate</td>	
+								<td>@obj.Amount</td>	
+							</tr>
+							i = i + 1;
+						}
+					}
+				</tbody>
+			</table>	
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Total Amount</strong></label><br />
+		</div>
+		<div class="row"> 
+			<label class="col-form-label mt-4 col-sm-6"><strong>8% GST</strong></label><br />
+		</div>
+		<div class="row">
+			<label class="col-form-label mt-4 col-sm-6"><strong>Grand Total Amount</strong></label><br />
+		</div>
+	</div>
+</div>
+
+<div class="mb-40">
+	&nbsp;
+</div>
+<button id="Print" class="btn btn-outline-warning mt-3">Print</button>
+<a class="btn btn-outline-light mt-3" href="javascript: history.go(-1)">Back To Bill Generate</a>
+
+@section Scripts {
+<script>
+	$("#Print").click(function () {
+	var element = document.getElementById("printarea");
+	html2pdf(element, {
+		margin: [30, 10, 30, 10],
+		filename: 'MonthlyBill.pdf',
+		image: {type: 'jpeg', quality: 0.98},
+		html3canvas: {scale: 2, logging:true, dpi:230, letterRendering: true},
+		jsPDF: {unit: 'mm', format: 'a4', orientation: 'portrait'}
+	});
+	});
+</script>
+}
+
+
+

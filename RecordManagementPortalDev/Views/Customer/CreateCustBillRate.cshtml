@@ -1,0 +1,451 @@
+﻿@model RecordManagementPortalDev.Controllers.CustomerController.GroupedCustomerBillModel
+@{
+	ViewData["Title"] = "CreateCustBillRate";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4 class="mt-3">Create Customer Bill Rate</h4>
+<div class="border p-3 mt-4">
+	<form method="post" asp-action="CreateCustBillRate">
+		<fieldset>
+			<div class="form-group row mt-3 mb-3">
+				<div class="col-sm-4">
+					<div class="row">
+						<div class="form-group">
+							<label asp-for="BillRate.CustomerCode" class="form-label mt-4">Choose Customer Code</label>
+							<select class="form-select" id="CustomerCode" name="CustomerCode" asp-items="@Model?.CustomerList">
+								<option value="0">--All Customer--</option>
+							</select>
+							<input type="hidden" name="CustomerCode" />
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="row">
+						<div class="form-group">
+							<label asp-for="BillRate.BillStartDate" class="form-label mt-4">Contract Start Date</label>
+							<input asp-for="BillRate.BillStartDate" type="date" class="form-control" id="BillStartDate" aria-describedby="Contract Start Date" placeholder="Enter Bill Start Date">
+							<span asp-validation-for="BillRate.BillStartDate" class="text-danger"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="row">
+						<div class="form-group">
+							<label asp-for="BillRate.BillExpDate" class="form-label mt-4">Contract Expire Date</label>
+							<input asp-for="BillRate.BillExpDate" type="date" class="form-control" id="BillRTD" aria-describedby="Contract Expire Date" placeholder="Enter Bill Expire Date">
+							<span asp-validation-for="BillRate.BillExpDate" class="text-danger"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-4">
+					<div class="border p-3">
+						<div class="form-group mt-2">
+							<h6 class="text-warning">Billing Rate</h6>
+						</div>
+						<div class="form-group">
+							<label asp-for="BillRate.BillRateMMFees" class="form-label mt-4">Monthly Management Fees</label>
+							<input asp-for="BillRate.BillRateMMFees" type="text" class="form-control" id="BillRateMMFees" aria-describedby="Monthly Management Fees" placeholder="0.00">
+							<span asp-validation-for="BillRate.BillRateMMFees" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="BillRate.BillRateSupplyCtns" class="form-label mt-4">Supply of Cartons</label>
+							<input asp-for="BillRate.BillRateSupplyCtns" type="text" class="form-control" id="BillRateSupplyCtns" aria-describedby="Supply of Cartons" placeholder="0.00">
+							<span asp-validation-for="BillRate.BillRateSupplyCtns" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="BillRate.BillRateTamperPSeal" class="form-label mt-4">Tamper Proof Seal</label>
+							<input asp-for="BillRate.BillRateTamperPSeal" type="text" class="form-control" id="BillRateTamperPSeal" aria-describedby="Tamper Proof Seal" placeholder="0.00">
+							<span asp-validation-for="BillRate.BillRateTamperPSeal" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="border mt-3 p-3">
+						<div class="form-group mt-2">
+							<h6 class="text-warning">Pickup Cartons As Per Job</h6>
+						</div>
+						<div class="form-group">
+							<label asp-for="BillRate.PickupNewCtns" class="form-label mt-4">New Cartons</label>
+							<input asp-for="BillRate.PickupNewCtns" type="text" class="form-control" id="PickupNewCtns" aria-describedby="New Cartons" placeholder="0.00">
+							<span asp-validation-for="BillRate.PickupNewCtns" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="BillRate.PickupOldCtns" class="form-label mt-4">Old Cartons</label>
+							<input asp-for="BillRate.PickupOldCtns" type="text" class="form-control" id="PickupOldCtns" aria-describedby="Old Cartons" placeholder="0.00">
+							<span asp-validation-for="BillRate.PickupOldCtns" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="BillRate.PickupMinNewCtns" class="form-label mt-4">Minimum New Cartons</label>
+							<input asp-for="BillRate.PickupMinNewCtns" type="text" class="form-control" id="PickupMinNewCtns" aria-describedby="Minimum New Cartons" placeholder="0.00">
+							<span asp-validation-for="BillRate.PickupMinNewCtns" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="BillRate.PickupCtnsQty" class="form-label mt-4">Cartons Quntity</label>
+							<input asp-for="BillRate.PickupCtnsQty" type="text" class="form-control" id="Fax" aria-describedby="Cartons Quntity" placeholder="0">
+							<span asp-validation-for="BillRate.PickupCtnsQty" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="border p-3">
+						<div class="form-group mt-2">
+							<h6 class="text-warning">Minimum Pickup As Per Request Date</h6>
+						</div>
+						<div class="form-group">
+							<label asp-for="BillRate.CollectNewOld" class="form-label mt-4">Collect New+Old Cartons</label>
+							<input asp-for="BillRate.CollectNewOld" type="text" class="form-control" id="CollectNewOld" aria-describedby="Collect New+Old Cartons" placeholder="0.00">
+							<span asp-validation-for="BillRate.CollectNewOld" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="BillRate.CollectNew" class="form-label mt-4">Collect New Cartons</label>
+							<input asp-for="BillRate.CollectNew" type="text" class="form-control" id="CollectNew" aria-describedby="Collect New Cartons" placeholder="0.00">
+							<span asp-validation-for="BillRate.CollectNew" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="BillRate.CollectOld" class="form-label mt-4">Collect Old Cartons</label>
+							<input asp-for="BillRate.CollectOld" type="text" class="form-control" id="CollectOld" aria-describedby="Collect Old Cartons" placeholder="0.00">
+							<span asp-validation-for="BillRate.CollectOld" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="mb-40">
+						&nbsp;
+					</div>
+					<button type="submit" class="btn btn-outline-warning mt-3">Create</button>
+					<a class="btn btn-outline-light mt-3" href="javascript: history.go(-1)">Back To Customer Billing List</a>
+				</div>
+				<div class="col-8">
+					<div class="border p-3">
+						<div class="form-group mt-2">
+							<h6 class="text-warning">Supply Metrial Item Rate</h6>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<label for="CrtnType" class="col-sm-5 col-form-label">Choose Carton Type</label>
+								<div class="col-sm-5">
+									<select class="form-select" id="CrtnType" name="CrtnType" asp-controller="Customer" asp-items="@Model?.CartonTypeList">
+									</select>
+									<input type="hidden" name="CrtnType" />
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group" id="StdMaterial">
+									<label class="form-label mt-4">Standard Material</label>
+									<div class="form-check">
+										<input class="form-check-input" id="StdBarcode" type="checkbox" value="" asp-for="CrtnType.StdBarcode">
+										<label class="form-check-label" asp-for="CrtnType.StdBarcode">
+											Barcode Label
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" id="StdPlasticBag" type="checkbox" value="" asp-for="CrtnType.StdPlasticBag">
+										<label class="form-check-label" asp-for="CrtnType.StdPlasticBag">
+											Plastic Bag
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" id="StdRIC" type="checkbox" value="" asp-for="CrtnType.StdRIC">
+										<label class="form-check-label" asp-for="CrtnType.StdRIC">
+											Record Index Card
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" id="StdCableTies" type="checkbox" value="" asp-for="CrtnType.StdCableTies">
+										<label class="form-check-label" asp-for="CrtnType.StdCableTies">
+											Cable Ties
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" id="StdZipBag" type="checkbox" value="" asp-for="CrtnType.StdZipBag">
+										<label class="form-check-label" asp-for="CrtnType.StdZipBag">
+											Zip Lock Bag
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group mt-2">
+							<h6 class="text-warning">Extra Supply Metrial Items</h6>
+						</div>
+						<table class="nth-table table table-hover pt-3">
+							<thead>
+								<tr>
+									<th scope="col">Description</th>
+									<th style="width:20%">Rate</th>
+									<th style="width:20%">Min. Qty</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td scope="row"><label class="form-label mt-4">PLASTIC BAGS</label></td>
+									<td scope="row">
+										<input asp-for="BillRate.SmRatePlastic" type="text" class="form-control" id="SmRatePlastic" placeholder="0.00">
+										<span asp-validation-for="BillRate.SmRatePlastic" class="text-danger"></span>
+									</td>
+									<td scope="row">
+										<input asp-for="BillRate.SmMinQtyPlastic" type="text" class="form-control" id="SmMinQtyPlastic" placeholder="0">
+										<span asp-validation-for="BillRate.SmMinQtyPlastic" class="text-danger"></span>
+									</td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="form-label mt-4">RIC</label></td>
+									<td scope="row">
+										<input asp-for="BillRate.SmRateRIC" type="text" class="form-control" id="SmRateRIC" placeholder="0.00">
+										<span asp-validation-for="BillRate.SmRateRIC" class="text-danger"></span>
+									</td>
+									<td scope="row">
+										<input asp-for="BillRate.SmMinQtyRIC" type="text" class="form-control" id="SmMinQtyRIC" placeholder="0">
+										<span asp-validation-for="BillRate.SmMinQtyRIC" class="text-danger"></span>
+									</td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="form-label mt-4">CABLE TIE (1 PKT)</label></td>
+									<td scope="row">
+										<input asp-for="BillRate.SmRateCable" type="text" class="form-control" id="SmRateCable" placeholder="0.00">
+										<span asp-validation-for="BillRate.SmRateCable" class="text-danger"></span>
+									</td>
+									<td scope="row">
+										<input asp-for="BillRate.SmMinQtyCable" type="text" class="form-control" id="SmMinQtyCable" placeholder="0">
+										<span asp-validation-for="BillRate.SmMinQtyCable" class="text-danger"></span>
+									</td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="form-label mt-4">SERIALIZED CABLE TIE SEAL</label></td>
+									<td scope="row">
+										<input asp-for="BillRate.SmRateSerCable" type="text" class="form-control" id="SmRateSerCable" placeholder="0.00">
+										<span asp-validation-for="BillRate.SmRateSerCable" class="text-danger"></span>
+									</td>
+									<td scope="row">
+										<input asp-for="BillRate.SmMinQtySerCable" type="text" class="form-control" id="SmMinQtySerCable" placeholder="0">
+										<span asp-validation-for="BillRate.SmMinQtySerCable" class="text-danger"></span>
+									</td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="form-label mt-4">TAMPER-EVIDENT SEAL</label></td>
+									<td scope="row">
+										<input asp-for="BillRate.SmRateTamper" type="text" class="form-control" id="SmRateTamper" placeholder="0.00">
+										<span asp-validation-for="BillRate.SmRateTamper" class="text-danger"></span>
+									</td>
+									<td scope="row">
+										<input asp-for="BillRate.SmMinQtyTamper" type="text" class="form-control" id="SmMinQtyTamper" placeholder="0">
+										<span asp-validation-for="BillRate.SmMinQtyTamper" class="text-danger"></span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="border mt-3 p-3">
+						<div class="form-group mt-2">
+							<h6 class="text-warning">Service Level (Delivery)</h6>
+						</div>
+						<table class="nth-table table table-hover pt-3">
+							<thead>
+								<tr>
+									<th scope="col">Description</th>
+									<th style="width:20%">Per Carton</th>
+									<th style="width:20%">Min. Qty Delivery ($)</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td scope="row"><label class="form-label mt-4">Same Day/Priority</label></td>
+									<td scope="row">
+										<input asp-for="BillRate.CtnSrvSameDay" type="text" class="form-control" id="CtnSrvSameDay" placeholder="0.00">
+										<span asp-validation-for="BillRate.CtnSrvSameDay" class="text-danger"></span>
+									</td>
+									<td scope="row">
+										<input asp-for="BillRate.MinQtySrvSameDay" type="text" class="form-control" id="MinQtySrvSameDay" placeholder="0">
+										<span asp-validation-for="BillRate.MinQtySrvSameDay" class="text-danger"></span>
+									</td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="form-label mt-4">Urgent/Express</label></td>
+									<td scope="row">
+										<input asp-for="BillRate.CtnSrvUrgent" type="text" class="form-control" id="CtnSrvUrgent" placeholder="0.00">
+										<span asp-validation-for="BillRate.CtnSrvUrgent" class="text-danger"></span>
+									</td>
+									<td scope="row">
+										<input asp-for="BillRate.MinQtySrvUrgent" type="text" class="form-control" id="MinQtySrvUrgent" placeholder="0">
+										<span asp-validation-for="BillRate.MinQtySrvUrgent" class="text-danger"></span>
+									</td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="form-label mt-4">Next Working Day</label></td>
+									<td scope="row">
+										<input asp-for="BillRate.CtnSrvNextWDay" type="text" class="form-control" id="CtnSrvNextWDay" placeholder="0.00">
+										<span asp-validation-for="BillRate.CtnSrvNextWDay" class="text-danger"></span>
+									</td>
+									<td scope="row">
+										<input asp-for="BillRate.MinQtySrvNextWDay" type="text" class="form-control" id="MinQtySrvNextWDay" placeholder="0">
+										<span asp-validation-for="BillRate.MinQtySrvNextWDay" class="text-danger"></span>
+									</td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="form-label mt-4">After Office Hours</label></td>
+									<td scope="row">
+										<input asp-for="BillRate.CtnSrvAfterOffH" type="text" class="form-control" id="CtnSrvAfterOffH" placeholder="0.00">
+										<span asp-validation-for="BillRate.CtnSrvAfterOffH" class="text-danger"></span>
+									</td>
+									<td scope="row">
+										<input asp-for="BillRate.MinQtySrvAfterOffH" type="text" class="form-control" id="MinQtySrvAfterOffH" placeholder="0">
+										<span asp-validation-for="BillRate.MinQtySrvAfterOffH" class="text-danger"></span>
+									</td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="form-label mt-4">Holiday/Weekends</label></td>
+									<td scope="row">
+										<input asp-for="BillRate.CtnSrvHolWEnd" type="text" class="form-control" id="CtnSrvHolWEnd" placeholder="0.00">
+										<span asp-validation-for="BillRate.CtnSrvHolWEnd" class="text-danger"></span>
+									</td>
+									<td scope="row">
+										<input asp-for="BillRate.MinQtySrvHolWEnd" type="text" class="form-control" id="MinQtySrvHolWEnd" placeholder="0">
+										<span asp-validation-for="BillRate.MinQtySrvHolWEnd" class="text-danger"></span>
+									</td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="form-label mt-4">Self Service</label></td>
+									<td scope="row">
+										<input asp-for="BillRate.CtnSrvSelf" type="text" class="form-control" id="CtnSrvSelf" placeholder="0.00">
+										<span asp-validation-for="BillRate.CtnSrvSelf" class="text-danger"></span>
+									</td>
+									<td scope="row">
+										<input asp-for="BillRate.MinQtySrvSelf" type="text" class="form-control" id="MinQtySrvSelf" placeholder="0">
+										<span asp-validation-for="BillRate.MinQtySrvSelf" class="text-danger"></span>
+									</td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="form-label mt-4">Permanent</label></td>
+									<td scope="row">
+										<input asp-for="BillRate.CtnSrvPermanent" type="text" class="form-control" id="CtnSrvPermanent" placeholder="0.00">
+										<span asp-validation-for="BillRate.CtnSrvPermanent" class="text-danger"></span>
+									</td>
+									<td scope="row">
+										<input asp-for="BillRate.MinQtySrvPermanent" type="text" class="form-control" id="MinQtySrvPermanent" placeholder="0">
+										<span asp-validation-for="BillRate.MinQtySrvPermanent" class="text-danger"></span>
+									</td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="form-label mt-4">Destruction</label></td>
+									<td scope="row">
+										<input asp-for="BillRate.CtnSrvDestruct" type="text" class="form-control" id="CtnSrvDestruct" placeholder="0.00">
+										<span asp-validation-for="BillRate.CtnSrvDestruct" class="text-danger"></span>
+									</td>
+									<td scope="row">
+										<input asp-for="BillRate.MinQtySrvDestruct" type="text" class="form-control" id="MinQtySrvDestruct" placeholder="0">
+										<span asp-validation-for="BillRate.MinQtySrvDestruct" class="text-danger"></span>
+									</td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="form-label mt-4">Permanent Destruction</label></td>
+									<td scope="row">
+										<input asp-for="BillRate.CtnSrvPerDestruct" type="text" class="form-control" id="CtnSrvDestruct" placeholder="0.00">
+										<span asp-validation-for="BillRate.CtnSrvPerDestruct" class="text-danger"></span>
+									</td>
+									<td scope="row">
+										<input asp-for="BillRate.MinQtySrvPerDestruct" type="text" class="form-control" id="MinQtySrvDestruct" placeholder="0">
+										<span asp-validation-for="BillRate.MinQtySrvPerDestruct" class="text-danger"></span>
+									</td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="form-label mt-4">Permanent Delivery</label></td>
+									<td scope="row">
+										<input asp-for="BillRate.CtnSrvDelPermanent" type="text" class="form-control" id="CtnSrvDestruct" placeholder="0.00">
+										<span asp-validation-for="BillRate.CtnSrvDelPermanent" class="text-danger"></span>
+									</td>
+									<td scope="row">
+										<input asp-for="BillRate.MinQtySrvDelPermanent" type="text" class="form-control" id="MinQtySrvDestruct" placeholder="0">
+										<span asp-validation-for="BillRate.MinQtySrvDelPermanent" class="text-danger"></span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			</div>
+		</fieldset>
+	</form>
+</div>
+<div class="mb-10">
+	&nbsp;
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+
+<script>	
+	var checkbox1 = document.querySelector('input#StdBarcode').checked;
+	document.getElementById("StdBarcode").setAttribute('value',checkbox1);	
+	var checkbox2 = document.querySelector('input#StdPlasticBag').checked;
+	document.getElementById("StdPlasticBag").setAttribute('value',checkbox2);	
+	var checkbox3 = document.querySelector('input#StdRIC').checked;
+	document.getElementById("StdRIC").setAttribute('value',checkbox3);	
+	$("#CrtnType").change(function () {
+	var crttype = $(this).val();		
+	$.post("/Customer/GetStdMaterial",
+		{ crttype: crttype },
+		function (response) {
+			if (response.stdBarcode == true)
+			{
+				$("#StdBarcode").attr("checked", "checked");
+			}
+			else{
+				$("#StdBarcode").removeAttr('checked');
+			}
+			if (response.stdPlasticBag == true)
+			{
+				$("#StdPlasticBag").attr("checked", "checked");
+			}
+			else{
+				$("#StdPlasticBag").removeAttr('checked');
+			}
+			if (response.stdRIC == true)
+			{
+				$("#StdRIC").attr("checked", "checked");
+			}
+			else{
+				$("#StdRIC").removeAttr('checked');
+			}
+			if (response.stdCableTies == true)
+			{
+				$("#StdCableTies").attr("checked", "checked");
+			}
+			else{
+				$("#StdCableTies").removeAttr('checked');
+			}
+			if (response.stdZipBag == true)
+			{
+				$("#StdZipBag").attr("checked", "checked");
+			}
+			else{
+				$("#StdZipBag").removeAttr('checked');
+			}						
+		}
+		);
+		setInterval(resetStdMaterial, 5000);
+	});	
+	function resetStdMaterial()
+	{
+	var checkbox1 = document.querySelector('input#StdBarcode').checked;
+	document.getElementById("StdBarcode").setAttribute('value',checkbox1);	
+	var checkbox2 = document.querySelector('input#StdPlasticBag').checked;
+	document.getElementById("StdPlasticBag").setAttribute('value',checkbox2);	
+	var checkbox3 = document.querySelector('input#StdRIC').checked;
+	document.getElementById("StdRIC").setAttribute('value',checkbox3);	
+	var checkbox4 = document.querySelector('input#StdCableTies').checked;
+	document.getElementById("StdCableTies").setAttribute('value',checkbox4);	
+	var checkbox5 = document.querySelector('input#StdZipBag').checked;
+	document.getElementById("StdZipBag").setAttribute('value',checkbox5);
+	}
+	$(".form-check-input").change(function() {
+		var checkbox1 = document.querySelector('input#StdBarcode').checked;
+		document.getElementById("StdBarcode").setAttribute('value',checkbox1);	
+		var checkbox2 = document.querySelector('input#StdPlasticBag').checked;
+		document.getElementById("StdPlasticBag").setAttribute('value',checkbox2);	
+		var checkbox3 = document.querySelector('input#StdRIC').checked;
+		document.getElementById("StdRIC").setAttribute('value',checkbox3);	
+		var checkbox4 = document.querySelector('input#StdCableTies').checked;
+		document.getElementById("StdCableTies").setAttribute('value',checkbox4);	
+		var checkbox5 = document.querySelector('input#StdZipBag').checked;
+		document.getElementById("StdZipBag").setAttribute('value',checkbox5);
+	});
+</script>
+}
+

@@ -1,0 +1,147 @@
+﻿@{
+	ViewData["Title"] = "DocMgnt";
+	Layout = "~/Views/Shared/_BeforeLoginLayout.cshtml";
+}
+<style>
+	.slider {
+		margin-bottom: 30px;
+		position: relative;
+	}
+
+		.slider .owl-item.active.center .slider-card {
+			transform: scale(1.15);
+			opacity: 1;
+			background: #45aeea; /*#ff9966; /* fallback for old browsers */
+			background: -webkit-linear-gradient(to bottom, #455e62, #45aeea); /* Chrome 10-25, Safari 5.1-6 */
+			background: linear-gradient(to bottom, #455e62, #45aeea); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+			color: #fff;
+		}
+
+	.slider-card {
+		background: #fff;
+		padding: 0px 0px;
+		margin: 15px 15px 15px 15px;
+		/*margin: 50px 15px 90px 15px;*/
+		border-radius: 5px;
+		box-shadow: 0 15px 45px -20px rgb(0 0 0 / 73%);
+		transform: scale(0.9);
+		opacity: 0.5;
+		transition: all 0.3s;
+	}
+
+		.slider-card img {
+			border-radius: 5px 5px 0px 0px;
+			height: 200px;
+		}
+
+	.owl-nav .owl-prev {
+		position: absolute;
+		top: calc(50% - 25px);
+		left: 0;
+		opacity: 1;
+		font-size: 30px !important;
+		z-index: 1;
+	}
+
+	.owl-nav .owl-next {
+		position: absolute;
+		top: calc(50% - 25px);
+		right: 0;
+		opacity: 1;
+		font-size: 30px !important;
+		z-index: 1;
+	}
+
+	.owl-dots {
+		text-align: center;
+		display: none;
+	}
+
+		.owl-dots .owl-dot {
+			height: 10px;
+			width: 10px;
+			border-radius: 10px;
+			background: #fff !important;
+			margin-left: 3px;
+			margin-right: 3px;
+			outline: none;
+		}
+
+			.owl-dots .owl-dot.active {
+				background: #f44336 !important;
+			}
+
+	.text-center {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box; /* fallback */
+		max-height: 100px; /* fallback */
+		-webkit-line-clamp: 4; /* number of lines to show */
+		-webkit-box-orient: vertical;
+	}
+</style>
+<section id="slider">
+	<div>
+		<h3 class="text-left"><b>Document Management</b></h3>
+		<div class="slider">
+			<div class="owl-carousel">
+				<div class="slider-card">
+					<div class="d-flex justify-content-center align-items-center mb-4">
+						<a href="#">
+							<img class="img" src="../lib/images/services_dm/services_dm_1.jpg" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="slider-card">
+					<div class="d-flex justify-content-center align-items-center mb-4">
+						<a href="#">
+							<img class="img" src="../lib/images/services_dm/services_dm_2.jpg" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="slider-card">
+					<div class="d-flex justify-content-center align-items-center mb-4">
+						<a href="#">
+							<img class="img" src="../lib/images/services_dm/services_dm_3.jpg" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="slider-card">
+					<div class="d-flex justify-content-center align-items-center mb-4">
+						<a href="#">
+							<img class="img" src="../lib/images/services_dm/services_dm_4.jpg" alt="">
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<p class="about">Since 1909, Mitsui-Soko has been entrusted with very confidential documents belonging to Mitsui Bank. With nearly 100 years of expertise in the storing, retrieving, destroying of documents, we have learnt a lot in respecting the confidentiality of very valuable and important documents whereby our treatment of such documents have been constantly been refined.</p>
+	<p class="about">Storage of bank documents was granted to the trusted and respected few. As such, Mitsui-Soko had to respond with the great responsibilities placed in our organization. Our experience in handling and storing our clients bank documents have grown from strength to strength and today we have become the only International Records Management company home based in Japan. As we expand right up to the United States of America and across to China, our global learning process in understanding the demanding needs and wants of our clients have caused us to constantly innovate new software programs to cater to the specialized requirements of our clients, who are very pleased with our fast and instant e-services.</p>
+	<p class="about">
+		Today, in a computer defined business environment, our clients enjoy access on demand to their information from anywhere in the world and at any convenient time.
+	</p>
+	<p class="about">
+		We provide a wide range of services to
+	</p>
+	<ul>
+		<li>Supply of cartons</li>
+		<li>Pickup and transport new/old record cartons</li>
+		<li>Organizing data entry</li>
+		<li>Retrieval per carton</li>
+		<li>Retrieval per file</li>
+		<li>Re-filing of cartons and files</li>
+		<li>File management software program</li>
+		<li>Retrieval by FAX</li>
+		<li>Retrieval by Scanning</li>
+		<li>Disposal by Shredding</li>
+		<li>Certified destruction certificate</li>
+		<li>Inventory in hard & soft copies</li>
+		<li>24 hours internet inventory</li>
+		<li>24x7 quality service</li>
+	</ul>
+	<div style="display: block; height: 30px;">
+		&nbsp;
+	</div>
+</section>

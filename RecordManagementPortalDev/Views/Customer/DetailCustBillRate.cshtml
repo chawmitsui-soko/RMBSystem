@@ -1,0 +1,292 @@
+﻿@model RecordManagementPortalDev.Models.BillRateMaster
+@{
+	ViewData["Title"] = "DetailCustBillRate";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4 class="mt-3">Detail Customer Bill Rate</h4>
+<div class="border p-3 mt-4">
+	<form method="post" asp-action="CustBillRate">
+		<fieldset>
+			<div class="form-group row mt-3 mb-3">
+				<div class="col-sm-4">
+					<div class="row">
+						<div class="form-group row">
+							<label asp-for="CustomerCode" class="col-form-label mt-4 col-sm-4">Customer Code</label>
+							<div class="mt-4 col-sm-8">
+								<input asp-for="CustomerCode" type="text" class="form-control" id="CustomerCode" aria-describedby="Customer Code" readonly="">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="row">
+						<div class="form-group row">
+							<label asp-for="BillStartDate" class="col-form-label mt-4 col-sm-4">Contract Start Date</label>
+							<div class="mt-4 col-sm-8">
+								<input asp-for="BillStartDate" type="date" class="form-control" id="BillStartDate" aria-describedby="Contract Start Date" readonly="">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="row">
+						<div class="form-group row">
+							<label asp-for="BillExpDate" class="col-form-label mt-4 col-sm-4">Contract Expire Date</label>
+							<div class="mt-4 col-sm-8">
+								<input asp-for="BillExpDate" type="date" class="form-control" id="BillExpDate" aria-describedby="Contract Expire Date" readonly="">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-4">
+					<div class="border p-3">
+						<div class="form-group mt-5">
+							<h6 class="text-warning">Billing Rate</h6>
+						</div>
+						<div class="form-group row">
+							<label asp-for="BillRateMMFees" class="col-form-label mt-4 col-sm-4">Monthly Management Fees</label>
+							<div class="mt-4 col-sm-8">
+								<input asp-for="BillRateMMFees" type="text" class="form-control" id="BillRateMMFees" aria-describedby="Monthly Management Fees" readonly="">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label asp-for="BillRateSupplyCtns" class="col-form-label mt-4 col-sm-4">Supply of Cartons</label>
+							<div class="mt-4 col-sm-8">
+								<input asp-for="BillRateSupplyCtns" type="text" class="form-control" id="BillRateSupplyCtns" aria-describedby="Supply of Cartons" readonly="">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label asp-for="BillRateTamperPSeal" class="col-form-label mt-4 col-sm-4">Tamper Proof Seal</label>
+							<div class="mt-4 col-sm-8">
+								<input asp-for="BillRateTamperPSeal" type="text" class="form-control" id="BillRateTamperPSeal" aria-describedby="Tamper Proof Seal" readonly="">
+							</div>
+						</div>
+					</div>
+					<div class="border mt-3 p-3">
+						<div class="form-group mt-5">
+							<h6 class="text-warning">Pickup Cartons As Per Job</h6>
+						</div>
+						<div class="form-group row">
+							<label asp-for="PickupNewCtns" class="col-form-label mt-4 col-sm-4">New Cartons</label>
+							<div class="mt-4 col-sm-8">
+								<input asp-for="PickupNewCtns" type="text" class="form-control" id="PickupNewCtns" aria-describedby="New Cartons" readonly="">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label asp-for="PickupOldCtns" class="col-form-label mt-4 col-sm-4">Old Cartons</label>
+							<div class="mt-4 col-sm-8">
+								<input asp-for="PickupOldCtns" type="text" class="form-control" id="PickupOldCtns" aria-describedby="Old Cartons" readonly="">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label asp-for="PickupMinNewCtns" class="col-form-label mt-4 col-sm-4">Minimum New Cartons</label>
+							<div class="mt-4 col-sm-8">
+								<input asp-for="PickupMinNewCtns" type="text" class="form-control" id="PickupMinNewCtns" aria-describedby="Minimum New Cartons" readonly="">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label asp-for="PickupCtnsQty" class="col-form-label mt-4 col-sm-4">Cartons Quntity</label>
+							<div class="mt-4 col-sm-8">
+								<input asp-for="PickupCtnsQty" type="text" class="form-control" id="Fax" aria-describedby="Cartons Quntity" readonly="">
+							</div>
+						</div>
+					</div>
+					<div class="border p-3">
+						<div class="form-group mt-5">
+							<h6 class="text-warning">Minimum Pickup As Per Request Date</h6>
+						</div>
+						<div class="form-group row">
+							<label asp-for="CollectNewOld" class="col-form-label mt-4 col-sm-4">Collect New+Old Cartons</label>
+							<div class="mt-4 col-sm-8">
+								<input asp-for="CollectNewOld" type="text" class="form-control" id="CollectNewOld" aria-describedby="Collect New+Old Cartons" readonly="">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label asp-for="CollectNew" class="col-form-label mt-4 col-sm-4">Collect New Cartons</label>
+							<div class="mt-4 col-sm-8">
+								<input asp-for="CollectNew" type="text" class="form-control" id="CollectNew" aria-describedby="Collect New Cartons" readonly="">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label asp-for="CollectOld" class="col-form-label mt-4 col-sm-4">Collect Old Cartons</label>
+							<div class="mt-4 col-sm-8">
+								<input asp-for="CollectOld" type="text" class="form-control" id="CollectOld" aria-describedby="Collect Old Cartons" readonly="">
+							</div>
+						</div>
+					</div>
+					<div class="mb-20">
+						&nbsp;
+					</div>
+					<a class="btn btn-outline-light mt-3" href="javascript: history.go(-1)">Back To Customer Billing List</a>
+				</div>
+				<div class="col-8">
+					<div class="border p-3">
+						<div class="form-group mt-5">
+							<h6 class="text-warning">Supply Metrial Item Rate</h6>
+							<div class="form-group row">
+								<label asp-for="SmCrtnType" class="col-form-label mt-4 col-sm-4">Carton Type</label>
+								<div class="mt-4 col-sm-8">
+									<input asp-for="SmCrtnType" type="text" class="form-control" id="SmCrtnType" aria-describedby="Carton Type" readonly="">
+								</div>
+							</div>
+						</div>
+						<div class="from-group mt-5" id="StdMaterial">
+							<h6 class="text-warning">Standard Material</h6>
+							<div class="form-check">
+								<input class="form-check-input" id="StdBarcode" type="checkbox" value="" asp-for="StdBarcode" disabled="disabled">
+								<label class="form-check-label" asp-for="StdBarcode">
+									Barcode Label
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" id="StdPlasticBag" type="checkbox" value="" asp-for="StdPlasticBag" disabled="disabled">
+								<label class="form-check-label" asp-for="StdPlasticBag">
+									Plastic Bag
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" id="StdRIC" type="checkbox" value="" asp-for="StdRIC" disabled="disabled">
+								<label class="form-check-label" asp-for="StdRIC">
+									Record Index Card
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" id="StdCableTies" type="checkbox" value="" asp-for="StdCableTies" disabled="disabled">
+								<label class="form-check-label" asp-for="StdCableTies">
+									Cable Ties
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" id="StdZipBag" type="checkbox" value="" asp-for="StdZipBag" disabled="disabled">
+								<label class="form-check-label" asp-for="StdZipBag">
+									Zip Lock Bag
+								</label>
+							</div>
+						</div>
+						<div class="form-group mt-5">
+							<h6 class="text-warning">Extra Supply Metrial Items</h6>
+							<table class="nth-table table table-hover pt-3">
+								<thead>
+									<tr>
+										<th scope="col">Description</th>
+										<th style="width:20%">Rate</th>
+										<th style="width:20%">Min. Qty</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td scope="row"><label class="form-label mt-4">PLASTIC BAGS</label></td>
+										<td scope="row"><input asp-for="SmRatePlastic" type="text" class="form-control" id="SmRatePlastic" readonly=""></td>
+										<td scope="row"><input asp-for="SmMinQtyPlastic" type="text" class="form-control" id="SmMinQtyPlastic" readonly=""></td>
+									</tr>
+									<tr>
+										<td scope="row"><label class="form-label mt-4">RIC</label></td>
+										<td scope="row"><input asp-for="SmRateRIC" type="text" class="form-control" id="SmRateRIC" readonly=""></td>
+										<td scope="row"><input asp-for="SmMinQtyRIC" type="text" class="form-control" id="SmMinQtyRIC" readonly=""></td>
+									</tr>
+									<tr>
+										<td scope="row"><label class="form-label mt-4">CABLE TIE (1 PKT)</label></td>
+										<td scope="row"><input asp-for="SmRateCable" type="text" class="form-control" id="SmRateCable" readonly=""></td>
+										<td scope="row"><input asp-for="SmMinQtyCable" type="text" class="form-control" id="SmMinQtyCable" readonly=""></td>
+									</tr>
+									<tr>
+										<td scope="row"><label class="form-label mt-4">SERIALIZED CABLE TIE SEAL</label></td>
+										<td scope="row"><input asp-for="SmRateSerCable" type="text" class="form-control" id="SmRateSerCable" readonly=""></td>
+										<td scope="row"><input asp-for="SmMinQtySerCable" type="text" class="form-control" id="SmMinQtySerCable" readonly=""></td>
+									</tr>
+									<tr>
+										<td scope="row"><label class="form-label mt-4">TAMPER-EVIDENT SEAL</label></td>
+										<td scope="row"><input asp-for="SmRateTamper" type="text" class="form-control" id="SmRateTamper" readonly=""></td>
+										<td scope="row"><input asp-for="SmMinQtyTamper" type="text" class="form-control" id="SmMinQtyTamper" readonly=""></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="border p-3">
+						<div class="form-group mt-5">
+							<h6 class="text-warning">Service Level (Delivery)</h6>
+						</div>
+						<table class="nth-table table table-hover pt-3">
+							<thead>
+								<tr>
+									<th scope="col">Description</th>
+									<th style="width:20%">Per Carton</th>
+									<th style="width:20%">Min. Qty Delivery ($)</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td scope="row"><label class="col-form-label">Same Day/Priority</label></td>
+									<td scope="row">
+										<input asp-for="CtnSrvSameDay" type="text" class="form-control" id="CtnSrvSameDay" readonly="">
+									</td>
+									<td scope="row">
+										<input asp-for="MinQtySrvSameDay" type="text" class="form-control" id="MinQtySrvSameDay" readonly="">
+									</td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="col-form-label">Urgent/Express</label></td>
+									<td scope="row"><input asp-for="CtnSrvUrgent" type="text" class="form-control" id="CtnSrvUrgent" readonly=""></td>
+									<td scope="row"><input asp-for="MinQtySrvUrgent" type="text" class="form-control" id="MinQtySrvUrgent" readonly=""></td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="col-form-label">Next Working Day</label></td>
+									<td scope="row"><input asp-for="CtnSrvNextWDay" type="text" class="form-control" id="CtnSrvNextWDay" readonly=""></td>
+									<td scope="row"><input asp-for="MinQtySrvNextWDay" type="text" class="form-control" id="MinQtySrvNextWDay" readonly=""></td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="col-form-label">After Office Hours</label></td>
+									<td scope="row"><input asp-for="CtnSrvAfterOffH" type="text" class="form-control" id="CtnSrvAfterOffH" readonly=""></td>
+									<td scope="row"><input asp-for="MinQtySrvAfterOffH" type="text" class="form-control" id="MinQtySrvAfterOffH" readonly=""></td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="col-form-label">Holiday/Weekends</label></td>
+									<td scope="row"><input asp-for="CtnSrvHolWEnd" type="text" class="form-control" id="CtnSrvHolWEnd" readonly=""></td>
+									<td scope="row"><input asp-for="MinQtySrvHolWEnd" type="text" class="form-control" id="MinQtySrvHolWEnd" readonly=""></td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="col-form-label">Self Service</label></td>
+									<td scope="row"><input asp-for="CtnSrvSelf" type="text" class="form-control" id="CtnSrvSelf" readonly=""></td>
+									<td scope="row"><input asp-for="MinQtySrvSelf" type="text" class="form-control" id="MinQtySrvSelf" readonly=""></td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="col-form-label">Permanent</label></td>
+									<td scope="row"><input asp-for="CtnSrvPermanent" type="text" class="form-control" id="CtnSrvPermanent" readonly=""></td>
+									<td scope="row"><input asp-for="MinQtySrvPermanent" type="text" class="form-control" id="MinQtySrvPermanent" readonly=""></td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="col-form-label">Destruction</label></td>
+									<td scope="row"><input asp-for="CtnSrvDestruct" type="text" class="form-control" id="CtnSrvDestruct" readonly=""></td>
+									<td scope="row"><input asp-for="MinQtySrvDestruct" type="text" class="form-control" id="MinQtySrvDestruct" readonly=""></td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="col-form-label">Permanent Destruction</label></td>
+									<td scope="row"><input asp-for="CtnSrvPerDestruct" type="text" class="form-control" id="CtnSrvPerDestruct" readonly=""></td>
+									<td scope="row"><input asp-for="MinQtySrvPerDestruct" type="text" class="form-control" id="MinQtySrvPerDestruct" readonly=""></td>
+								</tr>
+								<tr>
+									<td scope="row"><label class="col-form-label">Permanent Delivery</label></td>
+									<td scope="row"><input asp-for="CtnSrvDelPermanent" type="text" class="form-control" id="CtnSrvDelPermanent" readonly=""></td>
+									<td scope="row"><input asp-for="MinQtySrvDelPermanent" type="text" class="form-control" id="MinQtySrvDelPermanent" readonly=""></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+</div>
+<div class="mb-10">
+	&nbsp;
+</div>
+
+@section Scripts {
+	@{
+	<partial name="_ValidationScriptsPartial" />
+	}
+
+}

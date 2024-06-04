@@ -1,0 +1,69 @@
+﻿@using RecordManagementPortalDev.Data
+@using Microsoft.AspNetCore.Identity
+@using RecordManagementPortalDev.Models
+@model RecordManagementPortalDev.Controllers.BillingController.CustBill
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+	var user = await UserManager.GetUserAsync(User);
+}
+@{
+	ViewData["Title"] = "Monthly Bill By Dept";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4 class="mt-3">Monthly Billing By Dept</h4>
+<div class="border p-3 mt-4">
+	<form method="post" asp-action="MonBillByDept">
+		@*<input asp-for="Id" hidden />*@
+		<fieldset>
+			<div class="row">
+				<div class="form-group mt-2">
+					<h6 class="text-warning">Monthly Billing By Dept</h6>
+				</div>
+				<div class="row mb-2 p-2">
+					<div class="col-md-12">
+						<div class="container p-2 border border-primary rounded">
+							<div class="row mb-2 align-items-center">
+								<label for="CustomerCode" class="col-sm-3 col-form-label">Choose Customer Code</label>
+								<div class="col-sm-3">
+									<select class="form-select" id="ULCustomerCode" name="CustomerCode" asp-controller="Customer" asp-action="UserInfo" asp-items="@Model?.CustomerList">
+										<option value="0">--All Customer--</option>
+									</select>
+									<input type="hidden" name="CustomerCode" />
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group row">
+										<label class="col-form-label col-sm-4 mt-2">Monthly Billing </label>
+									</div>
+									<div class="form-group row">
+										<label for="BillStartDate" class="col-form-label col-sm-4 mt-2"> From : </label>
+										<div class="col-sm-8 mt-2">
+											<input asp-for="@Model.BillStartDate" type="date" class="form-control" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="BillEndDate" class="col-form-label col-sm-4 mt-2"> To : </label>
+										<div class="col-sm-8 mt-2">
+											<input asp-for="@Model.BillEndDate" type="date" class="form-control" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-2 mt-2">
+								<button type="submit" class="btn btn-outline-warning mt-3">Generate</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+</div>
+
+<div class="mb-10">
+	&nbsp;
+</div>
+
+

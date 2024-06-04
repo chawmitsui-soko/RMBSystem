@@ -1,0 +1,68 @@
+﻿@using RecordManagementPortalDev.Data
+@using Microsoft.AspNetCore.Identity
+@model RecordManagementPortalDev.Controllers.CustomerController.GroupedDepartmentModel
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+	var user = await UserManager.GetUserAsync(User);
+}
+@{
+	ViewData["Title"] = "CreateDepartment";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4 class="mt-3">Create Department</h4>
+<div class="border p-3 mt-4">
+	<form method="post">
+		<fieldset>
+			<div class="row">
+				<div class="col-6">
+					@if (user.UserRole == "RMB Super Admin")
+					{
+						<div class="form-group">
+							<label asp-for="Department.CustomerCode" class="form-label mt-4">Choose Customer Code</label>
+							<select class="form-select" id="CustomerCode" name="CustomerCode" asp-controller="Customer" asp-action="UserInfo" asp-items="@Model?.CustomerList">
+								<option value="0">--All Customer--</option>
+							</select>
+							<input type="hidden" name="CustomerCode" />
+						</div>
+					}
+					else
+					{
+						<div class="form-group row">
+							<label asp-for="Department.CustomerCode" class="form-label mt-4">Customer Code</label>
+							<div class="col-sm-6">
+								<input asp-for="Department.CustomerCode" value="@user.CustomerCode" type="text" class="form-control-plaintext" id="CustomerCode" aria-describedby="Customer Code" readonly="">	
+							</div>
+						</div>
+					}					
+					<div class="form-group">
+						<label asp-for="Department.DepartmentCode" class="form-label mt-4">Department Code</label>
+						<input asp-for="Department.DepartmentCode" type="text" class="form-control" id="DepartmentCode" aria-describedby="Department Code" placeholder="Enter Department Code">
+						<span asp-validation-for="Department.DepartmentCode" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Department.Description" class="form-label mt-4">Description</label>
+						<input asp-for="Department.Description" type="text" class="form-control" id="Description" aria-describedby="Description" placeholder="Description">	
+						<span asp-validation-for="Department.Description" class="text-danger"></span>
+					</div>
+					<button type="submit" class="btn btn-outline-warning mt-3">Create</button>
+					<a class="btn btn-outline-light mt-3 mx-4" href="javascript: history.go(-1)">Back To Department List</a>
+				</div>
+				<div class="col-6">
+				</div>
+			</div>
+		</fieldset>
+	</form>
+</div>
+<div class="mb-10">
+	&nbsp;
+</div>
+
+@section Scripts {
+	@{
+	<partial name="_ValidationScriptsPartial" />
+	}
+
+}
+
+

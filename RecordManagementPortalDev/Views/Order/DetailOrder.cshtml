@@ -1,0 +1,147 @@
+﻿@model RecordManagementPortalDev.Controllers.OrderController.Order
+@{
+	ViewData["Title"] = "DetailOrder";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+	.nth-table {
+	}
+
+		.nth-table tr:nth-child(even) {
+			background: #444;
+		}
+
+		.nth-table tr:nth-child(odd) {
+			background: #375a7f;
+		}
+
+		.nth-table th {
+			padding-top: 13px;
+			padding-bottom: 13px;
+			background-color: #1d3850;
+		}		
+</style>
+<h4 class="mt-3">Detail Order</h4>
+<div class="row">
+	<div class="col-6">
+		<div class="form-group mt-2">
+			<h6 class="text-warning">Contact Information</h6>
+		</div>
+		<div class="form-group row">
+			<label asp-for="@Model.odRequests.CustomerCode" class="col-form-label col-sm-4 mt-2">Customer Code : </label>
+			<div class="col-sm-8 mt-2">
+				<input asp-for="@Model.odRequests.CustomerCode" value="@Model.odRequests.CustomerCode" id="custcode" class="form-control-plaintext" readonly="" />
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-form-label col-sm-4 mt-2">Customer Name : </label>
+			<div class="col-sm-8 mt-2">
+				<input asp-for="@Model.odRequests.CustomerName" value="@Model.odRequests.CustomerName" id="custname" class="form-control-plaintext" readonly="" />
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-form-label col-sm-4 mt-2">Address : </label>
+			<div class="col-sm-8 mt-2">
+				<input asp-for="@Model.odRequests.Address1" id="add1" value="@Model.odRequests.Address1" class="form-control-plaintext" readonly="" />
+				<input asp-for="@Model.odRequests.Address2" id="add2" value="@Model.odRequests.Address2" class="form-control-plaintext" readonly="" />
+				<input asp-for="@Model.odRequests.Address3" id="add3" value="@Model.odRequests.Address3" class="form-control-plaintext" readonly="" />
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-form-label col-sm-4 mt-2">Postal Code : </label>
+			<div class="col-sm-8 mt-2">
+				<input asp-for="@Model.odRequests.Address4" id="add4" value="@Model.odRequests.Address4" class="form-control-plaintext" readonly="" />
+			</div>
+		</div>
+		<div class="form-group row">
+			<label asp-for="@Model.odRequests.DepartmentCode" class="col-form-label col-sm-4 mt-2">Department Code : </label>
+			<div class="col-sm-8 mt-2">
+				<input asp-for="@Model.odRequests.DepartmentCode" id="pic" value="@Model.odRequests.DepartmentCode" class="form-control-plaintext" />
+			</div>
+		</div>
+		<div class="form-group row">
+			<label asp-for="@Model.odRequests.ContactPerson" class="col-form-label col-sm-4 mt-2">Person Incharge : </label>
+			<div class="col-sm-8 mt-2">
+				<input asp-for="@Model.odRequests.ContactPerson" id="pic" value="@Model.odRequests.ContactPerson" class="form-control-plaintext" readonly=""/>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label asp-for="@Model.odRequests.Email" class="col-form-label col-sm-4 mt-2">Email : </label>
+			<div class="col-sm-8 mt-2">
+				<input asp-for="@Model.odRequests.Email" id="email" value="@Model.odRequests.Email" class="form-control-plaintext" readonly=""/>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label asp-for="@Model.odRequests.Telephone" class="col-form-label col-sm-4 mt-2">Telephone : </label>
+			<div class="col-sm-8 mt-2">
+				<input asp-for="@Model.odRequests.Telephone" id="telephone" value="@Model.odRequests.Telephone" class="form-control-plaintext" readonly=""/>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label asp-for="@Model.odRequests.Fax" class="col-form-label col-sm-4 mt-2">Fax : </label>
+			<div class="col-sm-8 mt-2">
+				<input asp-for="@Model.odRequests.Fax" id="fax" value="@Model.odRequests.Fax" class="form-control-plaintext" readonly=""/>
+			</div>
+		</div>
+	</div>
+	<div class="col-6">
+		<div class="form-group mt-2">
+			<h6 class="text-warning">Order Detail</h6>
+		</div>						
+		<div id="colempbarcode" class="form-group row mt-5">
+			<table class="nth-table table table-hover pt-3">
+				<thead>
+					<tr>
+						<th style="width:8%">#</th>
+						<th scope="col">Department Code</th>
+						<th scope="col">Record No</th>
+						<th scope="col">Destruction Date</th>										
+					</tr>
+				</thead>
+				<tbody id="tbcolemp">
+				@if (Model.listOdDetail != null)
+				{
+					int i = 1;
+					@foreach (OrderDetail obj in Model?.listOdDetail)
+					{
+						<tr>
+							<td scope="row">@i</td>
+							<td>@obj.DepartmentCode</td>
+							<td>@obj.RecordNo</td>
+							<td>''</td>											
+						</tr>
+				        i = i + 1;
+					}
+				}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-6">
+		<div class="form-group mt-2">
+			<h6 class="text-warning">Order Information</h6>
+		</div>
+		<div class="form-group row">
+			<label asp-for="@Model.odRequests.OrderDate" class="form-label col-sm-6 mt-2">Collect Date</label>
+			<div class="col-sm-6 mt-2">
+				<input asp-for="@Model.odRequests.OrderDate" type="date" class="form-control-plaintext" id="OrderDate" readonly="">
+				<span asp-validation-for="@Model.odRequests.OrderDate" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label asp-for="@Model.odRequests.Remark" class="form-label col-sm-6 mt-2">Remark</label>
+			<div class="col-sm-6 mt-2">
+				<input asp-for="@Model.odRequests.Remark" type="text" class="form-control-plaintext" id="Remark" readonly="">				
+			</div>
+		</div>
+		<a class="btn btn-outline-light mt-3" href="javascript: history.go(-1)">Back To Transaction</a>
+	</div>
+	<div class="col-6">
+	</div>
+</div>
+	
+<div class="mb-10">
+	&nbsp;
+</div>

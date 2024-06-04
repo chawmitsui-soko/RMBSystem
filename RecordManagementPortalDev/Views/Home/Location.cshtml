@@ -1,0 +1,44 @@
+﻿@{
+	ViewData["Title"] = "Location";
+	Layout = "~/Views/Shared/_BeforeLoginLayout.cshtml";
+}
+<script>
+	$(function () {
+
+    function initMap() {
+
+        var location = new google.maps.LatLng(50.0875726, 14.4189987);
+
+        var mapCanvas = document.getElementById('map');
+        var mapOptions = {
+            center: location,
+            zoom: 16,
+            panControl: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+
+    }
+
+    google.maps.event.addDomListener(window, 'load', initMap);
+});
+</script>
+<section>	
+	<h3 class="text-left"><b>Location</b></h3>
+	<div class="LocationMap mb-3">
+		<div id="map"></div>
+		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.7935843183345!2d103.66396167482922!3d1.298602898689069!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da05b732e3cc0f%3A0x8cc57a2bfd9f10b7!2sMitsui%20Soko%20Singapore%20Pte%20Ltd!5e0!3m2!1sen!2ssg!4v1689171825559!5m2!1sen!2ssg" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>		
+	</div>
+	<h5>Address</h5>
+	<hr />
+	<h5>Mitsui-Soko (Singapore) Pte. Ltd.</h5>
+	<address>
+		<i class="icon-map-marker"></i>No.2 Pioneer Sector Lane,<br />
+		Singapore 628321<br />
+		<i class="icon-phone"></i>(65) 6227-6935<br />
+		<i class="icon-print"></i>(65) 6227-6936<br />
+	</address>	
+	<div style="display: block; height: 50px;">
+		&nbsp;
+	</div>
+</section>

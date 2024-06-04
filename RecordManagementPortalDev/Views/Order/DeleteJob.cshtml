@@ -1,0 +1,85 @@
+﻿@using RecordManagementPortalDev.Data
+@using Microsoft.AspNetCore.Identity
+@using RecordManagementPortalDev.Models
+@model RecordManagementPortalDev.Models.Job
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+	var user = await UserManager.GetUserAsync(User);
+}
+@{
+	ViewData["Title"] = "Delete Job";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4 class="mt-3">Delete Job Order</h4>
+<div class="border p-3 mt-4">
+	<form method="post" asp-action="DeleteJob">
+		<input asp-for="Id" hidden />
+		<fieldset>
+			<div class="row">
+				<div class="form-group mt-2">
+					<h6 class="text-warning">Delete Job Order</h6>
+				</div>
+				<div class="form-group row">
+					<label class="col-form-label col-sm-4 mt-2">Job No : </label>
+					<div class="col-sm-8 mt-2">
+						<input asp-for="@Model.OldJobNo" class="form-control-plaintext" readonly="" />
+					</div>
+				</div>		
+				<div class="form-group row">
+					<label class="col-form-label col-sm-4 mt-2">Customer Code : </label>
+					<div class="col-sm-8 mt-2">
+						<input asp-for="@Model.CustCode" class="form-control-plaintext" readonly="" />
+					</div>
+				</div>	
+				<div class="form-group row">
+					<label asp-for="@Model.DeptCode" class="col-form-label col-sm-4 mt-2"> Department Code : </label>
+					<div class="col-sm-8 mt-2">
+						<input asp-for="@Model.DeptCode" class="form-control-plaintext" readonly="" />
+					</div>
+				</div>					
+				<div class="form-group row">
+					<label class="col-form-label col-sm-4 mt-2">Staff : </label>
+					<div class="col-sm-8 mt-2">
+						<input asp-for="@Model.Staff" class="form-control-plaintext" readonly="" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-form-label col-sm-4 mt-2">Service Level : </label>
+					<div class="col-sm-8 mt-2">
+						<input asp-for="@Model.ServLevel" class="form-control-plaintext" readonly="" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-form-label col-sm-4 mt-2">Job Type : </label>
+					<div class="col-sm-8 mt-2">
+						<input asp-for="@Model.JobType" class="form-control-plaintext" readonly="" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-form-label col-sm-4 mt-2">Order No : </label>
+					<div class="col-sm-8 mt-2">
+						<input asp-for="@Model.JobOrderNo" class="form-control-plaintext" readonly="" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-form-label col-sm-4 mt-2">Job Date : </label>
+					<div class="col-sm-8 mt-2">
+						<input asp-for="@Model.JobDate" class="form-control-plaintext" readonly="" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-sm-2 mt-2">
+						<button type="submit" class="btn btn-outline-warning mt-3">Delete Job</button>						
+					</div>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+</div>
+
+<div class="mb-10">
+	&nbsp;
+</div>
+
+

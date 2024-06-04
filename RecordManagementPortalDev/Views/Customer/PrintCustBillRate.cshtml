@@ -1,0 +1,261 @@
+﻿@model RecordManagementPortalDev.Controllers.CustomerController.GroupedCustomerBillModel
+@{
+	ViewData["Title"] = "PrintCustBillRate";
+	Layout = "~/Views/Shared/_PrintLayout.cshtml";
+}
+<div id="printarea1" class="mb-10">
+	<h4 class="mt-3">Detail Customer Bill Rate</h4>
+	<label asp-for="BillRate.CustomerCode" class="col-form-label mt-2 col-sm-4">Customer Code : </label> @Model.BillRate.CustomerCode <br />
+	<label asp-for="Customer.CustomerName" class="col-form-label mt-2 col-sm-4">Customer Name : </label> @Model.Customer.CustomerName <br />
+	<label class="col-form-label mt-2 col-sm-4">Address : </label> @Model.Customer.Address1, @Model.Customer.Address2, @Model.Customer.Address3 <br />
+	<label class="col-form-label mt-2 col-sm-4">Postal Code : </label> @Model.Customer.Address4 <br />
+	<label asp-for="Customer.PIC" class="col-form-label mt-2 col-sm-4">Person Incharge : </label> @Model.Customer.PIC <br />
+	<label asp-for="Customer.Telephone" class="col-form-label mt-2 col-sm-4">Telephone : </label> @Model.Customer.Telephone <br />
+	<label asp-for="Customer.Email" class="col-form-label mt-2 col-sm-4">Email : </label> @Model.Customer.Email <br />
+	<label asp-for="BillRate.BillStartDate" class="col-form-label mt-2 col-sm-4">Contract Start Date : </label> @Model.BillRate.BillStartDate <br />
+	<label asp-for="BillRate.BillExpDate" class="col-form-label mt-2 col-sm-4">Contract Expire Date : </label> @Model.BillRate.BillExpDate <br />
+	<div class="row mt-4">
+		<div class="col-6">
+			<div class="border p-3">
+				<h6 class="text-warning">Billing Rate</h6>
+				<label asp-for="BillRate.BillRateMMFees" class="col-form-label mt-2 col-sm-8">Monthly Management Fees : </label> @Model.BillRate.BillRateMMFees <br />
+				<label asp-for="BillRate.BillRateSupplyCtns" class="col-form-label mt-2 col-sm-8">Supply of Cartons : </label> @Model.BillRate.BillRateSupplyCtns <br />
+				<label asp-for="BillRate.BillRateTamperPSeal" class="col-form-label mt-2 col-sm-8">Tamper Proof Seal :</label> @Model.BillRate.BillRateTamperPSeal <br />
+			</div>
+			<div class="border mt-2 p-3">
+				<h6 class="text-warning">Pickup Cartons As Per Job</h6>
+				<label asp-for="BillRate.PickupNewCtns" class="col-form-label mt-2 col-sm-8">New Cartons : </label> @Model.BillRate.PickupNewCtns <br />
+				<label asp-for="BillRate.PickupOldCtns" class="col-form-label mt-2 col-sm-8">Old Cartons : </label> @Model.BillRate.PickupOldCtns <br />
+				<label asp-for="BillRate.PickupMinNewCtns" class="col-form-label mt-2 col-sm-8">Minimum New Cartons : </label> @Model.BillRate.PickupMinNewCtns <br />
+				<label asp-for="BillRate.PickupCtnsQty" class="col-form-label mt-2 col-sm-8">Cartons Quntity : </label> @Model.BillRate.PickupCtnsQty <br />
+			</div>
+			<div class="border mt-2 p-3">
+				<h6 class="text-warning">Minimum Pickup As Per Request Date</h6>
+				<label asp-for="BillRate.CollectNewOld" class="col-form-label mt-2 col-sm-8">Collect New+Old Cartons : </label> @Model.BillRate.CollectNewOld <br />
+				<label asp-for="BillRate.CollectOld" class="col-form-label mt-2 col-sm-8">Collect Old Cartons : </label> @Model.BillRate.CollectOld <br />
+				<label asp-for="BillRate.CollectNew" class="col-form-label mt-2 col-sm-8">Collect New Cartons : </label> @Model.BillRate.CollectNew <br />
+			</div>
+		</div>
+		<div class="col-6">
+			<div class="border mt-2 p-3">
+				<h6 class="text-warning">Supply Material Item Rate</h6>
+				<label asp-for="BillRate.SmCrtnType" class="col-form-label mt-2 col-sm-4">Carton Type</label> @Model.BillRate.SmCrtnType <br />
+			</div>
+			<div class="border mt-2 p-3">
+				<h6 class="text-warning">Standard Material</h6>
+				@{
+					if (@Model.BillRate.StdBarcode == true)
+					{
+						<label asp-for="CrtnType.StdBarcode" class="col-form-label mt-2 col-sm-4">Barcode Label</label> <i class="bi bi-check"></i> <br />
+					}
+					else
+					{
+						<label asp-for="CrtnType.StdBarcode" class="col-form-label mt-2 col-sm-4">Barcode Label</label> <i class="bi bi-x"></i> <br />
+					}
+					if (@Model.BillRate.StdPlasticBag == true)
+					{
+						<label asp-for="CrtnType.StdPlasticBag" class="col-form-label mt-2 col-sm-4">Plastic Bag</label> <i class="bi bi-check"></i> <br />
+					}
+					else
+					{
+						<label asp-for="CrtnType.StdPlasticBag" class="col-form-label mt-2 col-sm-4">Plastic Bag</label> <i class="bi bi-x"></i> <br />
+					}
+					if (@Model.BillRate.StdRIC == true)
+					{
+						<label asp-for="CrtnType.StdRIC" class="col-form-label mt-2 col-sm-4">Record Index Card</label> <i class="bi bi-check"></i> <br />
+					}
+					else
+					{
+						<label asp-for="CrtnType.StdRIC" class="col-form-label mt-2 col-sm-4">Record Index Card</label> <i class="bi bi-x"></i> <br />
+
+					}
+					if (@Model.BillRate.StdCableTies == true)
+					{
+						<label asp-for="CrtnType.StdCableTies" class="col-form-label mt-2 col-sm-4">Cable Ties</label> <i class="bi bi-check"></i> <br />
+					}
+					else
+					{
+						<label asp-for="CrtnType.StdCableTies" class="col-form-label mt-2 col-sm-4">Cable Ties</label> <i class="bi bi-x"></i> <br />
+					}
+					if (@Model.BillRate.StdZipBag == true)
+					{
+						<label asp-for="CrtnType.StdZipBag" class="col-form-label mt-2 col-sm-4">Zip Lock Bag</label> <i class="bi bi-check"></i> <br />
+					}
+					else
+					{
+						<label asp-for="CrtnType.StdZipBag" class="col-form-label mt-2 col-sm-4">Zip Lock Bag</label> <i class="bi bi-x"></i> <br />
+					}
+				}
+			</div>
+			<div class="border mt-2 p-3">
+				<h6 class="text-warning">Extra Supply Material Items</h6>
+				<table class="nth-table table table-hover pt-3">
+					<thead>
+						<tr>
+							<th scope="col">Description</th>
+							<th style="width:20%">Rate</th>
+							<th style="width:20%">Min. Qty</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td scope="row"><label class="col-form-label">Plastic Bags</label></td>
+							<td scope="row">@Model.BillRate.SmRatePlastic</td>
+							<td scope="row">@Model.BillRate.SmMinQtyPlastic</td>
+						</tr>
+						<tr>
+							<td scope="row"><label class="col-form-label">RIC</label></td>
+							<td scope="row">@Model.BillRate.SmRateRIC</td>
+							<td scope="row">@Model.BillRate.SmMinQtyRIC</td>
+						</tr>
+						<tr>
+							<td scope="row"><label class="col-form-label">Cable Tie (1 Pkt)</label></td>
+							<td scope="row">@Model.BillRate.SmRateCable</td>
+							<td scope="row">@Model.BillRate.SmMinQtyCable</td>
+						</tr>
+						<tr>
+							<td scope="row"><label class="col-form-label">Serialized Cable Tie Seal</label></td>
+							<td scope="row">@Model.BillRate.SmRateSerCable</td>
+							<td scope="row">@Model.BillRate.SmMinQtySerCable</td>
+						</tr>
+						<tr>
+							<td scope="row"><label class="col-form-label">Tamper-Evident Seal</label></td>
+							<td scope="row">@Model.BillRate.SmRateTamper</td>
+							<td scope="row">@Model.BillRate.SmMinQtyTamper</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="mb-40">
+	&nbsp;
+</div>
+<div class="mb-40">
+	&nbsp;
+</div>
+<div class="mb-40">
+	&nbsp;
+</div>
+<div class="mb-40">
+	&nbsp;
+</div>
+<div class="mb-40">
+	&nbsp;
+</div>
+<span class="break-page"></span>
+<div class="row mt-40">
+	<div class="col-10">
+		<div class="border mt-2 p-3">
+			<h6 class="text-warning">Service Level (Delivery)</h6>
+			<table class="nth-table table table-hover pt-3">
+				<thead>
+					<tr>
+						<th scope="col">Description</th>
+						<th style="width:20%">Per Carton</th>
+						<th style="width:20%">Min. Qty Delivery ($)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td scope="row"><label class="col-form-label">Same Day/Priority</label></td>
+						<td scope="row">@Model.BillRate.CtnSrvSameDay</td>
+						<td scope="row">@Model.BillRate.MinQtySrvSameDay</td>
+					</tr>
+					<tr>
+						<td scope="row"><label class="col-form-label">Urgent/Express</label></td>
+						<td scope="row">@Model.BillRate.CtnSrvUrgent</td>
+						<td scope="row">@Model.BillRate.MinQtySrvUrgent</td>
+					</tr>
+					<tr>
+						<td scope="row"><label class="col-form-label">Next Working Day</label></td>
+						<td scope="row">@Model.BillRate.CtnSrvNextWDay</td>
+						<td scope="row">@Model.BillRate.MinQtySrvNextWDay</td>
+					</tr>
+					<tr>
+						<td scope="row"><label class="col-form-label">After Office Hours</label></td>
+						<td scope="row">@Model.BillRate.CtnSrvAfterOffH</td>
+						<td scope="row">@Model.BillRate.MinQtySrvAfterOffH</td>
+					</tr>
+					<tr>
+						<td scope="row"><label class="col-form-label">Holiday/Weekends</label></td>
+						<td scope="row">@Model.BillRate.CtnSrvHolWEnd</td>
+						<td scope="row">@Model.BillRate.MinQtySrvHolWEnd</td>
+					</tr>
+					<tr>
+						<td scope="row"><label class="col-form-label">Self Service</label></td>
+						<td scope="row">@Model.BillRate.CtnSrvSelf</td>
+						<td scope="row">@Model.BillRate.MinQtySrvSelf</td>
+					</tr>
+					<tr>
+						<td scope="row"><label class="col-form-label">Permanent</label></td>
+						<td scope="row">@Model.BillRate.CtnSrvPermanent</td>
+						<td scope="row">@Model.BillRate.MinQtySrvPermanent</td>
+					</tr>
+					<tr>
+						<td scope="row"><label class="col-form-label">Destruction</label></td>
+						<td scope="row">@Model.BillRate.CtnSrvDestruct</td>
+						<td scope="row">@Model.BillRate.MinQtySrvDestruct</td>
+					</tr>
+					<tr>
+						<td scope="row"><label class="col-form-label">Permanent Destruction</label></td>
+						<td scope="row">@Model.BillRate.CtnSrvPerDestruct</td>
+						<td scope="row">@Model.BillRate.MinQtySrvPerDestruct</td>
+					</tr>
+					<tr>
+						<td scope="row"><label class="col-form-label">Permanent Delivery</label></td>
+						<td scope="row">@Model.BillRate.CtnSrvDelPermanent</td>
+						<td scope="row">@Model.BillRate.MinQtySrvDelPermanent</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<div class="mb-40">
+	&nbsp;
+</div>
+<div class="mb-40">
+	&nbsp;
+</div>
+<div class="mb-40">
+	&nbsp;
+</div>
+<div class="mb-40">
+	&nbsp;
+</div>
+<div class="row mt-40">
+	<div class="col-5">
+		<label class="col-form-label mt-2 col-sm-8">Prepared By : </label> ___________________
+	</div>
+	<div class="col-5">
+		<label class="col-form-label mt-2 col-sm-8">Approved By : </label> ___________________
+	</div>
+</div>
+<div class="mb-40">
+	&nbsp;
+</div>
+<button id="Print" class="btn btn-outline-warning mt-3">Print</button>
+<a class="btn btn-outline-light mt-3" href="javascript: history.go(-1)">Back To Customer Billing List</a>
+
+
+@section Scripts {
+<script>
+	$("#Print").click(function () {
+	var element = document.getElementById("printarea1").innerHTML;
+	var originalContents = document.body.innerHTML;
+    document.body.innerHTML = "<html><head><title></title></head><body>" + element + "</body></html>";
+	window.print();
+	document.body.innerHTML = originalContents;
+	window.location.reload(); 
+	//html2pdf(element, {
+	//	margin: [30, 10, 30, 10],
+	//	filename: 'Company.pdf',
+	//	image: {type: 'jpeg', quality: 0.98},
+	//	html3canvas: {scale: 2, logging:true, dpi:230, letterRendering: true},
+	//	jsPDF: {unit: 'mm', format: 'a4', orientation: 'portrait'}
+	//});
+	});
+</script>
+}

@@ -1,0 +1,51 @@
+﻿@model RecordManagementPortalDev.Models.Customer
+@{
+    ViewData["Title"] = "DeleteCustomer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4 class="mt-3">Delete Customer</h4>
+<div class="border p-3 mt-4">
+	<form method="post" asp-action="DeleteCustomer">
+		<input asp-for="Id" hidden />
+		<fieldset>					
+			<div class="row">
+				<div class="col-6">
+					<div class="form-group">
+						<label asp-for="CustomerCode" class="form-label mt-4">Customer Code</label>
+						<input asp-for="CustomerCode" type="text" class="form-control" id="CustomerCode" aria-describedby="Customer Code" readonly="" style="background-color:#adb5bd;">						
+					</div>
+					<div class="form-group">
+						<label asp-for="CustomerName" class="form-label mt-4">Customer Name</label>
+						<input asp-for="CustomerName" type="text" class="form-control" id="CustomerName" aria-describedby="Customer Name" readonly="" style="background-color:#adb5bd;">
+					</div>
+					<div class="form-group">
+						<label asp-for="Address1" class="form-label mt-4">Customer Address 1</label>
+						<input asp-for="Address1" type="text" class="form-control" id="Address1" aria-describedby="Customer Address 1" readonly="" style="background-color:#adb5bd;">						
+					</div>
+					<div class="form-group">
+						<label asp-for="Address2" class="form-label mt-4">Customer Address 2</label>
+						<input asp-for="Address2" type="text" class="form-control" id="Address2" aria-describedby="Customer Address 2" readonly="" style="background-color:#adb5bd;">						
+					</div>
+					<div class="form-group">
+						<label asp-for="Address3" class="form-label mt-4">Customer Address 3</label>
+						<input asp-for="Address3" type="text" class="form-control" id="Address3" aria-describedby="Customer Address 3" readonly="" style="background-color:#adb5bd;">						
+					</div>
+					<div class="form-group">
+						<label asp-for="Address4" class="form-label mt-4">Postal Code</label>
+						<input asp-for="Address4" type="text" class="form-control" id="Address4" aria-describedby="Postal Code" readonly="" style="background-color:#adb5bd;">						
+					</div>
+					<br />
+					<button type="submit" class="btn btn-outline-warning mt-3">Delete</button>
+					<a class="btn btn-outline-light mt-3 mx-4" href="javascript: history.go(-1)">Back To Customer List</a>
+				</div>
+				<div class="col-6">
+					
+				</div>
+			</div>
+		</fieldset>
+	</form>	
+</div>
+<div class="mb-10">
+	&nbsp;
+</div>
+

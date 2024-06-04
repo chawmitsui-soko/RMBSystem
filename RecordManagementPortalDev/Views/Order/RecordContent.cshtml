@@ -1,0 +1,164 @@
+﻿@using RecordManagementPortalDev.Data
+@using Microsoft.AspNetCore.Identity
+@using RecordManagementPortalDev.Models
+@model RecordManagementPortalDev.Controllers.OrderController.RecordDetails
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+	var user = await UserManager.GetUserAsync(User);
+}
+@{
+	ViewData["Title"] = "RecordContent";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+	.nth-table {
+	}
+
+		.nth-table tr:nth-child(even) {
+			background: #444;
+		}
+
+		.nth-table tr:nth-child(odd) {
+			background: #375a7f;
+		}
+
+		.nth-table th {
+			padding-top: 13px;
+			padding-bottom: 13px;
+			background-color: #1d3850;
+		}
+</style>
+<h4 class="mt-3">Record Content</h4>
+<div>
+	<div class="border p-3 mt-4">
+		<form method="post" asp-action="AddRecordContent">
+			<fieldset>
+				<div class="row">
+					<div class="form-group mt-2">
+						<h6 class="text-warning">Record Content Info</h6>
+					</div>
+					<div class="form-group row">
+						<label for="@Model.JobsDetail.Cartons" class="col-sm-2 col-form-label">Record No</label>
+						<div class="col-sm-10">
+							<input asp-for="@Model.JobsDetail.Cartons" type="text" class="form-control-plaintext" id="RecordNo" aria-describedby="Record No" readonly="">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="@Model.JobsDetail.Description" class="col-sm-2 col-form-label">Description</label>
+						<div class="col-sm-10">
+							<input asp-for="@Model.JobsDetail.Description" type="text" class="form-control-plaintext" id="Description" aria-describedby="Description" readonly="">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="@Model.JobsDetail.DeptCode" class="col-sm-2 col-form-label">Department</label>
+						<div class="col-sm-10">
+							<input asp-for="@Model.JobsDetail.DeptCode" type="text" class="form-control-plaintext" aria-describedby="Department" readonly="">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="@Model.JobsDetail.Status" class="col-sm-2 col-form-label">Status</label>
+						<div class="col-sm-10">
+							<input asp-for="@Model.JobsDetail.Status" type="text" class="form-control-plaintext" aria-describedby="Status" readonly="">
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-2 mt-2">
+							<a class="btn btn-warning" type="button" asp-controller="Order" asp-action="AddRecordContent" asp-route-recordno="@Model.JobsDetail.Cartons">Add Record Content</a>
+						</div>
+					</div>
+					<div class="form-group row mt-5">
+						<table class="nth-table table table-hover pt-3">
+							<thead>
+								<tr>
+									<th style="width:8%">#</th>
+									<th scope="col">File No.</th>
+									<th scope="col">Ref. 1</th>
+									<th scope="col">Ref. 2</th>
+									<th scope="col">Ref. 3</th>
+									<th scope="col">Created Date</th>
+									<th scope="col">Modified Date</th>
+									<th scope="col">Modified User</th>
+									<th style="width:8%"></th>
+									<th style="width:8%"></th>
+								</tr>
+							</thead>
+							<tbody id="tbaddrecord">
+								@if (Model.ListRecordDetail != null)
+								{
+									int i = 1;
+									@foreach (RecordDetail obj in Model?.ListRecordDetail)
+									{
+										<tr>
+											<td scope="row">@i</td>
+											<td>@obj.FileNo</td>
+											<td>@obj.Reference1</td>
+											<td>@obj.Reference2</td>
+											<td>@obj.Reference3</td>
+											<td>@obj.CreatedDate.ToString("dd/MM/yyyy")</td>
+											<td>@obj.UpdatedDate.ToString("dd/MM/yyyy")</td>
+											<td>@obj.UpdatedBy</td>
+											<td><a asp-controller="Order" asp-action="EditRecordContent" class="btn btn-outline-warning" role="button" aria-disabled="true" asp-route-id="@obj.Id"><i class="bi bi-pencil-square"></i></a></td>
+											<td><a asp-controller="Order" asp-action="DeleteRecordContent" class="btn btn-outline-danger" role="button" aria-disabled="true" asp-route-id="@obj.Id"><i class="bi bi-trash3-fill"></i></a></td>
+										</tr>
+										i = i + 1;
+									}
+								}
+							</tbody>
+						</table>
+					</div>
+					<a class="btn btn-outline-light mt-3" href="javascript: history.go(-1)">Back To Inventory List</a>	
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+<div class="mb-10">
+	&nbsp;
+</div>
+
+@section Scripts {
+<script>
+	var counter = 1;
+	//$("body").on("click", "#recordadd", function () {
+	//		//Loop through the Table rows and build a JSON array.
+	//		var odList = new Array();
+	//		$("#tbaddrecord tr").each(function () {
+	//			var row = $(this);
+	//			var od = {};
+	//			od.Id = row.find("TD").eq(0).html();
+	//			od.DepartmentCode = row.find("TD").eq(1).html();
+	//			od.RecordNo = row.find("TD").eq(2).html();
+	//			odList.push(od);
+	//		});
+	//		$.post("/Order/InsertRecord",
+	//		{ data: JSON.stringify(odList) },
+	//		function (response) {
+
+	//		});
+	//});
+	//function AddRecord()
+	//{
+	//	var department = document.getElementById("EDepartmentCode").value;
+	//	var recordno = document.getElementById("ERecordNo").value;
+	//	$("#addempbarcode").show();
+	//	var html = "<tr> \
+	//		<td>" + counter++ + "</td> \
+	//		<td>" + department + "</td>\
+	//		<td>" + recordno + "</td> \
+	//		<td><a class='remove btn-outline-danger' onclick='Delete()' aria-disabled='true'><i class='bi bi-x-square'></i></a></td> \
+	//		</tr>";
+	//	$("#tbaddemp").append(html);
+	//}	
+	function Delete()
+	{
+		$('table').on('click','tr a.remove',function(e){
+		  e.preventDefault();
+		  $(this).closest('tr').remove();
+		});
+	}	
+</script>
+}
+
+
+

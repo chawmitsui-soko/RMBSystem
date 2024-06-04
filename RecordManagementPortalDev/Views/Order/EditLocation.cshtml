@@ -1,0 +1,61 @@
+﻿@model RecordManagementPortalDev.Controllers.OrderController.JobCollect
+@{
+	ViewData["Title"] = "EditLocation";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form method="post" asp-action="EditLocation">
+	<input asp-for="@Model.CartonDetails.Id" hidden />
+	<div class="" id="JobReg">
+		<h4 class="mt-3">Edit Location</h4>
+		<div class="border p-3 mt-4">
+			<div class="form-group row mt-3">				
+				<div class="col-sm-6" id="JobRegistration">
+					<div class="row">
+						<div class="form-group row mt-4">
+							<label asp-for="CartonDetails.Cartons" class="col-sm-3 col-form-label">Record No: </label>
+							<div class="col-sm-9">
+								<input asp-for="CartonDetails.Cartons" type="text" class="form-control-plaintext">
+							</div>
+						</div>
+						<div class="form-group row mt-4">
+							<label asp-for="CartonDetails.DeptCode" class="col-sm-3 col-form-label">Department Code: </label>
+							<div class="col-sm-9">
+								<input asp-for="CartonDetails.DeptCode" type="text" class="form-control-plaintext">
+							</div>
+						</div>
+						<div class="form-group row mt-4">
+							<label asp-for="CartonDetails.Location" class="col-sm-3 col-form-label">Location: </label>
+							<div class="col-sm-9">
+								<input asp-for="CartonDetails.Location" type="text" class="form-control">
+							</div>
+						</div>
+						<div class="form-group row mt-4">
+							<label asp-for="CartonDetails.Status" class="col-sm-3 col-form-label">Status: </label>
+							<div class="col-sm-9">
+								<input asp-for="CartonDetails.Status" type="text" class="form-control">
+							</div>
+						</div>	
+						<div class="form-group row mt-4">
+							<div class="col-sm-5">
+								<button type="submit" class="btn btn-outline-warning mt-3">Save</button>
+							</div>
+							<div class="col-sm-5">
+								<a class="btn btn-outline-light mt-3" href="javascript: history.go(-1)">Back To Inventory List</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>
+	</div>
+</form>
+
+@section Scripts {
+	<script>
+	</script>
+}
+<div class="mb-10">
+	&nbsp;
+</div>
+
+

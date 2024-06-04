@@ -1,0 +1,94 @@
+﻿@model RecordManagementPortalDev.Models.Customer
+@{
+	ViewData["Title"] = "DetailCustomer";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4 class="mt-3">Detail Customer</h4>
+<div class="border p-3 mt-4">
+	<div class="form-group row">
+		<label asp-for="Billing" class="col-form-label mt-4 col-sm-4">Billing</label>
+		<div class="mt-4 col-sm-8">
+			<input asp-for="Billing" type="text" class="form-control" id="Billing" aria-describedby="Billing" readonly="">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-6">
+			<div class="form-group row">
+				<label asp-for="CustomerCode" class="col-form-label mt-4 col-sm-4">Customer Code</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="CustomerCode" type="text" class="form-control" id="CustomerCode" aria-describedby="Customer Code" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="CustomerName" class="col-form-label mt-4 col-sm-4">Customer Name</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="CustomerName" type="text" class="form-control" id="CustomerName" aria-describedby="Customer Name" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="Address1" class="col-form-label mt-4 col-sm-4">Customer Address 1</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="Address1" type="text" class="form-control" id="Address1" aria-describedby="Customer Address 1" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="Address2" class="col-form-label mt-4 col-sm-4">Customer Address 2</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="Address2" type="text" class="form-control" id="Address2" aria-describedby="Customer Address 2" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="Address3" class="col-form-label mt-4 col-sm-4">Customer Address 3</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="Address3" type="text" class="form-control" id="Address3" aria-describedby="Customer Address 3" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="Address4" class="col-form-label mt-4 col-sm-4">Postal Code</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="Address4" type="text" class="form-control" id="Address4" aria-describedby="Postal Code" readonly="">
+				</div>
+			</div>
+			<a class="btn btn-outline-light mt-3" href="javascript: history.go(-1)">Back To Customer List</a>
+		</div>
+		<div class="col-6">
+			<div class="form-group row">
+				<label asp-for="PIC" class="col-form-label mt-4 col-sm-4">Person In Charge</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="PIC" type="text" class="form-control" id="PIC" aria-describedby="Person In Charge" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="Designation" class="col-form-label mt-4 col-sm-4">Designation</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="Designation" type="text" class="form-control" id="Designation" aria-describedby="Designation" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="Telephone" class="col-form-label mt-4 col-sm-4">Telephone</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="Telephone" type="text" class="form-control" id="Telephone" aria-describedby="Telephone" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="Fax" class="col-form-label mt-4 col-sm-4">Fax</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="Fax" type="text" class="form-control" id="Fax" aria-describedby="Fax" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="Email" class="col-form-label mt-4 col-sm-4">Email address</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="Email" type="email" class="form-control" id="Email" aria-describedby="emailHelp" readonly="">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label asp-for="FMSJMSInvoiceCode" class="col-form-label mt-4 col-sm-4">FMS/JMS/InvoiceCode</label>
+				<div class="mt-4 col-sm-8">
+					<input asp-for="FMSJMSInvoiceCode" type="text" class="form-control" id="FMSJMSInvoiceCode" aria-describedby="FMSJMSInvoiceCode" readonly="">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

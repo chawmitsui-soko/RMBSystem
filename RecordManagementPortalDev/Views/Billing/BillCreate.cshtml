@@ -1,0 +1,32 @@
+﻿@using Stimulsoft.Report.Web
+@using Stimulsoft.Report.Mvc
+@*@model RecordManagementPortalDev.Controllers.BillingController.MonthlyBill*@
+@Html.StiNetCoreDesigner(new StiNetCoreDesignerOptions() {
+Localization = "Localization/en.xml",
+Actions =
+{
+	GetReport = "GetReportBill",
+	CreateReport = "CreateReportBill",
+	PreviewReport = "PreviewReport",
+	SaveReportAs = "SaveReportAs",
+	DesignerEvent = "DesignerEvent",
+},
+Appearance =
+{
+	InterfaceType = StiInterfaceType.Auto,
+	ShowTooltipsHelp = false,
+	ShowDialogsHelp = false,
+	DefaultUnit = Stimulsoft.Report.StiReportUnitType.Centimeters
+},
+Dictionary =
+{
+	PermissionBusinessObjects = Stimulsoft.Report.Web.StiDesignerPermissions.None,
+	PermissionDataConnections = Stimulsoft.Report.Web.StiDesignerPermissions.View
+},
+Bands =
+{
+	ShowChildBand = false,
+	ShowEmptyBand = false,
+	ShowOverlayBand = false
+}
+})

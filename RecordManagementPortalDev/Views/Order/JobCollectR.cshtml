@@ -1,0 +1,782 @@
+﻿@using RecordManagementPortalDev.Data
+@using Microsoft.AspNetCore.Identity
+@using RecordManagementPortalDev.Models
+@model RecordManagementPortalDev.Controllers.OrderController.GroupedCustDept
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+	var user = await UserManager.GetUserAsync(User);
+}
+@{
+	ViewData["Title"] = "JobCollect";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+	.nth-table {
+	}
+
+		.nth-table tr:nth-child(even) {
+			background: #444;
+		}
+
+		.nth-table tr:nth-child(odd) {
+			background: #375a7f;
+		}
+
+		.nth-table th {
+			padding-top: 13px;
+			padding-bottom: 13px;
+			background-color: #1d3850;
+		}
+		.tableinvent{
+			color: #375a7f;
+		}
+		.InventoryPopup {
+		position: relative;
+		text-align: center;
+		width: 100%;
+	  }
+	  .formPopup {
+		display: none;
+		position: fixed;
+		width: 60%;
+        padding: 20px;
+        background-color: #fff;
+		color:#000;
+		left: 30%;
+		margin-left:20%;
+		top: 10%;
+		transform: translate(-50%, 5%);
+		border: 3px solid #999999;
+		z-index: 99999;
+	  }
+	  .pop{
+		  color: #fff;
+		  background-color: #1d3850;
+	  }
+</style>
+<h4 class="mt-3">Job Collect</h4>
+<div id="CollectRetrievedRecord">
+	<h4 class="mt-3">Collect Retrieved Record</h4>
+	<div class="border p-3 mt-4">
+		<form method="post" asp-action="FCollectRetrievedRecord">
+			<fieldset>
+				<div class="row">
+					<div class="col-6">
+						<div class="form-group mt-2">
+							<h6 class="text-warning">Contact Information</h6>
+						</div>
+						@if (user.UserRole == "RMB Super Admin")
+						{
+							<div class="form-group row">
+								<label for="CustomerCode" class="col-sm-4 col-form-label">Choose Customer Code</label>
+								<div class="col-sm-6">
+									<select class="form-select" id="RCustomerCode" name="OrderRequest.CustomerCode" asp-controller="Customer" asp-action="UserInfo" asp-items="@Model?.CustomerList">
+										<option value="">--All Customer--</option>
+									</select>
+									<input asp-for="OrderRequest.CustomerCode" type="hidden" name="OrderRequest.CustomerCode" />
+									<span asp-validation-for="OrderRequest.CustomerCode" class="text-danger"></span>								
+								</div>
+							</div>
+							<div class="form-group row">
+								<label asp-for="OrderRequest.CustomerCode" class="col-form-label col-sm-4 mt-2">Customer Code : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.CustomerCode" value="" id="rcustcode" class="form-control-plaintext" readonly="" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-form-label col-sm-4 mt-2">Customer Name : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.CustomerName" value="" id="rcustname" class="form-control-plaintext" readonly="" />
+								</div>
+							</div>
+							<div class="form-group mt-2">
+								<h6 class="text-warning">Delivery Address</h6>
+							</div>
+							<div class="form-group row">
+								<label class="col-form-label col-sm-4 mt-2">Address : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Address1" id="radd1" value="" class="form-control" />
+									<input asp-for="OrderRequest.Address2" id="radd2" value="" class="form-control" />
+									<input asp-for="OrderRequest.Address3" id="radd3" value="" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-form-label col-sm-4 mt-2">Postal Code : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Address4" id="radd4" value="" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="ELDepartmentCode" class="col-form-label col-sm-4 mt-2">Choose Department Code</label>
+								<div class="col-sm-8 mt-2">
+									<select asp-for="OrderRequest.DepartmentCode" class="form-select" id="RLDepartmentCode" name="OrderRequest.DepartmentCode" asp-controller="Customer" asp-action="UserInfo" asp-items="@Model?.DepartmentList">
+										<option value="">--All Departments--</option>
+									</select>
+									<input asp-for="OrderRequest.DepartmentCode" type="hidden" name="OrderRequest.DepartmentCode" />
+									<span asp-validation-for="OrderRequest.DepartmentCode" class="text-danger"></span>								
+								</div>
+							</div>
+							<div class="form-group row">
+								<label asp-for="OrderRequest.ContactPerson" class="col-form-label col-sm-4 mt-2">Person Incharge : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.ContactPerson" id="rpic" value="" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label asp-for="OrderRequest.Email" class="col-form-label col-sm-4 mt-2">Email : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Email" id="remail" value="" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label asp-for="OrderRequest.Telephone" class="col-form-label col-sm-4 mt-2">Telephone : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Telephone" id="rtelephone" value="" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label asp-for="OrderRequest.Fax" class="col-form-label col-sm-4 mt-2">Fax : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Fax" id="rfax" value="" class="form-control" />
+								</div>
+							</div>
+						}
+						else
+						{
+							<div class="form-group row">
+								<label asp-for="OrderRequest.CustomerCode" class="col-form-label col-sm-4 mt-2">Customer Code : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.CustomerCode" value="@Model.Customer.CustomerCode" id="rcustcode" class="form-control-plaintext" readonly="" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-form-label col-sm-4 mt-2">Customer Name : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.CustomerName" value="@Model.Customer.CustomerName" class="form-control-plaintext" readonly="" />
+								</div>
+							</div>
+							<div class="form-group mt-2">
+								<h6 class="text-warning">Delivery Address</h6>
+							</div>
+							<div class="form-group row">
+								<label class="col-form-label col-sm-4 mt-2">Address : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Address1" value="@Model.Customer.Address1" class="form-control" />
+									<input asp-for="OrderRequest.Address2" value="@Model.Customer.Address2" class="form-control" />
+									<input asp-for="OrderRequest.Address3" value="@Model.Customer.Address3" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-form-label col-sm-4 mt-2">Postal Code : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Address4" value="@Model.Customer.Address4" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="ULDepartmentCode" class="col-form-label col-sm-4 mt-2">Choose Department Code</label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.DepartmentCode" value="@user.DepartmentCode" name="OrderRequest.DepartmentCode" class="form-control" readonly="" />
+								</div>
+								@*<div class="col-sm-8 mt-2">
+									<select class="form-select" id="RLDepartmentCode" name="DepartmentCode" asp-controller="Customer" asp-action="UserInfo" asp-items="@Model?.DepartmentList">
+										<option value="0">--All Departments--</option>
+									</select>
+									<input type="hidden" name="DepartmentCode" />
+								</div>*@
+							</div>
+							<div class="form-group row">
+								<label asp-for="OrderRequest.ContactPerson" class="col-form-label col-sm-4 mt-2">Person Incharge : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.ContactPerson" value="@user.UserName" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label asp-for="OrderRequest.Email" class="col-form-label col-sm-4 mt-2">Email : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Email" value="@user.Email" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label asp-for="OrderRequest.Telephone" class="col-form-label col-sm-4 mt-2">Telephone : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Telephone" value="@user.PhoneNumber" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label asp-for="OrderRequest.Fax" class="col-form-label col-sm-4 mt-2">Fax : </label>
+								<div class="col-sm-8 mt-2">
+									<input asp-for="OrderRequest.Fax" value="@Model.Customer.Fax" class="form-control" />
+								</div>
+							</div>
+						}
+					</div>
+					<div class="col-6">
+						<div class="form-group mt-2">
+							<h6 class="text-warning">Order Detail</h6>
+						</div>
+						<div class="form-group row">
+							<label class="col-form-label col-sm-4 mt-2">Type</label>
+							<div class="col-sm-8 mt-2">
+								<select class="form-select" id="BRType">
+									<option value="1">Quick</option>
+									<option value="2">Range</option>
+									<option value="3">Inventory</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="RDepartmentCode" class="col-form-label col-sm-4 mt-2">Choose Department Code</label>
+							<div class="col-sm-4 mt-2">
+								<select class="form-select" id="RDepartmentCode" name="DepartmentCode" asp-items="@Model?.PerDeptList">
+								</select>
+								<input type="hidden" name="RDepartmentCode" />
+							</div>
+						</div>
+						<div id="RQuick">
+							<div class="form-group row">
+								<div class="col-sm-4 mt-2">
+									<input type="text" class="form-control" id="RRecordNo" aria-describedby="Record No" placeholder="Record No">
+									<span class="text-danger"></span>
+								</div>
+								<div class="col-sm-2 mt-2">
+									<input id="RAdd" class="btn btn-warning" type="button" value="Add" />
+								</div>
+							</div>
+						</div>
+						<div id="RRange" style="display:none">
+							<div class="form-group row">
+								<div class="col-sm-4 mt-2">
+									<input type="text" class="form-control" id="RFromNo" aria-describedby="From" placeholder="From">
+									<span class="text-danger"></span>
+								</div>
+								<div class="col-sm-4 mt-2">
+									<input type="text" class="form-control" id="RToNo" aria-describedby="To" placeholder="To">
+									<span class="text-danger"></span>
+								</div>
+								<div class="col-sm-2 mt-2">
+									<input id="RetFT" class="btn btn-warning" type="button" value="Add" />
+								</div>
+							</div>
+						</div>
+						<div id="RInventory" style="display:none">
+							<div class="form-group row">
+								<div class="col-sm-3 mt-2">
+									<input type="text" class="form-control" id="RIRecordNo" aria-describedby="Record No" placeholder="Record No">
+									<span class="text-danger"></span>
+								</div>
+								<div class="col-sm-4 mt-2">
+									<input type="date" class="form-control" id="RIFDate" aria-describedby="From" placeholder="From">
+									<input type="date" class="form-control" id="RITDate" aria-describedby="To" placeholder="To">
+									<span class="text-danger"></span>
+								</div>
+								<div class="col-sm-3 mt-2">
+									<input type="text" class="form-control" id="RIKeyword" aria-describedby="Keyword" placeholder="Keyword">
+									<span class="text-danger"></span>
+								</div>
+								<div class="col-sm-1 mt-2">
+									<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#InventoryModal">
+										Search
+									</button>
+								</div>
+							</div>
+						</div>
+						<div id="colretbarcode" class="form-group row mt-5" style="display:none">
+							<table class="nth-table table table-hover pt-3">
+								<thead>
+									<tr>
+										<th style="width:8%">#</th>
+										<th scope="col">Department Code</th>
+										<th scope="col">Record No</th>
+										<th style="width:8%"></th>
+									</tr>
+								</thead>
+								<tbody id="tbcolret">
+									@if (Model.OrderDetailList != null)
+									{
+										int i = 1;
+										@foreach (OrderDetail obj in Model?.OrderDetailList)
+										{
+											<tr>
+												<td scope="row">i</td>
+												<td>@obj.DepartmentCode</td>
+												<td>@obj.RecordNo</td>
+												<td><input type="date" class="form-control" placeholder="Destruction Date"></td>
+												<td><a class='remove btn-outline-danger' onclick='Delete()' aria-disabled='true'><i class='bi bi-x-square'></i></a></td>
+											</tr>
+											i = i + 1;
+										}
+									}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<div class="form-group mt-2">
+							<h6 class="text-warning">Order Information</h6>
+						</div>
+						<div class="form-group row">
+							<label asp-for="OrderRequest.OrderDate" class="form-label col-sm-6 mt-2">Collect Date</label>
+							<div class="col-sm-6 mt-2">
+								<input asp-for="OrderRequest.OrderDate" type="date" class="form-control" id="OrderDate" aria-describedby="Order Date" placeholder="Enter Order Date">
+								<span asp-validation-for="OrderRequest.OrderDate" class="text-danger"></span>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label asp-for="OrderRequest.Remark" class="form-label col-sm-6 mt-2">Remark</label>
+							<div class="col-sm-6 mt-2">
+								<input asp-for="OrderRequest.Remark" type="text" class="form-control" id="Remark" aria-describedby="Remark" placeholder="Enter Remark">								
+							</div>
+						</div>
+						<button type="submit" id="retcol" class="btn btn-outline-warning mt-3">Confirm Order</button>
+					</div>
+					<div class="col-6">
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="InventoryModal" tabindex="-1" role="dialog" aria-labelledby="InventoryModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Inventory</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table tableinvent table-hover pt-3">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Record No</th>
+					<th scope="col">Department Code</th>
+					<th scope="col">Status</th>
+				</tr>
+			</thead>
+			<tbody id="inventory">
+			</tbody>
+		</table>
+      </div>
+      <div class="modal-footer">
+		<button type="submit" class="btn pop" onclick="RetrieveICartons()">Add</button>
+		<button type="button" class="btn pop cancel" data-dismiss="modal">Close</button>
+	  </div>
+    </div>
+  </div>
+</div>
+<div class="mb-10">
+	&nbsp;
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+<script>
+	var counter = 1;
+	var array = [];
+	$("body").on("click", "#retcol", function () {
+			//Loop through the Table rows and build a JSON array.
+			var odList = new Array();
+			$("#tbcolret tr").each(function () {
+				var row = $(this);
+				var od = {};
+				od.Id = row.find("TD").eq(0).html();
+				od.DepartmentCode = row.find("TD").eq(1).html();
+				od.RecordNo = row.find("TD").eq(2).html();
+				odList.push(od);
+			});
+			if (odList === undefined || odList.length == 0) {
+			}
+			else{
+			$.post("/Order/InsertOrderList",
+			{ data: JSON.stringify(odList) },
+			function (response) {
+
+			});
+			}
+	});	
+	//$("body").on("click", "#RAdd", function () {
+	//	var department = document.getElementById("RDepartmentCode").value;
+	//	var recordno = document.getElementById("RRecordNo").value;		
+	//	$.post("/Order/CheckRecord",
+	//	{ department: department, recordno: recordno },
+	//	function (response) {
+	//		if (response == 0)
+	//		{
+	//			alert("There is no record.");
+	//		}
+	//		else 
+	//		{				
+	//			RetrieveColCartons(department, recordno);
+	//			array.push(department+recordno);
+	//		}
+	//	});			
+	//});	
+	$("body").on("click", "#RAdd", function () {
+		var department = document.getElementById("RDepartmentCode").value;
+		var recordno = document.getElementById("RRecordNo").value;		
+		$.post("/Order/CheckRecord",
+		{ department: department, recordno: recordno },
+		function (response) {
+			if (response == 0)
+			{
+				alert("There is no record.");
+			}
+			else 
+			{				
+				RetrieveAddCartons(department, recordno);
+				array.push(department+recordno);
+			}
+		});			
+	});	
+	function RetrieveAddCartons(department, recordno)
+	{
+		$("#colretbarcode").show();
+		var flag = 0;
+		var rechtml = "";
+		if (array.length > 0) {
+			for (var i = 0; i < array.length; i++) {
+				if (array[i] == department+recordno)
+				{
+					alert("Can't add duplicate record.");
+					flag = 0;
+				}
+				else {
+					flag = 1;				
+				}
+			}
+			if (flag == 1)
+			{
+				rechtml += "<tr> \
+				<td>" + counter++ + "</td> \
+				<td>" + department + "</td>\
+				<td>" + recordno + "</td> \
+				<td><a class='remove btn-outline-danger' onclick='Delete()' aria-disabled='true'><i class='bi bi-x-square'></i></a></td> \
+				</tr>";
+				$("#tbcolret").append(rechtml);
+			}
+		}
+		else {
+			rechtml += "<tr> \
+			<td>" + counter++ + "</td> \
+			<td>" + department + "</td>\
+			<td>" + recordno + "</td> \
+			<td><a class='remove btn-outline-danger' onclick='Delete()' aria-disabled='true'><i class='bi bi-x-square'></i></a></td> \
+			</tr>";
+			$("#tbcolret").append(rechtml);
+		}
+	}
+	$("body").on("click", "#RetFT", function () {
+		var department = document.getElementById("RDepartmentCode").value;
+		var from = document.getElementById("RFromNo").value;
+		var to = document.getElementById("RToNo").value;
+		if (to == "")
+		{
+			to = from;
+		}
+		//var fromletters = from.slice(0, from.search(/\d/));
+		//var fromdigits = from.replace(fromletters, '');
+		//var todigits = to.replace(fromletters,''); 
+		var fromdigits = from.substr(from.length - 2);
+		var todigits = to.substr(to.length - 2);
+		var fromletters = from.slice(0,-2);
+		var size = fromdigits.length;
+		var j = 0;	
+		for (var i = fromdigits; i <= todigits; i++)
+		{			
+			(function(i) { 
+				if (fromdigits == todigits)
+				{
+					var recordno = fromletters + fromdigits;
+				}
+				else {
+				var recordno = fromletters + pad(Number(Number(fromdigits) + Number(j)), size);
+				}
+				$.post("/Order/CheckRecord",
+				{ department: department, recordno: recordno },
+					function (response) {
+					if (response == 0)
+					{
+						alert("There is no record.");
+					}
+					else 
+					{				
+						RetrieveFTCartons(department, recordno);
+						array.push(department+recordno);
+					}
+				});
+			})(i);
+			j = j + 1;
+		}		
+	});	
+	function RetrieveFTCartons(department, recordno)
+	{		
+		$("#colretbarcode").show();	
+		var flag = 0;
+		var html = "";
+		if (array.length > 0) {
+			for (var x = 0; x < array.length; x++) {
+				if (array[x] == department+recordno)
+				{
+					alert("Can't add duplicate record.");
+					flag = 0;
+					break;
+				}
+				else {
+					flag = 1;				
+				}
+			}
+			if (flag == 1)
+			{		
+				html += "<tr> \
+				<td>" + counter++ + "</td> \
+				<td>" + department + "</td>\
+				<td>" + recordno + "</td> \
+				<td><a class='remove btn-outline-danger' onclick='Delete()' aria-disabled='true'><i class='bi bi-x-square'></i></a></td> \
+				</tr>";
+				$("#tbcolret").append(html);
+			}
+		}
+		else {
+			html += "<tr> \
+			<td>" + counter++ + "</td> \
+			<td>" + department + "</td>\
+			<td>" + recordno + "</td> \
+			<td><a class='remove btn-outline-danger' onclick='Delete()' aria-disabled='true'><i class='bi bi-x-square'></i></a></td> \
+			</tr>";
+			$("#tbcolret").append(html);
+		}
+	}
+	//function RetrieveAddCartons(department, recordno)
+	//{
+	//	$("#colretbarcode").show();
+	//	var flag = 0;
+	//	var rechtml = "";
+	//	if (array.length > 0) {
+	//		for (var i = 0; i < array.length; i++) {
+	//			if (array[i] == department+recordno)
+	//			{
+	//				alert("Can't add duplicate record.");
+	//				flag = 0;
+	//			}
+	//			else {
+	//				flag = 1;				
+	//			}
+	//		}
+	//		if (flag == 1)
+	//		{
+	//			rechtml += "<tr> \
+	//			<td>" + counter++ + "</td> \
+	//			<td>" + department + "</td>\
+	//			<td>" + recordno + "</td> \
+	//			<td><a class='remove btn-outline-danger' onclick='Delete()' aria-disabled='true'><i class='bi bi-x-square'></i></a></td> \
+	//			</tr>";
+	//			$("#tbaddret").append(rechtml);
+	//		}
+	//	}
+	//	else {
+	//		rechtml += "<tr> \
+	//		<td>" + counter++ + "</td> \
+	//		<td>" + department + "</td>\
+	//		<td>" + recordno + "</td> \
+	//		<td><a class='remove btn-outline-danger' onclick='Delete()' aria-disabled='true'><i class='bi bi-x-square'></i></a></td> \
+	//		</tr>";
+	//		$("#tbaddret").append(rechtml);
+	//	}
+	//}
+	//function RetrieveColCartons(department, recordno)
+	//{		
+	//	$("#colretbarcode").show();
+	//	var flag = 0;
+	//	var rechtml = "";
+	//	if (array.length > 0) {
+	//		for (var i = 0; i < array.length; i++) {
+	//			if (array[i] == department+recordno)
+	//			{
+	//				alert("Can't add duplicate record.");
+	//				flag = 0;
+	//			}
+	//			else {
+	//				flag = 1;				
+	//			}
+	//		}
+	//		if (flag == 1)
+	//		{
+	//			rechtml += "<tr> \
+	//			<td>" + counter++ + "</td> \
+	//			<td>" + department + "</td>\
+	//			<td>" + recordno + "</td> \
+	//			<td>" + "<input type='date' class='form-control' placeholder='Destruction Date'>" + "</td> \
+	//			<td><a class='remove btn-outline-danger' onclick='Delete()' aria-disabled='true'><i class='bi bi-x-square'></i></a></td> \
+	//			</tr>";
+	//			$("#tbcolret").append(rechtml);
+	//		}
+	//	}
+	//	else {
+	//		rechtml += "<tr> \
+	//		<td>" + counter++ + "</td> \
+	//		<td>" + department + "</td>\
+	//		<td>" + recordno + "</td> \
+	//		<td>" + "<input type='date' class='form-control' placeholder='Destruction Date'>" + "</td> \
+	//		<td><a class='remove btn-outline-danger' onclick='Delete()' aria-disabled='true'><i class='bi bi-x-square'></i></a></td> \
+	//		</tr>";
+	//		$("#tbcolret").append(rechtml);
+	//	}
+	//}
+	//function RetrieveColFTCartons()
+	//{
+	//	var department = document.getElementById("RDepartmentCode").value;
+	//	var from = document.getElementById("RFromNo").value;
+	//	var to = document.getElementById("RToNo").value;				
+	//	var fromletters = from.slice(0, from.search(/\d/));
+	//	var fromdigits = from.replace(fromletters, '');
+	//	var todigits = to.replace(fromletters,'');  
+	//	var size = fromdigits.length;
+	//	$("#colretbarcode").show();		
+	//	var html = "";
+	//	var j = 0;
+	//	for (var i = fromdigits; i <= todigits; i++)
+	//	{
+	//		html += "<tr> \
+	//		<td>" + counter++ + "</td> \
+	//		<td>" + department + "</td>\
+	//		<td>" + fromletters + pad(Number(Number(fromdigits) + Number(j)), size) + "</td> \
+	//		<td>" + "<input type='date' class='form-control' placeholder='Destruction Date'>" + "</td> \
+	//		<td><a class='remove btn-outline-danger' onclick='Delete()' aria-disabled='true'><i class='bi bi-x-square'></i></a></td> \
+	//		</tr>";
+	//		j = j + 1;
+	//	}
+	//	$("#tbcolret").append(html);
+	//}
+	function pad(num, size) {
+		num = num.toString();
+		while (num.length < size) num = "0" + num;
+		return num;
+	}
+	function RetrieveICartons()
+	{
+		var department = document.getElementById("RDepartmentCode").value;
+		var html = "";		
+		$("#colretbarcode").show();	
+		$("#inventory tr").each(function () {			
+			var row = $(this);			
+			if (row.find('input[type="checkbox"]').prop('checked'))
+			{
+			html += "<tr> \
+			<td>" + counter++ + "</td> \
+			<td>" + department + "</td>\
+			<td>" + row.find("TD").eq(1).html() + "</td> \
+			<td>" + "<input type='date' class='form-control' placeholder='Destruction Date'>" + "</td> \
+			<td><a class='remove btn-outline-danger' onclick='Delete()' aria-disabled='true'><i class='bi bi-x-square'></i></a></td> \
+			</tr>";
+			}
+		});		
+		$("#tbcolret").append(html);
+	}
+	$(document).on('show.bs.modal', '#InventoryModal', function (e) {
+		var custcode = document.getElementById("rcustcode").value;
+		var department = document.getElementById("RDepartmentCode").value;
+		var recordno = document.getElementById("RIRecordNo").value;
+		var fromdate = document.getElementById("RIFDate").value;
+		var todate = document.getElementById("RITDate").value;
+		var keyword = document.getElementById("RIKeyword").value;
+		$("#inventory").empty();
+		var html = "";
+		$.post("/Order/InventoryInfo",
+		{ custcode: custcode, deptcode: department, recordno: recordno, fromdate: fromdate, todate:todate, keyword:keyword },
+		function (response) {				
+				for (var i = 0; i < response.length; i++) {
+				html += "<tr> \
+				<td>" + "<input type='checkbox' name='JId' value='" + response[i].jDId + "'>" + "</td> \
+				<td>" + response[i].cartons + "</td> \
+				<td>" + response[i].deptCode + "</td> \
+				<td>" + response[i].status + "</td> \
+                </tr>";
+				}
+				$("#inventory").append(html);				
+		})		
+	});	
+	function Delete()
+	{
+		$('table').on('click','tr a.remove',function(e){
+		  e.preventDefault();
+		  $(this).closest('tr').remove();
+		});
+	}	
+	$("#RCustomerCode").change(function () {
+		var custcode = $(this).val();
+		$("#RLDepartmentCode").empty();
+		$("#RDepartmentCode").empty();
+		$.post("/Order/Cust",
+		{ custcode: custcode },
+		function (response) {
+			$.each(response.departmentList, function (key, entry) {
+				  $("#RLDepartmentCode").append($('<option></option>').attr('value', entry.value).text(entry.value));
+				  $("#RDepartmentCode").append($('<option></option>').attr('value', entry.value).text(entry.value));
+			})
+			var custcode = response.customer.customerCode;
+			document.getElementById("rcustcode").setAttribute('value',custcode);
+			var custname = response.customer.customerName;
+			document.getElementById("rcustname").setAttribute('value',custname);
+			var add1 = response.customer.address1;
+			document.getElementById("radd1").setAttribute('value',add1);
+			var add2 = response.customer.address2;
+			document.getElementById("radd2").setAttribute('value',add2);
+			var add3 = response.customer.address3;
+			document.getElementById("radd3").setAttribute('value',add3);
+			var add4 = response.customer.address4;
+			document.getElementById("radd4").setAttribute('value',add4);
+			var pic = response.customer.pic;
+			document.getElementById("rpic").setAttribute('value',pic);
+			var email = response.customer.email;
+			document.getElementById("remail").setAttribute('value',email);
+			var telephone = response.customer.telephone;
+			document.getElementById("rtelephone").setAttribute('value',telephone);
+			var fax = response.customer.fax;
+			document.getElementById("rfax").setAttribute('value',fax);
+		})
+	});	
+	$("#BRType").change(function () {
+		var type = $(this).val();
+		if (type == "1") {
+			$("#RQuick").show();
+			$("#RRange").hide();
+			$("#RInventory").hide();
+		}
+		if (type == "2") {
+			$("#RQuick").hide();
+			$("#RRange").show();
+			$("#RInventory").hide();
+		}
+		if (type == "3") {
+			$("#RQuick").hide();
+			$("#RRange").hide();
+			$("#RInventory").show();
+		}
+	});
+	$(function(){
+		var dtToday = new Date();
+ 
+		var month = dtToday.getMonth() + 1;
+		var day = dtToday.getDate() + 1;
+		var year = dtToday.getFullYear();
+		if(month < 10)
+			month = '0' + month.toString();
+		if(day < 10)
+			day = '0' + day.toString();
+    
+		var maxDate = year + '-' + month + '-' + day;    
+		$('#OrderDate').attr('min', maxDate);
+	});
+</script>
+}
+
+
+
+

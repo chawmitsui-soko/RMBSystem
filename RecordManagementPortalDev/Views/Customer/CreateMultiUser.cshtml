@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "CreateMultiUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4 class="mt-3">Create Multi User</h4>
+<div class="border p-3 mt-4">
+	<form method="post" asp-action="CreateMultiUser" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-6">
+                <input type="file" name="postedFile" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 mt-3">
+                <input type="submit" value="Import" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>	
+</div>
+<div class="mb-10">
+	&nbsp;
+</div>
+
+

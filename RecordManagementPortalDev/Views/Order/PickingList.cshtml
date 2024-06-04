@@ -1,0 +1,115 @@
+﻿@model RecordManagementPortalDev.Controllers.OrderController.JobCollect
+@{
+	ViewData["Title"] = "PickingList";
+	Layout = "~/Views/Shared/_PrintLayout.cshtml";
+}
+<style type="text/css" media="print">
+    .page
+    {
+     -webkit-transform: rotate(-90deg); 
+     -moz-transform: rotate(-90deg);
+     /*filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=3);*/
+    }	
+</style>
+<style>
+    .tab {
+        display: inline-block;
+        margin-left: 30px;
+    }
+</style>
+<div id="printarea2" class="mb-10">
+<h4 class="mt-3">Picking List</h4>
+<div class="border mt-4">	
+	<div class="row">
+		<div class="border col-6">			
+			<label class="col-form-label mt-4 col-sm-6"><strong>CUSTOMER'S CODE : </strong> @Model.Job.CustCode </label>	<br />		
+			<label class="col-form-label col-sm-7"><strong>CUSTOMER'S NAME : </strong> </label> <br />
+			@Model.Customer.CustomerName <br />			
+		</div>
+		<div class="border col-6">	
+			<label class="col-form-label mt-4 col-sm-6"><strong>PICKING LIST : </strong></label><br />			
+			<label class="col-form-label col-sm-4">Job Number</label> @Model.Job.OldJobNo <br />
+			<label class="col-form-label col-sm-4">Request Date</label> @Model.Job.RequestDate.ToString("dd/MM/yyyy")<br />			
+			<label class="col-form-label col-sm-4">Date Printed</label> @Model.Job.JobDate.ToString("dd/MM/yyyy")<br />
+		</div>
+	</div>
+	<div class="row">		
+		<div class="border col-6">		
+			<label class="col-form-label mt-4 col-sm-6"><strong>DELIVER TO:</strong></label>	<br />	
+			@Model.Job.Address1 <br />
+			@Model.Job.Address2 <br />
+			@Model.Job.Address3 <br />
+			@Model.Job.Address4 <br />
+		</div>
+		<div class="border col-6">			
+		</div>		
+	</div>	
+	<div class="row" style="padding-top:30px; width:100%">
+		<div class="col-12">			
+			<table class="border" style="width:100%">				
+				<thead>
+					<tr class="border">
+						<th class="border" style="width:5%; padding-right:15px;">BoxNO.</th>
+						<th class="border" style="width:22%; padding-right:15px;">Location</th>
+						<th class="border" style="padding-right:15px;">Department/ <br />Prefix</th>
+						<th class="border" style="padding-right:15px;">Cartons</th>
+						<th style="width: 10%"></th>
+						<th class="border" style="width:5%; padding-right:15px;">BoxNO.</th>
+						<th class="border" style="width:22%; padding-right:15px;">Location</th>
+						<th class="border" style="padding-right:15px;">Department/ <br />Prefix</th>
+						<th class="border" style="padding-right:15px;">Cartons</th>	
+					</tr>
+				</thead>				
+				<tbody>															
+					@{int i = 1;}	
+					<tr class="border">
+					@foreach (var obj in Model?.ListCartonDtl)							
+					{
+						<td class="border" style="padding-right:15px;">@i</td>
+						<td class="border" style="padding-right:15px;">@obj.Location</td>
+						<td class="border" style="padding-right:15px;">@obj.DeptCode</td>
+						<td class="border" style="padding-right:15px;">@obj.Cartons</td>
+						if (i%2 == 0)
+						{
+							@:</tr> 
+							@:<tr class="border" style="padding:10px;">
+						}
+						else
+						{
+							<td style="width: 10%"></td>
+						}
+						i = i + 1;
+					}					
+					</tr>
+				</tbody>
+			</table>
+			<br />
+			<br />
+			<label><strong>Total No of Cartons: @Model.carton Cartons</strong></label>
+		</div>
+	</div>	
+</div>
+</div>
+<div class="mb-40">
+	&nbsp;
+</div>
+<button id="Print" class="btn btn-outline-warning mt-3">Print</button>
+<a class="btn btn-outline-light mt-3" href="javascript: history.go(-1)">Back To Inventory List</a>
+
+@section Scripts {	
+<script>
+	$("#Print").click(function () {
+	var element = document.getElementById("printarea2").innerHTML;
+	var originalContents = document.body.innerHTML;
+    document.body.innerHTML = "<html><head><title><style type='text/css'>" + 
+	"@@media print {body { font-size: 0.80em; color: black; }}" +
+	"</style></title></head><body>" + element + "</body></html>";
+	window.print();
+	document.body.innerHTML = originalContents;
+	window.location.reload(); 	
+	});
+</script>
+}
+
+
+

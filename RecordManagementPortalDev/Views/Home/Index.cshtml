@@ -1,0 +1,105 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+	Layout = "~/Views/Shared/_BeforeLoginLayout.cshtml";
+}
+<div id="myCarousel" class="carousel slide text-center" style="align-content:center;" data-bs-ride="carousel">
+	<div class="carousel-indicators">
+		<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+		@*<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>*@
+		<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+		<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+	</div>
+	<div class="carousel-inner">
+		<div class="carousel-item active">
+			<div class="container">
+				<div class="carousel-caption slide1" style="color:black;">
+					<h1 class="f-caption">Mitsui-Soko Record Management Portal</h1>
+				</div>
+			</div>
+			<img src="../lib/images/MS_1.jpg">
+		</div>
+		@*<div class="carousel-item">
+			<img src="../lib/images/MS_2.jpg">
+			<div class="container">
+				<div class="carousel-caption" style="color:black;">
+					<h1>Your total document storage solution</h1>
+				</div>
+			</div>
+		</div>*@
+		<div class="carousel-item">
+			<img src="../lib/images/MS_3.jpg">
+			<div class="container">
+				<div class="carousel-caption" style="color:black;">
+					<h1>World Largest Japanese Record Management System</h1>
+				</div>
+			</div>
+		</div>
+		<div class="carousel-item">
+			<img src="../lib/images/MS_4.jpg">
+			<div class="container">
+				<div class="carousel-caption" style="color:black;">
+					<h1>Document Storage/ Business Process Outsourcing (BPO)</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Previous</span>
+	</button>
+	<button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Next</span>
+	</button>
+</div>
+
+<div class="gy-5">
+	<div class="row px-3 ">
+		<div class="card text-white bg-warning col-lg-3 mt-3">
+			<div class="card-body">
+				<h5 class="card-title">Document Management</h5>				
+			</div>
+			<img src="../lib/images/main_sc01.jpg" width="100%" height="200" class="d-block user-select-none">
+			<div class="card-body">
+				<p class="card-text">Document on demand software to help manage your files...</p>
+				<p><a class="btn btn-secondary" href="Home/DocMgnt">View details &raquo;</a></p>
+			</div>			
+		</div>
+
+		<div class="card text-white bg-success col-lg-3 mt-3">
+			<div class="card-body">
+				<h5 class="card-title">Active-File Management</h5>				
+			</div>
+			<img src="../lib/images/main_sc02.jpg" width="100%" height="200" class="d-block user-select-none">
+			<div class="card-body">
+				<p class="card-text">We provide storage for different type of files to be barcoded...</p>
+				<p><a class="btn btn-secondary" href="Home/AFMgnt">View details &raquo;</a></p>
+			</div>				
+		</div>
+
+		<div class=" card text-white bg-danger col-lg-3 mt-3">
+			<div class="card-body">
+				<h5 class="card-title">Media Management</h5>				
+			</div>
+			<img src="../lib/images/main_sc03.jpg" width="100%" height="200" class="d-block user-select-none">
+			<div class="card-body">
+				<p class="card-text">We provide storage for tape and cartridge and huge quantity of movies films...</p>
+				<p><a class="btn btn-secondary" href="Home/MedMgnt">View details &raquo;</a></p>
+			</div>
+		</div>
+
+		<div class="card text-white bg-info col-lg-3 mt-3">
+			<div class="card-body">
+				<h5 class="card-title">Secured Destruction Management</h5>				
+			</div>
+			<img src="../lib/images/main_sc04.jpg" width="100%" height="200" class="d-block user-select-none">
+			<div class="card-body">
+				<p class="card-text">All shredded confidential waste paper collected will be used for recycling...</p>
+				<p><a class="btn btn-secondary" href="Home/SDMgnt">View details &raquo;</a></p>
+			</div>			
+		</div>
+	</div>
+</div>
+<div style="display: block; height: 30px;">
+	&nbsp;
+</div>

@@ -1,0 +1,474 @@
+﻿@model RecordManagementPortalDev.Controllers.OrderController.JobCollect
+@{
+	ViewData["Title"] = "DJobRegister";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form method="post" asp-action="DSaveJobRegister" onsubmit="DisableBtn()">
+	<div class="" id="JobReg">
+		<h4 class="mt-3">Delivery New</h4>
+		<div class="border p-3 mt-4">
+			<div class="form-group row mt-3">
+				<div class="col-sm-6">
+					<div class="row">
+						<table class="nth-table table table-hover pt-3">
+							<tbody id="tbCust">
+								<tr>
+									<td>Contract:  @Model.BillRate.BillStartDate.ToString("dd/MM/yyyy") </td>
+									<td>Expired:  @Model.BillRate.BillExpDate.ToString("dd/MM/yyyy") </td>
+								</tr>
+								<tr>
+									<td>Customer Code: </td>
+									<td id='custCode'>@Model.Customer.CustomerCode</td>
+								</tr>
+								<tr>
+									<td>Customer Name: </td>
+									<td>@Model.Customer.CustomerName</td>
+								</tr>
+								<tr>
+									<td>Address: </td>
+									<td><input type="text" class="form-control" id="custAdd1" value="@Model.Customer.Address1"></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><input type="text" class="form-control" id="custAdd2" value="@Model.Customer.Address2"></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><input type="text" class="form-control" id="custAdd3" value="@Model.Customer.Address3"></td>
+								</tr>
+								<tr>
+									<td>Postal Code: </td>
+									<td><input type="text" class="form-control" id="custAdd4" value="@Model.Customer.Address4"></td>
+								</tr>
+								<tr>
+									<td>Person In Charge: </td>
+									<td> @Model.Customer.PIC </td>
+								</tr>
+								<tr>
+									<td>Telphone: </td>
+									<td> @Model.Customer.Telephone </td>
+								</tr>
+								<tr>
+									<td>Fax: </td>
+									<td> @Model.Customer.Fax </td>
+								</tr>
+								<tr>
+									<td>Carton Type: </td>
+									<td id='ctnType'>@Model.BillRate.SmCrtnType</td>
+								</tr>
+								<tr>
+									<td>MSS Invoice Code: </td>
+									<td id='MssInvoice'>@Model.Customer.FMSJMSInvoiceCode</td>
+								</tr>
+								<tr></tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="col-sm-6" id="JobRegistration">
+					<div class="row">
+						<div class="form-group">
+							<label class="form-label mt-4">Types of Jobs</label>
+							<div class="form-check">
+								<input asp-for="Job.JobType" class="form-check-input" type="radio" name="optionsRad" id="D1" value="D1" checked="@Model.OrderRequests.OrderType.Contains('1')">
+								<label class="form-check-label" for="D1">
+									Delivery New
+								</label>
+								<select asp-for="Job.JobLevel" class="form-select" id="DNew">
+									<option>Empty Cartons Only</option>
+									<option>Empty Cartons with Material Supply</option>
+									<option>Material Supply Only</option>
+								</select>
+							</div>
+							<div class="form-check">
+								<input asp-for="Job.JobType" class="form-check-input" type="radio" name="optionsRad" id="D2" value="D2" checked="@Model.OrderRequests.OrderType.Contains('3')">
+								<label class="form-check-label" for="D2">
+									Delivery Old Cartons Records/Files/Tapes
+								</label>
+							</div>
+							<div class="form-check">
+								<input asp-for="Job.JobType" class="form-check-input" type="radio" name="optionsRad" id="C1" value="C1" checked="@Model.OrderRequests.OrderType.Contains('2')">
+								<label class="form-check-label" for="C1">
+									Collection News Cartons/Files/Tapes
+								</label>
+							</div>
+							<div class="form-check">
+								<input asp-for="Job.JobType" class="form-check-input" type="radio" name="optionsRad" id="C2" value="C2" checked="@Model.OrderRequests.OrderType.Contains('4')">
+								<label class="form-check-label" for="C2">
+									Collection Old Cartons/Files/Tapes
+								</label>
+							</div>
+						</div>
+						<div class="form-group" id="sevlvl">
+							<label class="form-label mt-4">Service Level</label>
+							<div class="form-check">
+								<input asp-for="Job.ServLevel" class="form-check-input oRequest" type="radio" name="optionsRadios" id="optionsRadios1" value="1">
+								<label class="form-check-label" for="optionsRadios1">
+									Same Day / Priority
+								</label>
+							</div>
+							<div class="form-check">
+								<input asp-for="Job.ServLevel" class="form-check-input oRequest" type="radio" name="optionsRadios" id="optionsRadios2" value="2">
+								<label class="form-check-label" for="optionsRadios2">
+									Urgent / Express
+								</label>
+							</div>
+							<div class="form-check">
+								<input asp-for="Job.ServLevel" class="form-check-input oRequest" type="radio" name="optionsRadios" id="optionsRadios3" value="3" checked="">
+								<label class="form-check-label" for="optionsRadios3">
+									Next Working Day
+								</label>
+							</div>
+							<div class="form-check">
+								<input asp-for="Job.ServLevel" class="form-check-input oRequest" type="radio" name="optionsRadios" id="optionsRadios4" value="4">
+								<label class="form-check-label" for="optionsRadios4">
+									After Office Hours
+								</label>
+							</div>
+							<div class="form-check">
+								<input asp-for="Job.ServLevel" class="form-check-input oRequest" type="radio" name="optionsRadios" id="optionsRadios5" value="5">
+								<label class="form-check-label" for="optionsRadios5">
+									Holiday / Weekends
+								</label>
+							</div>
+							<div class="form-check">
+								<input asp-for="Job.ServLevel" class="form-check-input oRequest" type="radio" name="optionsRadios" id="optionsRadios7" value="7">
+								<label class="form-check-label" for="optionsRadios7">
+									Self Service
+								</label>
+							</div>
+							<div class="form-check disabled">
+								<input asp-for="Job.ServLevel" class="form-check-input oRequest1" type="radio" name="optionsRadios" id="optionsRadios8" value="8" disabled="">
+								<label class="form-check-label" for="optionsRadios8">
+									Permanent
+								</label>
+							</div>
+							<div class="form-check disabled">
+								<input asp-for="Job.ServLevel" class="form-check-input oRequest1" type="radio" name="optionsRadios" id="optionsRadios9" value="9" disabled="">
+								<label class="form-check-label" for="optionsRadios9">
+									Destruction
+								</label>
+							</div>
+							<div class="form-check disabled">
+								<input asp-for="Job.ServLevel" class="form-check-input oRequest1" type="radio" name="optionsRadios" id="optionsRadios10" value="10" disabled="">
+								<label class="form-check-label" for="optionsRadios10">
+									Self Service Permanent
+								</label>
+							</div>
+							<div class="form-check disabled">
+								<input asp-for="Job.ServLevel" class="form-check-input oRequest1" type="radio" name="optionsRadios" id="optionsRadios11" value="11" disabled="">
+								<label class="form-check-label" for="optionsRadios11">
+									Fax Document / File
+								</label>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label asp-for="Job.RMBRemark" class="col-sm-3 col-form-label">Remark Line 1: </label>
+							<div class="col-sm-9">
+								<input asp-for="Job.RMBRemark" type="text" class="form-control" id="RMBRemark" aria-describedby="RMBRemark">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label asp-for="Job.RMBRemark1" class="col-sm-3 col-form-label">Remark Line 2: </label>
+							<div class="col-sm-9">
+								<input asp-for="Job.RMBRemark1" type="text" class="form-control" id="RMBRemark1">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label asp-for="Job.RMBRemark2" class="col-sm-3 col-form-label">Remark Line 3: </label>
+							<div class="col-sm-9">
+								<input asp-for="Job.RMBRemark2" type="text" class="form-control" id="RMBRemark2" aria-describedby="RMBRemark2">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label asp-for="Job.RMBRemark3" class="col-sm-3 col-form-label">Remark Line 4: </label>
+							<div class="col-sm-9">
+								<input asp-for="Job.RMBRemark3" type="text" class="form-control" id="RMBRemark3" aria-describedby="RMBRemark3">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group row mt-3" id="order">
+				<div class="row">
+					<div class="col-sm-6">
+						@*<div class="form-group js-form">
+							<label class="form-label mt-4">Order Number: </label>
+							<div class="col-sm-6">
+								<input asp-for="Job.JobOrderNo" value="@Model.OrderRequests.OrderId" type="text" class="form-control-plaintext" aria-describedby="Order Code" readonly="">
+							</div>
+						</div>*@
+						<table class="nth-table table table-hover pt-3">
+							<tbody id="tbBil">
+								<tr>
+									<td>Order Number: </td>
+									<td><input asp-for="Job.JobOrderNo" id="orderno" value="@Model.OrderRequests.OrderId" type="text" class="form-control-plaintext" aria-describedby="Order Code" readonly="">
+							</td>
+								</tr>
+								<tr>
+									<td>Contact Person: </td>
+									<td id='person'> @Model.OrderRequests.ContactPerson </td>
+								</tr>
+								@*<tr>
+									<td>Email: </td>
+									<td> @Model.OrderRequests.Email </td>
+								</tr>*@
+								<tr>
+									<td>Contact No: </td>
+									<td id="contact"> @Model.OrderRequests.Telephone </td>
+								</tr>
+								<tr>
+									<td>Fax No: </td>
+									<td id="fax"> @Model.OrderRequests.Fax </td>
+								</tr>
+								<tr>
+									<td>Request Date: </td>
+									<td id='orderDate'>@Model.OrderRequests.OrderDate.ToString("dd/MM/yyyy")</td>
+								</tr>
+								<tr id="dept">
+									<td>Department: </td>
+									<td id='deptCode'> @Model.OrderRequests.DepartmentCode </td>
+								</tr>
+								<tr id="ctnqty">
+									<td>Carton Qty: </td>
+									<td id='ctnQty'> @Model.OrderRequests.CartonQty </td>
+								</tr>
+								<tr>
+									<td>Remark: </td>
+									<td id='remark'> @Model.OrderRequests.Remark </td>
+								</tr>
+								<tr></tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="col-sm-6">
+						<div class="row">
+							<div id="RRange" style="display:none">
+								@*<label for="RDepartmentCode" class="col-form-label col-sm-4 mt-2">Choose Department Code</label>
+								<div class="col-sm-4 mt-2">
+									<select class="form-select" id="RDepartmentCode" name="RDepartmentCode" asp-items="@Model?.DepartmentList">
+									</select>
+									<input type="hidden" name="RDepartmentCode" />
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-4 mt-2">
+										<input type="text" class="form-control" id="RFromNo" aria-describedby="From" placeholder="From">
+										<span class="text-danger"></span>
+									</div>
+									<div class="col-sm-4 mt-2">
+										<input type="text" class="form-control" id="RToNo" aria-describedby="To" placeholder="To">
+										<span class="text-danger"></span>
+									</div>
+									<div class="col-sm-2 mt-2">
+										<input id="RetFT" class="btn btn-warning" type="button" value="Add" />
+									</div>
+								</div>*@
+								<div id="addretbarcode" class="form-group row mt-5">
+									<table class="nth-table table table-hover pt-3">
+										<thead>
+											<tr>
+												<th style="width:8%">#</th>
+												<th scope="col">Department Code</th>
+												<th scope="col">Record No</th>
+												<th scope="col">Destruction Date</th>
+												<th style="width:8%"></th>
+											</tr>
+										</thead>
+										<tbody id="tbaddret">
+											@if (Model.OrderDetailList != null)
+											{
+												int i = 1;
+												@foreach (OrderDetail obj in Model?.OrderDetailList)
+												{
+													<tr>
+														<td scope="row">@i</td>
+														<td>@obj.DepartmentCode</td>
+														<td>@obj.RecordNo</td>
+														<td><input type="date" class="form-control" placeholder="Destruction Date"></td>
+														<td><a class='remove btn-outline-danger' onclick='Delete()' aria-disabled='true'><i class='bi bi-x-square'></i></a></td>
+													</tr>
+													i = i + 1;
+												}
+											}
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="form-group">
+								<button type="submit" id="savejob" class="btn btn-outline-warning mt-3">Save</button>
+								<a class="btn btn-outline-light mt-3 mx-4" href="javascript: history.go(-1)">Back To Transaction List</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+
+@section Scripts {
+<script>
+	var counter = 1;
+	var array = [];
+	$("body").on("click", "#savejob", function () {
+		var Job = {};		
+		Job.JobType = $("input[name=optionsRad]:checked").val();
+		Job.ServLevel = $("input[name=optionsRadios]:checked").val();
+		Job.JobOrderNo = document.getElementById('orderno').innerHTML;
+		Job.Person = document.getElementById('person').innerHTML;
+		Job.Contact = document.getElementById('contact').innerHTML;
+		Job.Fax = document.getElementById('fax').innerHTML;
+		Job.CtnType = document.getElementById('ctnType').innerHTML;
+		Job.CustCode = "";
+		Job.CustCode = document.getElementById('custCode').innerHTML;
+		Job.Address1 = document.getElementById('custAdd1').value;
+		Job.Address2 = document.getElementById('custAdd2').value;
+		Job.Address3 = document.getElementById('custAdd3').value;
+		Job.Address4 = document.getElementById('custAdd4').value;
+		Job.DepartmentCode = document.getElementById("deptCode").value;
+		Job.Remark = document.getElementById('remark').innerHTML;
+		if (document.getElementById('ctnQty').innerHTML != "")
+		{
+		Job.TotalCtn = parseInt(document.getElementById('ctnQty').innerHTML);
+		}
+		if (document.getElementById('orderDate').value == "")
+		{
+			alert("Please add Request Date");
+			return;
+		}
+		else {
+		const date = document.getElementById('orderDate').innerHTML.split(' ')
+		const dateStr = date[0];
+		const [day, month, year] = dateStr.split('/');
+		const isoStr = `${year}-${padTo2Digits(month)}-${padTo2Digits(day,)}T00:00:00.000Z`;
+		Job.RequestDate = isoStr;
+		}
+		Job.MssInvoice = document.getElementById('MssInvoice').innerHTML;
+		var odList = new Array();
+		$("#tbaddret tr").each(function () {
+			var row = $(this);
+			var od = {};
+			od.Id = row.find("TD").eq(0).html();
+			od.DepartmentCode = row.find("TD").eq(1).html();
+			od.RecordNo = row.find("TD").eq(2).html();
+			odList.push(od);
+		});		
+		$.post("/Order/InsertJobList",
+			{ data: JSON.stringify(Job),
+			  odlist: JSON.stringify(odList)},
+			function (response) {
+				
+			});
+	});
+
+	function DisableBtn() {			
+		$("#savejob").prop('disabled', true);        
+		return true;
+	}
+
+	function padTo2Digits(num) {
+		return num.toString().padStart(2, '0');
+	}
+
+	$(document).ready(function () {
+		if ($("#D2").is(':checked'))
+		{
+			$("#ctnqty").hide();
+			$("#sevlvl").show();
+			$("#RRange").show();
+		};
+		if ($("#C1").is(':checked'))
+		{
+			$("#ctnqty").hide();
+			$("#sevlvl").hide();
+			$("#RRange").show();
+		};
+		if ($("#C2").is(':checked'))
+		{
+			$("#ctnqty").hide();
+			$("#sevlvl").hide();
+			$("#RRange").show();
+		};
+	$("#D1").change(function () {
+		var arraySelects = document.getElementsByClassName('oRequest1');
+		for (var i = 0; i < arraySelects.length; i++) {
+			arraySelects[i].disabled = true;
+		}
+		$("#ctnqty").show();
+		$("#sevlvl").show();
+		$("#dept").show();
+		$("#RRange").hide();
+	});
+	$("#D2").change(function () {
+		var arraySelects = document.getElementsByClassName('oRequest1');
+		for (var i = 0; i < arraySelects.length; i++) {
+			arraySelects[i].disabled = false;
+		}
+		$("#ctnqty").hide();
+		$("#dept").hide();
+		$("#sevlvl").show();
+		$("#RRange").show();
+	});
+	$("#C1").change(function () {
+		var arraySelects = document.getElementsByClassName('oRequest1');
+		for (var i = 0; i < arraySelects.length; i++) {
+			arraySelects[i].disabled = false;
+		}
+		$("#ctnqty").hide();
+		$("#sevlvl").hide();
+		$("#dept").hide();
+		$("#RRange").show();
+	});
+	$("#C2").change(function () {
+		var arraySelects = document.getElementsByClassName('oRequest1');
+		for (var i = 0; i < arraySelects.length; i++) {
+			arraySelects[i].disabled = false;
+		}
+		$("#ctnqty").hide();
+		$("#sevlvl").hide();
+		$("#dept").hide();
+		$("#RRange").show();
+	});
+	});
+	
+	//$("#D1").change(function () {
+	//	var arraySelects = document.getElementsByClassName('oRequest1');
+	//	for (var i = 0; i < arraySelects.length; i++) {
+	//		arraySelects[i].disabled = true;
+	//	}
+	//});
+	//$("#D2").change(function () {
+	//	var arraySelects = document.getElementsByClassName('oRequest1');
+	//	for (var i = 0; i < arraySelects.length; i++) {
+	//		arraySelects[i].disabled = false;
+	//	}
+	//});
+	//$("#C1").change(function () {
+	//	var arraySelects = document.getElementsByClassName('oRequest1');
+	//	for (var i = 0; i < arraySelects.length; i++) {
+	//		arraySelects[i].disabled = false;
+	//	}
+	//	$("#sevlvl").hide();
+	//});
+	//$("#C2").change(function () {
+	//	var arraySelects = document.getElementsByClassName('oRequest1');
+	//	for (var i = 0; i < arraySelects.length; i++) {
+	//		arraySelects[i].disabled = false;
+	//	}
+	//	$("#sevlvl").hide();
+	//});
+	function Delete()
+	{
+		$('table').on('click','tr a.remove',function(e){
+		  e.preventDefault();
+		  $(this).closest('tr').remove();
+		});
+	}
+</script>
+}
+<div class="mb-10">
+	&nbsp;
+</div>
+
+

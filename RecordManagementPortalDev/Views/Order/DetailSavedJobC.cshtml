@@ -1,0 +1,154 @@
+﻿@model RecordManagementPortalDev.Controllers.OrderController.JobCollect
+@{
+	ViewData["Title"] = "DetailSavedJobC";
+	Layout = "~/Views/Shared/_PrintLayout.cshtml";
+}
+<style type="text/css" media="print">
+    .page
+    {
+     -webkit-transform: rotate(-90deg); 
+     -moz-transform: rotate(-90deg);	 
+     /*filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=3);*/
+    }	
+	#printarea2 {
+		font-size: 9pt;
+	}   
+</style>
+<style>
+    .tab {
+        display: inline-block;
+        margin-left: 30px;
+    }
+</style>
+<div id="printarea2" class="mb-10">
+<h4 class="mt-3"></h4>
+<div class="border p-3 mt-4">
+	<div class="form-group row">
+		<label class="col-form-label mt-4 text-right col-sm-12"><strong>COLLECTION ORDER / JOB REQUISITION</strong></label>		
+	</div>
+	<div class="row">
+		<div class="border col-6">			
+			<label class="col-form-label mt-4 col-sm-6"><strong>COLLECT FROM</strong></label>	<br />		
+			<label class="col-form-label col-sm-7">COMPANY NAME / ADDRESS: [CUSTCODE :</label> @Model.Job.CustCode <label>]</label><br />
+			@Model.Customer.CustomerName <br />
+			@Model.Customer.Address1 <br />
+			@Model.Customer.Address2 <br />
+			@Model.Customer.Address3 <br />
+			@Model.Customer.Address4
+		</div>
+		<div class="border col-6">		
+			<label class="col-form-label col-sm-4">D/O NO</label> <br />
+			<label class="col-form-label col-sm-4">JOB REQ. DATE</label> @Model.Job.RequestDate.ToString("dd/MM/yyyy") <br />
+			<label class="col-form-label col-sm-4">JOB NUMBER</label> @Model.Job.OldJobNo <br />
+			<label class="col-form-label col-sm-4">REQUESTOR</label> @Model.Job.Person <br />
+			<label class="col-form-label col-sm-4">JOB NATURE</label> @Model.Job.ServLevel <br />
+			<label class="col-form-label col-sm-4">DATE PRINT</label> @Model.Job.JobDate.ToString("dd/MM/yyyy") <br />
+			<label class="col-form-label col-sm-4">CONTACT NO.</label> @Model.Job.Contact <br />
+			<label class="col-form-label col-sm-4">FAX NO.</label> @Model.Job.Fax <br />
+		</div>
+	</div>
+	<div class="row">
+		<div class="border col-6">	
+			<label class="col-form-label mt-4 col-sm-6"><strong>DELIVER/ COLLECTION ADDRESS:</strong></label>	<br />	
+			@Model.Job.Address1 <br />
+			@Model.Job.Address2 <br />
+			@Model.Job.Address3 <br />
+			@Model.Job.Address4
+		</div>		
+		<div class="border col-6">
+			<label class="col-form-label mt-4 col-sm-6"><strong>REMARKS:</strong></label>	<br />	
+			@Model.Job.RMBRemark <br />
+			@Model.Job.RMBRemark1 <br />
+			@Model.Job.RMBRemark2 <br />
+			@Model.Job.RMBRemark3 <br />
+			<label class="col-form-label mt-4 col-sm-6"><strong>USER REMARKS:</strong></label>	<br />	
+			@Model.Job.Remark <br /><br />
+		</div>		
+	</div>
+	<div class="row">
+		<div class="border col-12">
+			<label class="col-form-label mt-4 col-sm-12"><strong>JOB DESCRIPTION</strong></label>	<br />
+			<label class="col-form-label mt-4 text-center col-sm-12"><strong>CTN NO + PREFIX + YEAR + BOX NO</strong></label>	<br />	
+			@*<label class="col-form-label mt-4 col-sm-3"> @Model.Job.CtnType</label><br />			*@
+			<br />
+			<table style="width:100%">
+				<thead>		
+				</thead>
+				<tbody>
+					<tr></tr>
+					@{int i = 1;}	
+					<tr>
+					@foreach (var obj in Model?.JobListLoc)
+					{	
+						<td style="width:4%;">@i <span>-</span> </td><td style="width:21%;">@obj.DeptCode<span style="padding-right:10px"> </span>@obj.Cartons</td>
+						if (i%4 == 0)
+						{
+							@:</tr> 
+							@:<tr>
+						}
+						i = i + 1;
+					}
+					</tr>
+				</tbody>
+			</table>
+			<br />
+			<label class="col-form-label mt-4 col-sm-12">DISCREPANCY REMARKS, IF ANY: _________________________________________________________________</label>	<br />		
+		</div>
+	</div>			
+	<div class="row">
+		<label class="col-form-label mt-4 col-sm-12">Kindly Acknowledge the above job being done appropriately by signing and returning the attached copies</label>	<br />		
+		
+		<div class="col-4">	
+			<label class="col-form-label text-center col-sm-12">FOR CUSTOMER</label> <br /><br /><br />
+			<label class="col-form-label text-center col-sm-12">__________________</label> <br />
+			<label class="col-form-label text-center col-sm-12">Signature / Company Stamp</label> <br />
+			<label class="col-form-label text-center col-sm-12">__________________</label> <br />
+			<label class="col-form-label text-center col-sm-12">Date / Time</label> <br />
+		</div>
+		<div class="col-4">	
+			<label class="col-form-label text-center col-sm-12">FOR DELIVERY <br />MITSUI-SOKO (S) PTE LTD</label>	<br /><br />
+			<label class="col-form-label text-center col-sm-12">__________________</label> <br />
+			<label class="col-form-label text-center col-sm-12">Signature / Name</label> <br />
+			<label class="col-form-label text-center col-sm-12">__________________</label> <br />
+			<label class="col-form-label text-center col-sm-12">Date / Time</label> <br />
+		</div>
+		<div class="col-4">	
+			<label class="col-form-label text-center col-sm-12">FOR SUPERVISOR <br />MITSUI-SOKO (S) PTE LTD</label>	<br /><br />
+			<label class="col-form-label text-center col-sm-12">__________________</label> <br />
+			<label class="col-form-label text-center col-sm-12">Signature / Name</label> <br />
+			<label class="col-form-label text-center col-sm-12">__________________</label> <br />
+			<label class="col-form-label text-center col-sm-12">Date / Time</label> <br />
+		</div>
+	</div>
+</div>
+</div>
+<div class="mb-40">
+	&nbsp;
+</div>
+<button id="Print" class="btn btn-outline-warning mt-3">Print</button>
+<a class="btn btn-outline-light mt-3" href="javascript: history.go(-1)">Back To Inventory List</a>
+
+@section Scripts {	
+<script>
+	$("#Print").click(function () {	
+	var element = document.getElementById("printarea2").innerHTML;
+	var originalContents = document.body.innerHTML;
+    document.body.innerHTML = "<html><head><style type='text/css'>" + 
+	"@@media print {body { font-size: 0.80em; color: black; }}" +
+	"</style><title></title></head><body>" + element + "</body></html>";
+	window.print();
+	document.body.innerHTML = originalContents;
+	window.location.reload(); 
+	//html2pdf(element, {
+	//	margin: [30, 10, 30, 10],
+	//	filename: 'DeliveryOrder.pdf',
+	//	image: {type: 'jpeg', quality: 0.98},
+	//	html3canvas: {scale: 2, logging:true, dpi:230, letterRendering: true},
+	//	jsPDF: {unit: 'mm', format: 'a4', orientation: 'portrait'}
+	//});
+	});
+</script>
+}
+
+
+
