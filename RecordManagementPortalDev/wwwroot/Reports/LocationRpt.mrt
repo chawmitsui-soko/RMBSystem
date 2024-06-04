@@ -1,0 +1,1174 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <CalculationMode>Interpretation</CalculationMode>
+  <Culture>en-US</Culture>
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="0" />
+    <DataSources isList="true" count="6">
+      <Root_LocReport_LocationReport Ref="2" type="DataTableSource" isKey="true">
+        <Alias>Root_LocReport_LocationReport</Alias>
+        <Columns isList="true" count="2">
+          <value>Location,System.String</value>
+          <value>relationId,System.String</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Key>821e397fd0f5435fac8935a2f78e2772</Key>
+        <Name>Root_LocReport_LocationReport</Name>
+        <NameInSource>NewDataSet.Root_LocReport_LocationReport</NameInSource>
+      </Root_LocReport_LocationReport>
+      <Root_LocReport_LocationReport_Location Ref="3" type="DataTableSource" isKey="true">
+        <Alias>Root_LocReport_LocationReport_Location</Alias>
+        <Columns isList="true" count="10">
+          <value>CustomerCode,System.String</value>
+          <value>Department,System.String</value>
+          <value>JobNo,System.String</value>
+          <value>ReceivedDate,System.String</value>
+          <value>BoxNo,System.String</value>
+          <value>Location,System.String</value>
+          <value>Status,System.String</value>
+          <value>Permanent,System.String</value>
+          <value>DestructionDate,System.String</value>
+          <value>relationId,System.String</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Key>7b58eebf60a04d4b94c906d555df6709</Key>
+        <Name>Root_LocReport_LocationReport_Location</Name>
+        <NameInSource>NewDataSet.Root_LocReport_LocationReport_Location</NameInSource>
+      </Root_LocReport_LocationReport_Location>
+      <Root_GEN_General Ref="4" type="DataTableSource" isKey="true">
+        <Alias>Root_GEN_General</Alias>
+        <Columns isList="true" count="5">
+          <value>Location,System.String</value>
+          <value>BillStartDate,System.String</value>
+          <value>BillEndDate,System.String</value>
+          <value>PrintedDate,System.String</value>
+          <value>relationId,System.String</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Key>76246fa5f4944efe9a8b293938f2255b</Key>
+        <Name>Root_GEN_General</Name>
+        <NameInSource>NewDataSet.Root_GEN_General</NameInSource>
+      </Root_GEN_General>
+      <Root Ref="5" type="DataTableSource" isKey="true">
+        <Alias>Root</Alias>
+        <Columns isList="true" count="2">
+          <value>GEN,System.String</value>
+          <value>LocReport,System.String</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Key>97764e1e9ae34776bca02e712c1524ca</Key>
+        <Name>Root</Name>
+        <NameInSource>NewDataSet.Root</NameInSource>
+      </Root>
+      <Root_GEN Ref="6" type="DataTableSource" isKey="true">
+        <Alias>Root_GEN</Alias>
+        <Columns isList="true" count="2">
+          <value>General,System.String</value>
+          <value>relationId,System.String</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Key>86818c643d6b42ae98df5e33404a508f</Key>
+        <Name>Root_GEN</Name>
+        <NameInSource>NewDataSet.Root_GEN</NameInSource>
+      </Root_GEN>
+      <Root_LocReport Ref="7" type="DataTableSource" isKey="true">
+        <Alias>Root_LocReport</Alias>
+        <Columns isList="true" count="2">
+          <value>LocationReport,System.String</value>
+          <value>relationId,System.String</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Key>ead237a3ea754e5eb19284a3b33db14e</Key>
+        <Name>Root_LocReport</Name>
+        <NameInSource>NewDataSet.Root_LocReport</NameInSource>
+      </Root_LocReport>
+    </DataSources>
+    <Relations isList="true" count="5">
+      <Root_LocReport Ref="8" type="DataRelation" isKey="true">
+        <Alias>Root_LocReport</Alias>
+        <ChildColumns isList="true" count="1">
+          <value>relationId</value>
+        </ChildColumns>
+        <ChildSource isRef="2" />
+        <Dictionary isRef="1" />
+        <Name>Root_LocReport</Name>
+        <NameInSource>Root_LocReport_LocationReport</NameInSource>
+        <ParentColumns isList="true" count="1">
+          <value>LocationReport</value>
+        </ParentColumns>
+        <ParentSource isRef="7" />
+      </Root_LocReport>
+      <Root_LocReport_LocationReport Ref="9" type="DataRelation" isKey="true">
+        <Alias>Root_LocReport_LocationReport</Alias>
+        <ChildColumns isList="true" count="1">
+          <value>relationId</value>
+        </ChildColumns>
+        <ChildSource isRef="3" />
+        <Dictionary isRef="1" />
+        <Name>Root_LocReport_LocationReport</Name>
+        <NameInSource>Root_LocReport_LocationReport_Location</NameInSource>
+        <ParentColumns isList="true" count="1">
+          <value>Location</value>
+        </ParentColumns>
+        <ParentSource isRef="2" />
+      </Root_LocReport_LocationReport>
+      <Root_GEN Ref="10" type="DataRelation" isKey="true">
+        <Alias>Root_GEN</Alias>
+        <ChildColumns isList="true" count="1">
+          <value>relationId</value>
+        </ChildColumns>
+        <ChildSource isRef="4" />
+        <Dictionary isRef="1" />
+        <Name>Root_GEN</Name>
+        <NameInSource>Root_GEN_General</NameInSource>
+        <ParentColumns isList="true" count="1">
+          <value>General</value>
+        </ParentColumns>
+        <ParentSource isRef="6" />
+      </Root_GEN>
+      <Root Ref="11" type="DataRelation" isKey="true">
+        <Alias>Root</Alias>
+        <ChildColumns isList="true" count="1">
+          <value>relationId</value>
+        </ChildColumns>
+        <ChildSource isRef="6" />
+        <Dictionary isRef="1" />
+        <Name>Root</Name>
+        <NameInSource>Root_GEN</NameInSource>
+        <ParentColumns isList="true" count="1">
+          <value>GEN</value>
+        </ParentColumns>
+        <ParentSource isRef="5" />
+      </Root>
+      <Root Ref="12" type="DataRelation" isKey="true">
+        <Alias>Root</Alias>
+        <ChildColumns isList="true" count="1">
+          <value>relationId</value>
+        </ChildColumns>
+        <ChildSource isRef="7" />
+        <Dictionary isRef="1" />
+        <Name>Root</Name>
+        <NameInSource>Root_LocReport</NameInSource>
+        <ParentColumns isList="true" count="1">
+          <value>LocReport</value>
+        </ParentColumns>
+        <ParentSource isRef="5" />
+      </Root>
+    </Relations>
+    <Report isRef="0" />
+    <Resources isList="true" count="1">
+      <value>Name=Logo, Alias=Logo, Content=FZfY42TOc9cH2U3M2AEILTu8tQbntMGICWdEObXBQk4TekwywTKeh1OVJyW9CBHVZjcY5TteXCJPhtNzS_x002B_fRCWrgMPLQHrDNCNc0UUEj_x002B_ZXR_x002F_d6pctPbM3eMR1ZtXnPCiC70MOo4ovgRaijwWolz8WCvLeB0YMNEMKbdkiRP4NkV4Uh6SX7KhjRqX8EDG7ptPt5CAKNKR5En4yT0dxQNuxlOp7ooC6fAZUlE07YCHONcQOarCDID3EV2GHAJOppFETVjbO0n1fiq4DKB6uhE9hdXTABYzZHw0ihpRBSTegO8G0tNio2BMQxArSIRVItYVJBPCMfeEuh_x002F_dn8j48qQCDorgZt3X_x002B_YVGXLcWL6LlrKjbz_x002B_8TNR9DyIDwrgouA13xGEO9mSHoHwXH_x002F__x002F_zfMJBrFCSCC0i27rQ_x002B_Ie0sOicE85E1NKTwwhLXiTjg682NgMypzUz0VTg0DnxVxJUe6UfIIp1mtwQeOco5P_x002B_6XQBf6kNEhTXX39zDc2_x002B_dC_x002F_nxu4PjJA61rbLWQ_x002B_DGePm0Db4Ud_x002F_MCHku1O0AhRZYuRE6QPccSpa0_x002F_j92_x002F_qdzqYGce7j0xkydetbpvVAdG8g68uvIk2UZEi9murDc5c6Ome37XBHQXy46iDeGSYVAO5iZconYDbMNNrx_x002B_L3wVlke2VYA61734VyWei6LZiagy16OPJTseKeSaBbIOMo2rlJHyx7bdMHZNA1XlNua3nxD5WnfqFmqbYgjKIKNlYen2KNpg_x002B_FeQwYMDQ_x002F_e9_x002F_2BBMy5H1_x002F_MCDsU9RHU_x002B_28efbYZ0IwxfQQtZxRGRNtTPdC1Cs_x002B_RIuTf8ZoZN760ig4PJhvuTj3URE_x002B_ff_x002F_UCa7g1pBKI5xml4ed1r2QlcMEIdVTac3_x002F_FfFIcByJGHoTGdEiT_x002B_h_x002B_XeyRdzMRS01avXaieBwubDJAnlZbxU8Hs8hZPSWF3GTDfzRIj0dRJcHdsgtP7mWsTdiPCYXxulaWeCXR6LyQgt2PyyDTfq9hoTBg6QUrcIX2IvaolT94_x002F_06ZVrqwAmH3nfnIolf1j_x002F__x002B_ooUi995IV7Kqouz10JHvIJBej0iae6nwwxBc_x002F_hz5O4TJWfOsEmSd_x002F_tVFl4wiB2D3F8FekZHRqxBVpN6478HFUoOwrWzKFH3ayH3KUgYYhs080FQcwV_x002F_kEvGW3dyU9Nbmtx93OJ6YuCi3kWkm4XKiAI4FuG4mW0t2lLu_x002B_rLhQZz4CEkgMX1ch643Z1Q_x002F_Av8zqGlsH7wAZtklNUCLYLd05rBRgbfgB5mi3SjVH4Jswsc3fi6lPZrRG136sbkQ_x002B_daSFqKm_x002B_iD5cm2CfamvCZPQ6aBMu_x002B_fN5YYUfUKuNQtNePZL_x002B_jCvRyFlpyGK_x002F_xHL70ypzop4fsUPkBDbxH1iMJX_x002F_6U1qk9lrMRolYSpOp7ZcT2l0iz_x002B_HXrYxB04jh6ZMhl7hGRFQGRZ9pP6OyCQH2OWuIz0e8JvODwhV5HbnTHRm9nsN_x002B_7mwKPsx7fzmJbQxKnh1cTfKGQptEYQSgyTIsNrkgACWgLysQKHmHGVyo37Yihq6VavOrXUvlpeipy76vopUCB41BX_x002B_Jp5pRpozV1c5Bb_x002F__x002B_Sc8vhjchOjqogRQlhN6sc_x002B_WT7YUf45_x002F__x002B_CbsPhwOyb7zgXtPXaU4sLmDc6TvIlo5rZBS6_x002B_furYLhfS_x002B_7cgShUKuzaH4Mnkad22QRv27c6dIfVA9MrqQiDwI2iD_x002B_Rrf9F8pljV7u4AjBPZP3KHmTo6crqe9odNAuM_x002F_Tx0wJ66p_x002F__x002B_TCwq51R32aESQZbn5RBPzYGige_x002F_t7DNQLdWSRNEn3URb_x002F__x002F_gXyevU327KUZcQqGDGxX7GU8WEf9dOEkY9HuLcMBZrVpb9jfuS7BK5A6bJjHG3Lr1Tk6WyO6yBkPBIagGtinvYn1aCU7W86Y_x002F_qMMHGmsUOhZvN12UlstSj_x002B_hjRHrUriYge41kUyqzViViGjaX3ymhUcNkBqTiXFjh5Q5Cne2rC4E2O9fS3OoudchSBdil9TzJKL2_x002F_Rb4AX_x002F_HEj3XSmAaey6R9dwQFHkBXA9cQOdWsBYQvBmiOgTFn2id1a80aPve64k6AS93Hm4mh4hMSerGEfRlQhd5KrAm0WOeo6H4ZORCMh0hexnTKsyjOiA6Tuf5TkZjpmEDD2BOQw3gcuz_x002F_UvoheGbMn2ukL0kf830DElz5Ea_x002F_vzmshW5ayq8NEY5nOoEQjaiVXc_x002B_74_x002B_bp0RNbF4h9CA_x002B_lIB8lM0fahTykSwXzrhrKsiw5iltWGBTGwTOiS3gdEXJG96jmbRIsel85SlEsnGl2yJYCiZGQXNFEbwMIRq1kun6L3_x002F_szUWuMnyyHHdIzGXegyW_x002F_w95vVqnwVg_x002F_TmIZRBdzlzHB2Re2zN3j2fdqa_x002F_F4vwWDfCRuRN1kq7aKZHi_x002F_Y_x002F_zN7HK0_x002B_xzdyn74O_x002B_q3pjJLueTB82_x002B_AtDxnihkAw1suol6foa68_x002B_Y6veeyVMjBWxIpzw48ORAcbZAtAcyq9Uwt9srfex9VeXGhCaHsRna3WiUgpNfYru7hdrS49iIc02aKP_x002F_u0Wya7i1GMzAomamZbACMz_x002B_lh8T_x002B_AckGpSSl9o0kv7039X_x002F_7DCZKQcvzkLJyMsFghXcOqZAad1JbxoSEfly2ypmZ3Dy8s6I4clr_x002B__x002F_xPI38K8SEdtv7oD48YgO6ojMVBoHw2UlY9L0B1HDqe2az1oJyblnJlsOkmgW0iJl_x002F_tFwBy2PEgEVtYdk71LgZ0puWZwEUVpZkdM1aDZwEInmtTKnhCU5tsO3W6jVTIM9uyXzPgV9wuYhp92OPoQqhAnpmyFNK5_x002B_mymeXwdEokuzpC75aEL_x002F_dQuyDPl_x002F_CSLFO03GrUG_x002B_K14aSu9dx1FOAg4Kbv_x002F_UlT9ydAxR06_x002B_SPKyxW3XspGFtiXQuCmG6fEDRI2GHbt1PvopDIro44QAE2IOhPb0gpTGDpxHAYvycasAkeLgrXKG7g4_x002B_vVZLRbLycEi5YoWjWxOuDSvE9prnDT2gyxH9UnULZRYFyu_x002B_zaiv_x002B_Gm_x002F_D86XJXxDIyHh3UpreQ8B7aAq9QkmBSRnmuFaIUnvOfzsbml7knJQh0tp3cCQh9BJPoOpTFXpxb5BpaUzvEM75kuRTiqOjyWtdHHa_x002B_s2OUMUp72uLlriHlVd4dk2pGCbtWgWqTVRdV4Z_x002F_JMRQ8wF8CkuktIeUPaNizHhYDsQNx4oVi8TObCTSxLD_x002F_AR5hR5Mpyd8GiEAHoIUx4bUFKONy3nSs4SEtjv2X_x002B_tlGhO97KAxNtX9F93q0GkwOvbNLT0QIN0nTuaGpsnoQ0LXYQqHGwBX867mlOfB0jjAJOcGkPhF5A_x002F_AGHHcK0a36BDxv3r7J6XNELUZBi24soNAXR4POvkkLuPyTZzyLlYfGeiMfgJPke4qGoA5L1a3GDAtN0xtAPwJ6TFKX9xxnhfP49Dtk6riDh48DtiiaTRdEi2Uuz9QsC4A1tQ52683Gv5sZ_x002B_4SZhw4yHIHVVu1L4T_x002B_jTmZVlKzWKVm4xYcVpagWjHR_x002B_vTobu3cO5FRHEQ2L021_x002F__x002F_HQ87TuEIjf0YtltNOQ3P1o9tvow385wb6pY1qBDOIaJmhfU5Hn9db1HkKXQllxVO6q3_x002B_OLNGkrq7b7_x002F_LoDMB4YjIdUmr7slecBfw5f969J8sSqnJnrdcP9layqm7iim_x002F_GcMgw_x002F_gNCRZw2IR0wfuiB9Et0cTcgI0Yz8ZCp0jJrTLm6GIRniWxwgwVB6HjCGA6F8AQUdjPMbzVaNoLgCU7Q00oX_x002F_XHqUpRQX4ppKKvhXtPVWfCeKmk_x002B_McWQKcA1bMaCzbVUSrmaf5488FAl3WCsmTO5pEGl4m4a0LjoHP6oXGsfnpTcM2VCNAq7le9DoXBNzzW2OTD6DQeCGgz61bokEqp3c_x002B_Zvw0qc_x002F_A2bT7Y4TxdyvK7sySyY7izX_x002B_wJWL7qE04iZ0_x002F_p6BSkFjTlTkuMwjkADs_x002B_eq8yGw5D7zSnw6OtRN6MUm0nuSzqr_x002F_B56bu4trwTQ9gWWOzxGIeyO0WmPsiyqpmwbHBHBfX_x002F_HPS57FdBS4jxSLnuG4VnzAVm0SKpEHJPmn_x002B_5F7k_x002F_MlggjiB07GNRjpbFqoYl0c4nReVLMUpr4hMFTFMr0ZC0XJ0UC5kJTpSalHdmoRNQjLLvTjklI59ltu2PkZcv9xX_x002B_iqgWU_x002B_v3VHpEg7XoB_x002B_nVJY_x002B_T7cwm63upvmWzyfESpdplcJwnyP4oJMH8yiWWjJUSG_x002B_qO3khshAQdM8vwBtQO9HUL88Wo7yd1TWgQbRxUpaJUF8mcwWVWStLDbRk88BkVKBKzKMLUG2NU_x002B_WwmcbWO7qqkJWcAF03Tz0mGNXX1SLcnIbpiFqXmF654O1gs36uJNTa8HJTWGVOZO7YywgsdEM_x002F_Wh9Au8zhj9_x002B_wc43PqmRBWyBRSpINY_x002B_vXrqk5hze9UlN53NGRfJTP2cxJJu_x002B_DSJ9momwwNk7Mhp4PuwmtoPRQX5qJO6AZLmzxOTlwMdPcIz8_x002B_rBYnHl_x002F_HbAGBDojHbn2qLJL9BPKcWDHp_x002B_Wph_x002B_meXiOCQ1f3vIIkDto5ofZRBrWqHV_x002F_opZXpv4Chw1KnBq2bBs7zcGzexlY_x002B_aaD56U1T18PMvhb6HjGMc0rmNil1uaaIgAyDMWGWRETrRJKaEe_x002F_njdYXbmPvLceU3JPhpKe6P7xUnfnF3B4sShx0KOM6SzEHaSo74QJrKYfxEwtK82QD_x002F_nt54OvDyTZMq1mASm_x002B_oqQQv_x002F_KlkNgdgdRnEEcnZ670nHNfbgIeN6j5SvRn4AhGDzS_x002F_wrU6CSZ83y5c7HvAcVpKSi0tdzlyGfW_x002B_4LRmzgU4NIhE4O5JcHEOZT0tP8LLGImHzXQhYkJ7xMUleTVSHywQWKp_x002F_cM0Z8Wi31HMvLO2pvjxJ_x002B_WIUN_x002B_EBjDdpz21UHsjpvJmsp_x002F_rpFm40cucBocEvl4q_x002B_1EwN_x002F_diifgE6Aubx_x002B_6i7U4uAHkxipcGVdXKJJwVXPJYdAHNZhwDzY1bTDB5UrNDvTqqlsb9ROgaLKGxIt4P101zAyP0zvTaWR7DFhKeBjZa5jYJr0ERtZNgK0MuR058Bp2mWt6DEFlSW3FGYf6MxkWKzSCzqJTs4zH_x002B_3NNDmpWLSkyVByy71Bu0U_x002F_z71JrGBF7sqb22TNCTicaJP7gq41kq0LFwPqXJ9zbLNHlwYxXCFNrGd7YBt0uL7_x002F__x002F_wChPchf6DmxRh9ZnA6N4QXKwg_x002F_7K2gqaowR9ZZ2RhxnjH7_x002B_L6DDBxnwep7NDhr7f1lK3OotMD_x002B_shiZAz1_x002F_HvIe588rGSnwSerkzvEazPfDzhYeTEN1QhhPiX4da9mE6liHtUxSHbW9ApecPH3evJMqNI_x002B_U7EEPqtIX4mqYBWjXrivnirrCaQA9tdoK1RDOtNb1VuNVZE0ivkoFJjJZIToqKQv_x002F_HfgdHR1Z1x0spLIqcNvexa_x002F_iVF7Co2Sta195B9U2t0P6Law9ECK71Pmin7z_x002B_VVG9OMLWx1FEau_x002B_W6qvx2j87Eg0hzbKeTpDkocWEDuCWBQO5UfWlmxF9peGYFTxR_x002F_zRDYxyDCKne1gy3gm56X4Rlir1bmy0QaiazbUXAM3sff6X1zydMunHnRK0Pt_x002B__x002B_4HGE7cXaiH854UIIAGKTOJnUuj2VxRvDi6x_x002B_NwaPS362fiIjPZPbiStVTaHNB9DWmxzgc65fGmlIJZ3cG_x002F_QzbJ406XIstk9SIl8tay2FoPPwwTmSfF4uckMniffWr_x002B_7ik0q0hH9_x002F__x002F_1xt91KJDaFmFSIA7vT7GYnVypAkCzKZfEtbDFfOa099L9yJlszDt6rGqV2nACLnVitcqwG9EWxLgyapqY5Ka6U0SYPsMY4Bg3udqfMaafpKx5wZZv6L5gUNHOxO80N_x002F_1tx8LXji5HKnQEBVxuBX5y6aOUxw6T4Ygca2HjOsgZIae7_x002F_kyUeimcdnIhN9WFnFAhADnxrAxqWdKJB7sheH0zkpPQttzB6aj3nP6zLdUBDtCnMF65TdQp9sjOEUJsB2DkjxsHDTMr2B5tTkw6kC4feHTtQNc4lUEiE8W5l5VpJIZosXN7t5W6Nv40WTjaw1IjgxClbmn7UiyAD9fx91zEKSrnRMn2t9UkqntVrKvYpC9s26BNo4ggt6EZkkG22IK91_x002F_IGIV_x002F_m8Nv022qUqPdWSywtDTa0_x002F_CTuoKewBDqQJVx55HJnOX5h2FZPgnDRbQiQCVReJ7mt8WEt_x002F_MSzVGnHw65GIOu9B0vDs_x002B_m5Dptt5gL_x002B_59rmjG4ob_x002F_sIAkErXLw3iMphXw7A0Ld1px4l24CzZQVob5oi3eRPYlB_x002B_Zu_x002F_rnlX0lOGPDY_x002F_ykgKcGCJP_x002B_qU8P_x002B_cvVH26jXGitu086nEPAUznVaHGon5MisFlxKAXo9yRuq9qies97nZPhjBMBuD_x002B_fE4dbU5Ry_x002F_I_x002F_aBrpBfdv2Q8iwgjWLoDkdoTcFlPUOvAm48g_x002F_rNY_x002F_oLqzieXYU1RRLa61ienf20YtEWu66J7aRrbKp6yY1hkcjjdP9XbKDVqqoazq5jnwLNjPb4KJjrJCSOPDIXQF7keD3iFU3wVy0DbapbJM3y2T7MrutxNJcvc9lvQGViXjeH_x002B_s0QBl_x002B_vIANpTZ_x002F_7tIYQjlPYn8ioSAMQ9DwBRAUn81lG0Y4GNLqVuA3hyuaQv7c7RfnfzB1XQR58S4q85Q_x002B_H_x002B_sWL1Y6q5omvPeb9b9SAM0pOcAMXcrSdRfWWPZxW5NjPRTUUBHo9sPxwKrY0vx6f05KPlELRBUurxrgLA9PNvu_x002F_ba02HD23_x002B_CoANGPn6pqo34hIlBOqtj5HKQgrO_x002F_ylVvRWdUJD7CsimIaDYbbecUVa0cz6thm9ajijV3Cva_x002F_dt3W_x002B_b0uwHG_x002F_EVDNhwl4AtqLx98v7fqt8_x002B_iKxk3ZnigzgJLxuqxbprIIDmATymHe0OpEcRANQea9Jr7gQE260w6X_x002B_pzf5niH58OMzKvc4TPESvnMoMOyCuPSmq264rIMTDE6cqwKZaXsMn_x002B_mC_x002B_wLbGcFWzFlRtJASmBAwPERqbezUvyLNblcE0RJCGsXc5ChkszyMxspQqAngHrakdHR6WkFRPN_x002F_5xuQl23uydmBJKYggKWQsFvUKcSy2rRndGwmh79GxNSip1ht3C_x002B_sqPdTmIuX7SbrOe_x002F_OH6SE8IBj9ghurtUJ0FXhUIbeRXxFwzMZ98fnGgeq6ReOxE_x002B_P0tPUSSfBxjxYGPQD8ifPparrt8R0enSKmTFTmE4uhx_x002F_gyVwEDoOcuTvPH1HmlgMYL9jPYhH40H2Woz6t5J_x002F_e4Kfpvgj7LPXfB0fWS3ptD_x002F_CWk9uUxpingJ0qGxTRHCDRMUFJBoJtW3ij29GxRk_x002F_SpoiWv_x002B_KnuyStgBwWHatOlrMtMERZ93wSbus5WF7PcN_x002B_5xD7lE_x002B_u_x002F_9b_x002B_tB9JfB_x002F_RD3KZyV92_x002B_roidzLs71mRNMwQpfUm5E5NFsugumiesFt8qVKX_x002B_NzUqPofAn8P87h0qh5rP5xI8wPiWvoXGcQyoz0QNQMipBeNjjtnyPpmkExakMWUx1EeRYpmBPz9lfHAZqPBM4fQBuvII8a6110o72FiUzRyUaXXuvW1Rzs8HkQ7hbpPNd_x002B_m_x002F_vZ6IDBiJtJMQOX0AT_x002F_LMwS0EnBs2rjXLXd9flnGCmRXTrHCGzMmnpC3qfcrkG2CSgpUepG_x002B_pGBj99_x002B_N_x002F_WwyQaIpmnsjQjb0buGkRLVt0vNM4Bx0Q4WxK7VuqUzDrHU_x002B_N0bv_x002F_J7QclsRhUwk8zi6_x002B_rTHppKMvX68LzyDwy3_x002B_A9AHUPV6OvPfANfLi2kW5pyyR4TADxQRlK2LZxInlP4IB2g3RZVTNqGuEAluzO7px4N6JPSEB19Ut0hLObScuUnGHXeMOcJDbL_x002B_wUjCviZhRFXSLwXuO9GDRDuRqSJCF198sKHag4uOYvD0_x002F_LfY7_x002B_R2wMJ_x002B_DK7u6LSakMla0iJVhG4zzEblBoX3RLtsQcklUjxdMKe_x002F_yhWeOQivZneqbaw6DElCxUHdBHXrBNOMQucCH4kGWst8RXUS4s8aYXRmDaCLD3L06h1LKNHLZkUt4LQhEIf8MBuuvLzjUv1PFFoeGzhS5JF7u4zZOhzI2p2_x002B_nBo9kwIa_x002B_riVMzGmUL1sn2PWTsWqOqDSOXtHbWPRhn_x002B_U9axFx11z5pZgOsxavfDdl0SN1_x002F_Gvh_x002F_UeMobPzmSGhHtbk3Eq7Ea0K_x002B__x002F_Cv7BH6G6gTHE_x002B_qzRlZJESVdK5Y_x002F_uWas0_x002F_V4YaM09vfYYwWEkGOrwPJp5WpcSQr_x002F_7BuDGbeNo5djCoUBe4EFU4WlD8u1u1nT1OCLvVOnHYVLfF9xVARn3_x002B_emy7oHwtci3AIXFAOsJIeFgs31wUq8jU16h5tQKW_x002F_OqWNFsoKpYdRVE_x002F_7iLOaf6OgJqETHLsNL5Acry7Xla8XolJhkIoHbULjVw6Nnjaipht3fIvZmfugHXU5U_x002F_gAUHLmk3DCbYmtKDF7UZ_x002B_sAhsu084YsmuZ_x002B_paF3xGN6BRDgbp8w61YYbXc_x002B_eiHUSABr2TO7CHJELDnPiykqVFWhcvT81fSdJPfDRZe3_x002F_85mUDswtySeuBOLDch7FSb7PyXl8oCGGJDb5z9cJZtxlMEZncixpKWZonbB7ispgdMyig0U6vrpfUiUL8i1MnDo2GVCUkGtGmuTG0mdpmNCgk0yp4HSDTYM82MndmXH9LcltgqO7v2Oq_x002B_1bfSzgp7mGh7OOvy11rRvPFtzUHCXOQdtgxYEmG4jeiStVpoKzLqq1ShK8r8DQLy8qdwhktlaTriAtpyjO7s6Lwa5Svyxgt8zsNhWSUSitdCOf10_x002B_rZir_x002F_OwUL_x002F_Xp74DFfOBip_x002B_r4CCHSUICvKCFPHa07HZdf4jPfvjXdXlDNwn_x002B_4hpwR2HInS7JUDGMBw_x002F_6NOJ65FsJEsogFB27LJVxD3GYDYgQnR0S45CLBSgCMTjex_x002F_fR6bPKepLVO6z70GwQbpKv51TS2ZPgvI63dILnD1eAlIEdWw_x002B_Q420cAvoiCPRrnaPa0dfEQl6qITIjge848X5sMZ8ia3vxcT_x002F_gIjFrCSWCBoH7FFcXMm4n3LepuTQAAXJr5zbfdu9a2s9simGMmzFQfBzdP8zutaS_x002B_Odjei270Gw8</value>
+    </Resources>
+    <Variables isList="true" count="21">
+      <value>QuoteInformation,QuoteNo,Quote_x0020_No,,System.String,_x0038_569741,False,False,False,False,,_x0030_e57ff6f6b694ef9bb927deeca6d5be3</value>
+      <value>QuoteInformation,QuoteContactName,Quote_x0020_Contact_x0020_Name,,System.String,Helen_x0020_Smith,False,False,False,False,,_x0031_0d425015bde4b9bafec9fe42cb8a469</value>
+      <value>QuoteInformation,QuoteOtherTotals,Other_x0020_Totals,,System.String,_x002D_,False,False,False,False,,c1d4eb9347184000a0952ce984940eab</value>
+      <value>QuoteInformation</value>
+      <value>Customer,CustomerPhone,Customer_x0020_Phone,,System.String,_x002B_1-555-555-5555,False,False,False,False,,abfb4130093740d489187c908614c67b</value>
+      <value>Customer,CustomerID,Customer_x0020_ID,,System.String,_x0034_6589,False,False,False,False,,_x0031_2206401804446a8979cc44eb566cf93</value>
+      <value>Customer,CustomerContactName,Customer_x0020_Contact_x0020_Name,,System.String,John_x0020_Smith,False,False,False,False,,_x0033_7a6af76a76c4b0b890e88dbd56698a7</value>
+      <value>Customer,CustomerCompanyName,Customer_x0020_Company_x0020_Name,,System.String,Customer_x0020_Name,False,False,False,False,,_x0037_c5546777a2c41d4b49753eec67dcabc</value>
+      <value>Customer,CustomerAddress,Customer_x0020_Address,,System.String,Customer_x0020_Address,False,False,False,False,,c181a0f8b8f3467b859b2821aad92ecb</value>
+      <value>Customer</value>
+      <value>Company,CompanySite,Company_x0020_Website,,System.String,http:_x002F__x002F_website.com,False,False,False,False,,aaf903a4a017407f8beedddac04df1d7</value>
+      <value>Company,Thanks,Company_x0020_Thanks,,System.String,Thank_x0020_you_x0020_for_x0020_your_x0020_business,False,False,False,False,,_x0031_ec9e2619cf146e69e4a13f1d95ebdb9</value>
+      <value>Company,CompanyPhone,Company_x0020_Phone,,System.String,_x0035_55-57-95,False,False,False,False,,_x0037_93834eb8fed4fe8a576505566d70df5</value>
+      <value>Company,CompanyNotes,Company_x0020_Notes,,System.String,This_x0020_quotation_x0020_is_x0020_not_x0020_a_x0020_contract_x0020_or_x0020_a_x0020_bill._x0020_It_x0020_is_x0020_our_x0020_best_x0020_guess_x0020_at_x0020_the_x0020_total_x0020_price_x0020_for_x0020_the_x0020_service_x0020_and_x0020_goods_x0020_described_x0020_above._x0020_The_x0020_customer_x0020_will_x0020_be_x0020_billed_x0020_after_x0020_indicating_x0020_acceptance_x0020_of_x0020_this_x0020_quote._x0020_Payment_x0020_will_x0020_be_x0020_due_x0020_prior_x0020_to_x0020_the_x0020_delivery_x0020_of_x0020_service_x0020_and_x0020_goods._x0020_Please_x0020_fax_x0020_or_x0020_mail_x0020_the_x0020_signed_x0020_quote_x0020_to_x0020_the_x0020_address_x0020_listed_x0020_above.,False,False,False,False,,ff2b2f3683324105af601f8f7a5f23bd</value>
+      <value>Company,CompanyName,Company_x0020_Name,,System.String,Company_x0020_Address,False,False,False,False,,_x0032_a419e1a59d146ee93d7bfa130ed59a7</value>
+      <value>Company,CompanyEmail,Company_x0020_Email,,System.String,email_x0040_company.com,False,False,False,False,,a5213220eb45468c801c7bc23a3d2bce</value>
+      <value>Company,CompanyCountry,Company_x0020_Country,,System.String,Company_x0020_Country,False,False,False,False,,fea86010362844a98f085e224a6c549e</value>
+      <value>Company,CompanyContactName,Company_x0020_Contact_x0020_Name,,System.String,Don_x0020_Jones,False,False,False,False,,_x0037_97ac4cf7e1f4786aa4ec605f3f3770b</value>
+      <value>Company,CompanyCity,Company_x0020_City,,System.String,Company_x0020_City,False,False,False,False,,ae6c6d35fb3a492e9d6850269943055f</value>
+      <value>Company,CompanyAddress,Company_x0020_Address,,System.String,Company_x0020_Address,False,False,False,False,,_x0035_940ac8f47ed4fbc92bd21763684050c</value>
+      <value>Company</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="3">
+    <Item12 Ref="13" type="Stimulsoft.Report.StiGlobalizationContainer" isKey="true">
+      <CultureName>en</CultureName>
+      <Items isList="true" count="2">
+        <value>ReportAlias,Quotation</value>
+        <value>Text101.Text,If_x0020_you_x0020_have_x0020_any_x0020_questions_x002C__x0020_please_x0020_contact_x0020_us_x0020__x007B_CompanyContactName_x007D__x002C__x0020__x007B_CompanyPhone_x007D__x002C__x0020__x007B_CompanyEmail_x007D_</value>
+      </Items>
+    </Item12>
+    <Item13 Ref="14" type="Stimulsoft.Report.StiGlobalizationContainer" isKey="true">
+      <CultureName>ru</CultureName>
+      <Items isList="true" count="18">
+        <value>ReportAlias,Коммерческое_x0020_предложение</value>
+        <value>ReportDescription,Этот_x0020_пример_x0020_демонстрирует_x002C__x0020_как_x0020_создать_x0020_коммерческое_x0020_предложение</value>
+        <value>Text02.Text,Коммерческое_x0020_предложение</value>
+        <value>Text09.Text,Подготовлено_x0020_для:</value>
+        <value>Text101.Text,Если_x0020_у_x0020_вас_x0020_есть_x0020_вопросы_x002C__x0020_свяжитесь_x0020_с_x0020_нами_x0020__x007B_CompanyContactName_x007D__x002C__x0020__x007B_CompanyPhone_x007D__x002C__x0020__x007B_CompanyEmail_x007D_</value>
+        <value>Text20.Text,КЛИЕНТ</value>
+        <value>Text21.Text,ЭЛЕМЕНТ_x0020__x2116_</value>
+        <value>Text22.Text,ОПИСАНИЕ</value>
+        <value>Text23.Text,КОЛ-ВО</value>
+        <value>Text24.Text,ЦЕНА</value>
+        <value>Text25.Text,ВСЕГО</value>
+        <value>Text60.Text,Коммерческое_x0020_предложение_x0020__x2116_</value>
+        <value>Text61.Text,ID_x0020_КЛИЕНТА</value>
+        <value>Text62.Text,ДАТА</value>
+        <value>Text63.Text,ДЕЙСТВИТЕЛЬНО_x0020_ДО:</value>
+        <value>Text64.Text,НАЧИСЛЕНО</value>
+        <value>Text65.Text,ДРУГОЕ</value>
+        <value>Text70.Text,ИТОГО</value>
+      </Items>
+    </Item13>
+    <Item14 Ref="15" type="Stimulsoft.Report.StiGlobalizationContainer" isKey="true">
+      <CultureName>de</CultureName>
+      <Items isList="true" count="35">
+        <value>ReportAlias,Preisangebot</value>
+        <value>ReportDescription,Das_x0020_Beispiel_x0020_zeigt_x002C__x0020_wie_x0020_man_x0020_das_x0020_Preisangebot_x0020_erstellen_x0020_kann_x000D__x000A_</value>
+        <value>Text02.Text,PREISANGEBOT</value>
+        <value>Text09.Text,Hergestellt_x0020_von:</value>
+        <value>Text101.Text,Wenn_x0020_Sie_x0020_einige_x0020_Fragen_x0020_haben_x002C__x0020_bitte_x0020_kontaktieren_x0020_Sie_x0020__x007B_CompanyContactName_x007D__x002C__x0020__x007B_CompanyPhone_x007D__x002C__x0020__x007B_CompanyEmail_x007D_</value>
+        <value>Text103.Tag,GESAMTBETRAG</value>
+        <value>Text104.Tag,GESAMTBETRAG</value>
+        <value>Text20.Text,KUNDENINFO</value>
+        <value>Text21.Tag,KOPFZEILE</value>
+        <value>Text21.Text,ELEMENT_x0023_</value>
+        <value>Text22.Tag,KOPFZEILE</value>
+        <value>Text22.Text,BESCHREIBUNG</value>
+        <value>Text23.Tag,KOPFZEILE</value>
+        <value>Text23.Text,QUANTITÄT</value>
+        <value>Text24.Tag,KOPFZEILE</value>
+        <value>Text24.Text,STÜCKPREIS</value>
+        <value>Text25.Tag,KOPFZEILE</value>
+        <value>Text25.Text,GESAMTBETRAG</value>
+        <value>Text50.Tag,DATEN</value>
+        <value>Text51.Tag,DATEN</value>
+        <value>Text52.Tag,DATEN</value>
+        <value>Text53.Tag,DATEN</value>
+        <value>Text54.Tag,DATEN</value>
+        <value>Text60.Text,PREISANGEBOT_x0020__x0023_</value>
+        <value>Text61.Text,KUNDE_x0020_ID</value>
+        <value>Text62.Text,DATUM</value>
+        <value>Text63.Text,GÜLTIG_x0020_BIS</value>
+        <value>Text64.Text,ZWISCHENSUMME</value>
+        <value>Text65.Text,ANDERE</value>
+        <value>Text70.Text,GESAMTBETRAG</value>
+        <value>Text71.Tag,GESAMTBETRAG</value>
+        <value>Variable.CompanyAddress,_x0038_7_x0020_Polk_x0020_Str.</value>
+        <value>Variable.CompanyNotes,Dieses_x0020_Preisangebot_x0020_ist_x0020_kein_x0020_Vertrag_x0020_oder_x0020_Wechsel._x0020__x000D__x000A_Das_x0020_ist_x0020_unsere_x0020_beste_x0020_Vermutung_x0020_von_x0020_der_x0020_Gesamtsumme_x0020_für_x0020_die_x0020_oben_x0020_beschriebene_x0020_Dienstleistungen_x0020_und_x0020_Waren._x0020_Nach_x0020_der_x0020_Annahme_x0020_dieses_x0020_Preisangebotes_x002C__x0020_wird_x0020_dem_x0020_Kunden_x0020_eine_x0020_Rechnung_x0020_gestellt._x0020_Die_x0020_Zahlung_x0020_wird_x0020_vor_x0020_Lieferung_x0020_der_x0020_Dienstleistungen_x0020_und_x0020_Waren_x0020_fällig._x0020_Bitte_x0020_faxen_x0020_oder_x0020_mailen_x0020_Sie_x0020_das_x0020_unterschriebene_x0020_Preisangebot_x0020_an_x0020_obengenannte_x0020_Adresse._x000D__x000A_</value>
+        <value>Variable.CustomerCompanyName,Firmenname</value>
+        <value>Variable.Thanks,Vielen_x0020_Dank_x0020_für_x0020_Ihren_x0020_Auftrag_x0021_</value>
+      </Items>
+    </Item14>
+  </GlobalizationStrings>
+  <Key>db645f0cd281401c880e706a263fa093</Key>
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="16" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="5">
+        <PageHeaderBand1 Ref="17" type="PageHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,20,1091,180</ClientRectangle>
+          <Components isList="true" count="10">
+            <Text02 Ref="18" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>Left;[255:255:255];1;Solid;False;4;[0:0:0]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>870,20,219,50</ClientRectangle>
+              <ComponentStyle>Lime Title</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Editable>True</Editable>
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,18,Bold</Font>
+              <Guid>b557568f20a0491cb661e529f31adb89</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text02</Name>
+              <Page isRef="16" />
+              <Parent isRef="17" />
+              <Text>&lt;div style="text-align: right;"&gt;Location Report&lt;/div&gt;</Text>
+              <TextBrush>[145:200:83]</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text02>
+            <Text17 Ref="19" type="Text" isKey="true">
+              <Border>None;White;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>140,70,129,20</ClientRectangle>
+              <ComponentStyle>PeachPuff Company Info</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,9.75</Font>
+              <Guid>dfce54e17e29483499e35c68c4ed38be</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,2,0,0</Margins>
+              <Name>Text17</Name>
+              <Page isRef="16" />
+              <Parent isRef="17" />
+              <Text>{Today}</Text>
+              <TextBrush>[60:63:70]</TextBrush>
+              <TextFormat Ref="20" type="DateFormat" isKey="true" />
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text17>
+            <Text61 Ref="21" type="Text" isKey="true">
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0];True</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,70,130,20</ClientRectangle>
+              <ComponentStyle>PeachPuff Contacts Name</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,9.75,Bold</Font>
+              <Guid>e7ae299f84e34827bbeb925e9f5e3f94</Guid>
+              <Margins>2,0,0,0</Margins>
+              <Name>Text61</Name>
+              <Page isRef="16" />
+              <Parent isRef="17" />
+              <Text>Printed Date</Text>
+              <TextBrush>[60:63:70]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text61>
+            <Image1 Ref="22" type="Image" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,310,60</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Guid>d299cf3d033447ef93a7d05e3c4b5eee</Guid>
+              <IconColor>68, 114, 196</IconColor>
+              <ImageURL>resource://Logo</ImageURL>
+              <Margins>0,0,0,0</Margins>
+              <Name>Image1</Name>
+              <Page isRef="16" />
+              <Parent isRef="17" />
+            </Image1>
+            <Text11 Ref="23" type="Text" isKey="true">
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0];True</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,100,130,20</ClientRectangle>
+              <ComponentStyle>PeachPuff Contacts Name</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,9.75,Bold</Font>
+              <Guid>fdc79998efcd48d48b60e3fbd981378b</Guid>
+              <Margins>2,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="16" />
+              <Parent isRef="17" />
+              <Text>Date From</Text>
+              <TextBrush>[60:63:70]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text11>
+            <Text12 Ref="24" type="Text" isKey="true">
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0];True</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,130,130,20</ClientRectangle>
+              <ComponentStyle>PeachPuff Contacts Name</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,9.75,Bold</Font>
+              <Guid>3bea1f68466d40629a36613c5129cd91</Guid>
+              <Margins>2,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="16" />
+              <Parent isRef="17" />
+              <Text>Date To</Text>
+              <TextBrush>[60:63:70]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text12>
+            <Text5 Ref="25" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>140,100,130,20</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Guid>68a569868c134b7ba3f7c06faa589560</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="16" />
+              <Parent isRef="17" />
+              <Text>{Root_GEN_General.BillStartDate}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text5>
+            <Text7 Ref="26" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>140,130,130,20</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Guid>934d0164c6514bc0ac16bd314da73d1c</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="16" />
+              <Parent isRef="17" />
+              <Text>{Root_GEN_General.BillEndDate}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text7>
+            <Text20 Ref="27" type="Text" isKey="true">
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0];True</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,160,130,20</ClientRectangle>
+              <ComponentStyle>PeachPuff Contacts Name</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,9.75,Bold</Font>
+              <Guid>32e4991d6d884bdeaed87c4549e16ac0</Guid>
+              <Margins>2,0,0,0</Margins>
+              <Name>Text20</Name>
+              <Page isRef="16" />
+              <Parent isRef="17" />
+              <Text>Location</Text>
+              <TextBrush>[60:63:70]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text20>
+            <Text26 Ref="28" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>140,160,130,20</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text26</Name>
+              <Page isRef="16" />
+              <Parent isRef="17" />
+              <Text>{Root_GEN_General.Location}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text26>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Expressions isList="true" count="0" />
+          <Guid>b796717dd2dc4b3c9ccd8c61e222061a</Guid>
+          <Name>PageHeaderBand1</Name>
+          <Page isRef="16" />
+          <Parent isRef="16" />
+          <PrintOn>OnlyFirstPage</PrintOn>
+        </PageHeaderBand1>
+        <PageFooterBand1 Ref="29" type="PageFooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,719,1091,30</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text102 Ref="30" type="Text" isKey="true">
+              <Border>None;[155:155:155];1;Solid;False;4;Black;True</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,748,30</ClientRectangle>
+              <ComponentStyle>PeachPuff Company Info</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,9.75</Font>
+              <Guid>968cbb70fac642d5998669dec8e043db</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text102</Name>
+              <Page isRef="16" />
+              <Parent isRef="29" />
+              <Text>{PageNofMThrough}</Text>
+              <TextBrush>[60:63:70]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text102>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Expressions isList="true" count="0" />
+          <Guid>bcf491d9ccc149258d43316c0486e7e6</Guid>
+          <Name>PageFooterBand1</Name>
+          <Page isRef="16" />
+          <Parent isRef="16" />
+        </PageFooterBand1>
+        <HeaderBand2 Ref="31" type="HeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,240,1091,30</ClientRectangle>
+          <Components isList="true" count="10">
+            <Text21 Ref="32" type="Text" isKey="true">
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0];True</Border>
+              <Brush>[145:200:83]</Brush>
+              <ClientRectangle>0,0,50,30</ClientRectangle>
+              <ComponentStyle>Lime Total</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Editable>True</Editable>
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,11,Bold</Font>
+              <Guid>2cc90bb2b92d4eaa8eb5cf5991578c10</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text21</Name>
+              <Page isRef="16" />
+              <Parent isRef="31" />
+              <Tag>HEADER</Tag>
+              <Text>SNO</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text21>
+            <Text22 Ref="33" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0];True</Border>
+              <Brush>[145:200:83]</Brush>
+              <ClientRectangle>50,0,120,30</ClientRectangle>
+              <ComponentStyle>Lime Total</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Editable>True</Editable>
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,11,Bold</Font>
+              <Guid>58ea76817286471f84ece65b64d7f2db</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text22</Name>
+              <Page isRef="16" />
+              <Parent isRef="31" />
+              <Tag>HEADER</Tag>
+              <Text>Cust Code</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text22>
+            <Text24 Ref="34" type="Text" isKey="true">
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0];True</Border>
+              <Brush>[145:200:83]</Brush>
+              <ClientRectangle>620,0,140,30</ClientRectangle>
+              <ComponentStyle>Lime Total</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Editable>True</Editable>
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,11,Bold</Font>
+              <Guid>e5ab2677d0b3418ca8b0e20680f8e449</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text24</Name>
+              <Page isRef="16" />
+              <Parent isRef="31" />
+              <Tag>HEADER</Tag>
+              <Text>Location</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text24>
+            <Text25 Ref="35" type="Text" isKey="true">
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0];True</Border>
+              <Brush>[145:200:83]</Brush>
+              <ClientRectangle>960,0,129,30</ClientRectangle>
+              <ComponentStyle>Lime Total</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Editable>True</Editable>
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,11,Bold</Font>
+              <Guid>cc9925708dd94a1496a527cc28257235</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text25</Name>
+              <Page isRef="16" />
+              <Parent isRef="31" />
+              <Tag>HEADER</Tag>
+              <Text>Destruction Date</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text25>
+            <Text23 Ref="36" type="Text" isKey="true">
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0];True</Border>
+              <Brush>[145:200:83]</Brush>
+              <ClientRectangle>170,0,120,30</ClientRectangle>
+              <ComponentStyle>Lime Total</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Editable>True</Editable>
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,11,Bold</Font>
+              <Guid>59a737e12a474396bb2d6fc01119e01b</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text23</Name>
+              <Page isRef="16" />
+              <Parent isRef="31" />
+              <Tag>HEADER</Tag>
+              <Text>Decode</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text23>
+            <Text1 Ref="37" type="Text" isKey="true">
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0];True</Border>
+              <Brush>[145:200:83]</Brush>
+              <ClientRectangle>400,0,90,30</ClientRectangle>
+              <ComponentStyle>Lime Total</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Editable>True</Editable>
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,11,Bold</Font>
+              <Guid>4cdf428c9c994ed09c1ab0a344273259</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="16" />
+              <Parent isRef="31" />
+              <Tag>HEADER</Tag>
+              <Text>JobNo</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text1>
+            <Text2 Ref="38" type="Text" isKey="true">
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0];True</Border>
+              <Brush>[145:200:83]</Brush>
+              <ClientRectangle>490,0,130,30</ClientRectangle>
+              <ComponentStyle>Lime Total</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Editable>True</Editable>
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,11,Bold</Font>
+              <Guid>63badaed066a48ba8cfcc9343193cb34</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="16" />
+              <Parent isRef="31" />
+              <Tag>HEADER</Tag>
+              <Text>Received Date</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text2>
+            <Text3 Ref="39" type="Text" isKey="true">
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0];True</Border>
+              <Brush>[145:200:83]</Brush>
+              <ClientRectangle>760,0,110,30</ClientRectangle>
+              <ComponentStyle>Lime Total</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Editable>True</Editable>
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,11,Bold</Font>
+              <Guid>68f8a9bc756b4b4b89316a1b11f6797d</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="16" />
+              <Parent isRef="31" />
+              <Tag>HEADER</Tag>
+              <Text>Status</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text3>
+            <Text4 Ref="40" type="Text" isKey="true">
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0];True</Border>
+              <Brush>[145:200:83]</Brush>
+              <ClientRectangle>290,0,110,30</ClientRectangle>
+              <ComponentStyle>Lime Total</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Editable>True</Editable>
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,11,Bold</Font>
+              <Guid>50b7c9af062249219acc5b82fd682e59</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="16" />
+              <Parent isRef="31" />
+              <Tag>HEADER</Tag>
+              <Text>Box No</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text4>
+            <Text6 Ref="41" type="Text" isKey="true">
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0];True</Border>
+              <Brush>[145:200:83]</Brush>
+              <ClientRectangle>870,0,90,30</ClientRectangle>
+              <ComponentStyle>Lime Total</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Editable>True</Editable>
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,11,Bold</Font>
+              <Guid>8e370e14b0304bd48101512fdc5c843b</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="16" />
+              <Parent isRef="31" />
+              <Tag>HEADER</Tag>
+              <Text>Permanent</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text6>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Expressions isList="true" count="0" />
+          <Guid>e87e1130ab9e4e9f87eaa9b9d6302453</Guid>
+          <Name>HeaderBand2</Name>
+          <Page isRef="16" />
+          <Parent isRef="16" />
+        </HeaderBand2>
+        <DataRoot_LocReport_LocationReport_Location Ref="42" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,310,1091,30</ClientRectangle>
+          <Components isList="true" count="9">
+            <Text8 Ref="43" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>50,10,120,20</ClientRectangle>
+              <ComponentStyle>Lime Bill To Info</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,9.75</Font>
+              <Guid>9090e342303242b4b342d5c796ba4213</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="16" />
+              <Parent isRef="42" />
+              <Text>{Root_LocReport_LocationReport_Location.CustomerCode}</Text>
+              <TextBrush>[60:63:70]</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+            </Text8>
+            <Text9 Ref="44" type="Text" isKey="true">
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>170,10,120,20</ClientRectangle>
+              <ComponentStyle>Lime Bill To Info</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,9.75</Font>
+              <Guid>25a5bd2c76814cbfa94495d30e89fbfd</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="16" />
+              <Parent isRef="42" />
+              <Text>{Root_LocReport_LocationReport_Location.Department}</Text>
+              <TextBrush>[60:63:70]</TextBrush>
+            </Text9>
+            <Text10 Ref="45" type="Text" isKey="true">
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>290,10,110,20</ClientRectangle>
+              <ComponentStyle>Lime Bill To Info</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,9.75</Font>
+              <Guid>87b75fed8e4a45f9877575d14407100c</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="16" />
+              <Parent isRef="42" />
+              <Text>{Root_LocReport_LocationReport_Location.BoxNo}</Text>
+              <TextBrush>[60:63:70]</TextBrush>
+            </Text10>
+            <Text13 Ref="46" type="Text" isKey="true">
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>400,10,90,20</ClientRectangle>
+              <ComponentStyle>Lime Bill To Info</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,9.75</Font>
+              <Guid>c73be0ca513749da9e5d7fe3c9704150</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="16" />
+              <Parent isRef="42" />
+              <Text>{Root_LocReport_LocationReport_Location.JobNo}</Text>
+              <TextBrush>[60:63:70]</TextBrush>
+            </Text13>
+            <Text14 Ref="47" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>490,10,130,20</ClientRectangle>
+              <ComponentStyle>Lime Bill To Info</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,9.75</Font>
+              <Guid>ef5623f2fb024a30986f0eeaf0fc9413</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="16" />
+              <Parent isRef="42" />
+              <Text>&lt;div style="text-align: center;"&gt;{Root_LocReport_LocationReport_Location.ReceivedDate}&lt;/div&gt;</Text>
+              <TextBrush>[60:63:70]</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+            </Text14>
+            <Text15 Ref="48" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>620,10,140,20</ClientRectangle>
+              <ComponentStyle>Lime Bill To Info</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,9.75</Font>
+              <Guid>302bb5f4ab734859aff13a0753ea9a71</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text15</Name>
+              <Page isRef="16" />
+              <Parent isRef="42" />
+              <Text>&lt;div style="text-align: center;"&gt;{Root_LocReport_LocationReport_Location.Location}&lt;/div&gt;</Text>
+              <TextBrush>[60:63:70]</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+            </Text15>
+            <Text16 Ref="49" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>760,10,110,20</ClientRectangle>
+              <ComponentStyle>Lime Bill To Info</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,9.75</Font>
+              <Guid>b11a373df4754bada2e069357b567bc8</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="16" />
+              <Parent isRef="42" />
+              <Text>&lt;div style="text-align: center;"&gt;{Root_LocReport_LocationReport_Location.Status}&lt;/div&gt;</Text>
+              <TextBrush>[60:63:70]</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+            </Text16>
+            <Text18 Ref="50" type="Text" isKey="true">
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>870,10,90,20</ClientRectangle>
+              <ComponentStyle>Lime Bill To Info</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,9.75</Font>
+              <Guid>0145fe5ffc96447a965b8aadae70b187</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text18</Name>
+              <Page isRef="16" />
+              <Parent isRef="42" />
+              <Text>{Root_LocReport_LocationReport_Location.Permanent}</Text>
+              <TextBrush>[60:63:70]</TextBrush>
+              <Type>DataColumn</Type>
+            </Text18>
+            <Text19 Ref="51" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[155:155:155];1;Solid;False;4;[0:0:0]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>960,10,130,20</ClientRectangle>
+              <ComponentStyle>Lime Bill To Info</ComponentStyle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Microsoft Sans Serif,9.75</Font>
+              <Guid>6c6f3b5359ff4fcd94b93ba78cd6ea02</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text19</Name>
+              <Page isRef="16" />
+              <Parent isRef="42" />
+              <Text>&lt;div style="text-align: center;"&gt;{Root_LocReport_LocationReport_Location.DestructionDate}&lt;/div&gt;</Text>
+              <TextBrush>[60:63:70]</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+            </Text19>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataSourceName>Root_LocReport_LocationReport_Location</DataSourceName>
+          <Expressions isList="true" count="0" />
+          <Filters isList="true" count="0" />
+          <Guid>1fa15cdf0bf14d8abc20e5bec47fe09d</Guid>
+          <Name>DataRoot_LocReport_LocationReport_Location</Name>
+          <Page isRef="16" />
+          <Parent isRef="16" />
+          <Sort isList="true" count="0" />
+        </DataRoot_LocReport_LocationReport_Location>
+        <FooterBand2 Ref="52" type="FooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,380,1091,50</ClientRectangle>
+          <Components isList="true" count="0" />
+          <Conditions isList="true" count="0" />
+          <Expressions isList="true" count="0" />
+          <Guid>f33ea9e930c74dba9787f4a7d2c73193</Guid>
+          <Name>FooterBand2</Name>
+          <Page isRef="16" />
+          <Parent isRef="16" />
+          <PrintAtBottom>True</PrintAtBottom>
+        </FooterBand2>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Expressions isList="true" count="0" />
+      <Guid>8f656f441095463eae730f959911dad0</Guid>
+      <Margins>39,39,39,39</Margins>
+      <Name>Page1</Name>
+      <Orientation>Landscape</Orientation>
+      <PageHeight>827</PageHeight>
+      <PageWidth>1169</PageWidth>
+      <PaperSize>A4</PaperSize>
+      <Report isRef="0" />
+    </Page1>
+  </Pages>
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Qoutation</ReportAlias>
+  <ReportAuthor>Stimulsoft</ReportAuthor>
+  <ReportChanged>9/28/2020 8:11:24 AM</ReportChanged>
+  <ReportCreated>11/12/2017 10:11:55 PM</ReportCreated>
+  <ReportDescription>The sample demonstrates how to create Quotation</ReportDescription>
+  <ReportFile>LocationRpt.mrt</ReportFile>
+  <ReportGuid>0a8e0c73440c474a95aac3bc6be42f35</ReportGuid>
+  <ReportName>Qoutation</ReportName>
+  <ReportUnit>HundredthsOfInch</ReportUnit>
+  <ReportVersion>2022.2.4.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Qoutation : Stimulsoft.Report.StiReport
+    {
+        public Qoutation()        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="14">
+    <Lime_x0020_Company_x0020_Name Ref="53" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>None;[155:155:155];1;Solid;False;4;[0:0:0]</Border>
+      <Brush>Transparent</Brush>
+      <CollectionName>Lime</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item52 Ref="54" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentName>Text01</ComponentName>
+          <Location>MiddleLeft</Location>
+          <Placement>PageHeader</Placement>
+          <Type>ComponentName</Type>
+        </Item52>
+      </Conditions>
+      <Font>Microsoft Sans Serif,18,Bold</Font>
+      <HorAlignment>Center</HorAlignment>
+      <Name>Lime Company Name</Name>
+      <NegativeTextBrush>[255:0:0]</NegativeTextBrush>
+      <TextBrush>[0:0:0]</TextBrush>
+    </Lime_x0020_Company_x0020_Name>
+    <Lime_x0020_Company_x0020_Info Ref="55" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <AllowUseBorderFormatting>False</AllowUseBorderFormatting>
+      <AllowUseBorderSides>False</AllowUseBorderSides>
+      <Border>None;[155:155:155];1;Solid;False;4;[0:0:0]</Border>
+      <Brush>Transparent</Brush>
+      <CollectionName>Lime</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item54 Ref="56" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentName>Text1</ComponentName>
+          <OperationComponentName>BeginningWith</OperationComponentName>
+          <Type>ComponentName</Type>
+        </Item54>
+      </Conditions>
+      <Font>Microsoft Sans Serif,9.75</Font>
+      <Name>Lime Company Info</Name>
+      <NegativeTextBrush>[255:0:0]</NegativeTextBrush>
+      <TextBrush>[0:0:0]</TextBrush>
+    </Lime_x0020_Company_x0020_Info>
+    <Lime_x0020_Bill_x0020_To Ref="57" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>Left;[255:255:255];1;Solid;False;4;[0:0:0]</Border>
+      <Brush>[145:200:83]</Brush>
+      <CollectionName>Lime</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item56 Ref="58" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentName>Text2</ComponentName>
+          <OperationComponentName>BeginningWith</OperationComponentName>
+          <Type>ComponentName</Type>
+        </Item56>
+      </Conditions>
+      <Font>Microsoft Sans Serif,14.25,Bold</Font>
+      <Name>Lime Bill To</Name>
+      <NegativeTextBrush>[255:0:0]</NegativeTextBrush>
+      <TextBrush>[255:255:255]</TextBrush>
+    </Lime_x0020_Bill_x0020_To>
+    <Lime_x0020_Bill_x0020_To_x0020_Info Ref="59" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>None;[155:155:155];1;Solid;False;4;[0:0:0]</Border>
+      <Brush>Transparent</Brush>
+      <CollectionName>Lime</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item58 Ref="60" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentName>Text3</ComponentName>
+          <OperationComponentName>BeginningWith</OperationComponentName>
+          <Type>ComponentName</Type>
+        </Item58>
+      </Conditions>
+      <Font>Microsoft Sans Serif,9.75</Font>
+      <Name>Lime Bill To Info</Name>
+      <NegativeTextBrush>[255:0:0]</NegativeTextBrush>
+      <TextBrush>[60:63:70]</TextBrush>
+    </Lime_x0020_Bill_x0020_To_x0020_Info>
+    <Lime_x0020_Requisites Ref="61" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>None;[155:155:155];1;Solid;False;4;[0:0:0]</Border>
+      <Brush>Transparent</Brush>
+      <CollectionName>Lime</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item60 Ref="62" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentName>Text09</ComponentName>
+          <Type>ComponentName</Type>
+        </Item60>
+      </Conditions>
+      <Font>Microsoft Sans Serif,12,Bold</Font>
+      <Name>Lime Requisites</Name>
+      <NegativeTextBrush>[255:0:0]</NegativeTextBrush>
+      <TextBrush>[60:63:70]</TextBrush>
+    </Lime_x0020_Requisites>
+    <Lime_x0020_Headers Ref="63" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>Left;[255:255:255];1;Solid;False;4;[0:0:0]</Border>
+      <Brush>[145:200:83]</Brush>
+      <CollectionName>Lime</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item62 Ref="64" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentName>Text4</ComponentName>
+          <OperationComponentName>BeginningWith</OperationComponentName>
+          <Type>ComponentName</Type>
+        </Item62>
+      </Conditions>
+      <Font>Microsoft Sans Serif,12,Bold</Font>
+      <Name>Lime Headers</Name>
+      <NegativeTextBrush>[255:0:0]</NegativeTextBrush>
+      <TextBrush>[255:255:255]</TextBrush>
+    </Lime_x0020_Headers>
+    <Lime_x0020_Title Ref="65" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>Left;[255:255:255];1;Solid;False;4;[0:0:0]</Border>
+      <Brush>Transparent</Brush>
+      <CollectionName>Lime</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item64 Ref="66" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentName>Text02</ComponentName>
+          <OperationComponentName>BeginningWith</OperationComponentName>
+          <Type>ComponentName</Type>
+        </Item64>
+      </Conditions>
+      <Font>Microsoft Sans Serif,18,Bold</Font>
+      <Name>Lime Title</Name>
+      <NegativeTextBrush>[255:0:0]</NegativeTextBrush>
+      <TextBrush>[145:200:83]</TextBrush>
+    </Lime_x0020_Title>
+    <Lime_x0020_Data Ref="67" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>None;[145:145:145];1;Solid;False;4;[0:0:0]</Border>
+      <Brush>Transparent</Brush>
+      <CollectionName>Lime</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item66 Ref="68" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentName>Text5</ComponentName>
+          <OperationComponentName>BeginningWith</OperationComponentName>
+          <Type>ComponentName</Type>
+        </Item66>
+      </Conditions>
+      <Font>Microsoft Sans Serif,9.75</Font>
+      <Name>Lime Data</Name>
+      <NegativeTextBrush>[255:0:0]</NegativeTextBrush>
+      <TextBrush>[120:120:120]</TextBrush>
+    </Lime_x0020_Data>
+    <Lime_x0020_Contact_x0020_Name Ref="69" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>None;[155:155:155];1;Solid;False;4;[0:0:0];True</Border>
+      <Brush>Transparent</Brush>
+      <CollectionName>Lime</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item68 Ref="70" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentName>Text6</ComponentName>
+          <OperationComponentName>BeginningWith</OperationComponentName>
+          <Type>ComponentName</Type>
+        </Item68>
+      </Conditions>
+      <Font>Microsoft Sans Serif,9.75,Bold</Font>
+      <Name>Lime Contact Name</Name>
+      <NegativeTextBrush>[255:0:0]</NegativeTextBrush>
+      <TextBrush>[0:0:0]</TextBrush>
+    </Lime_x0020_Contact_x0020_Name>
+    <Lime_x0020_Discount Ref="71" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>None;[145:145:145];1;Solid;False;4;[0:0:0]</Border>
+      <Brush>Transparent</Brush>
+      <CollectionName>Lime</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item70 Ref="72" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentName>Text05</ComponentName>
+          <Type>ComponentName</Type>
+        </Item70>
+      </Conditions>
+      <Font>Microsoft Sans Serif,9.75</Font>
+      <Name>Lime Discount</Name>
+      <NegativeTextBrush>[255:0:0]</NegativeTextBrush>
+      <TextBrush>[130:191:62]</TextBrush>
+    </Lime_x0020_Discount>
+    <Lime_x0020_Data_x0020_Even Ref="73" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>None;[43:43:43];1;Solid;False;4;[0:0:0]</Border>
+      <Brush>[236:240:241]</Brush>
+      <CollectionName>Lime</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item72 Ref="74" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentName>Data</ComponentName>
+          <Placement>DataEvenStyle</Placement>
+        </Item72>
+      </Conditions>
+      <Font>Microsoft Sans Serif,9.75</Font>
+      <Name>Lime Data Even</Name>
+      <NegativeTextBrush>[255:0:0]</NegativeTextBrush>
+      <TextBrush>[43:43:43]</TextBrush>
+    </Lime_x0020_Data_x0020_Even>
+    <Lime_x0020_Total Ref="75" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>None;[155:155:155];1;Solid;False;4;[0:0:0];True</Border>
+      <Brush>[145:200:83]</Brush>
+      <CollectionName>Lime</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item74 Ref="76" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentName>Text7</ComponentName>
+          <OperationComponentName>BeginningWith</OperationComponentName>
+          <Type>ComponentName</Type>
+        </Item74>
+      </Conditions>
+      <Font>Microsoft Sans Serif,11,Bold</Font>
+      <Name>Lime Total</Name>
+      <NegativeTextBrush>[255:0:0]</NegativeTextBrush>
+      <TextBrush>[255:255:255]</TextBrush>
+    </Lime_x0020_Total>
+    <Lime_x0020_Thanks Ref="77" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>Bottom;[155:155:155];1;Solid;False;4;[0:0:0]</Border>
+      <Brush>Transparent</Brush>
+      <CollectionName>Lime</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item76 Ref="78" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentName>Text03</ComponentName>
+          <Type>ComponentName</Type>
+        </Item76>
+      </Conditions>
+      <Font>Microsoft Sans Serif,12</Font>
+      <Name>Lime Thanks</Name>
+      <NegativeTextBrush>[255:0:0]</NegativeTextBrush>
+      <TextBrush>[130:191:62]</TextBrush>
+    </Lime_x0020_Thanks>
+    <Lime_x0020_Notes Ref="79" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Border>None;[155:155:155];1;Solid;False;4;[0:0:0];True</Border>
+      <Brush>Transparent</Brush>
+      <CollectionName>Lime</CollectionName>
+      <Conditions isList="true" count="1">
+        <Item78 Ref="80" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+          <ComponentName>Text04</ComponentName>
+          <OperationComponentName>BeginningWith</OperationComponentName>
+          <Type>ComponentName</Type>
+        </Item78>
+      </Conditions>
+      <Font>Microsoft Sans Serif,9.75</Font>
+      <Name>Lime Notes</Name>
+      <NegativeTextBrush>[255:0:0]</NegativeTextBrush>
+      <TextBrush>[0:0:0]</TextBrush>
+    </Lime_x0020_Notes>
+  </Styles>
+</StiSerializer>
