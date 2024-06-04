@@ -1,0 +1,42 @@
+﻿@page
+@model LoginModel
+@{
+	ViewData["Title"] = "Login";
+	Layout = "~/Views/Shared/_BeforeLoginLayout.cshtml";
+}
+<div class="row">
+	<div class="col-3"></div>
+	<div class="col-6">
+		<h4 class="mt-3">Login</h4>
+		<section>
+			<form id="account" method="post">
+				<div class="form-group">
+					<label asp-for="Input.UserCode" class="form-label mt-4">User Code</label>
+					<input asp-for="Input.UserCode" type="text" class="form-control" id="UserCode" aria-describedby="UserCode" placeholder="Enter User Code">
+					<small id="UserNameHelp" class="form-text text-muted">Please type user code without space.</small>
+					<br />
+					<span asp-validation-for="Input.UserCode" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Input.Password" class="form-label mt-4">Password</label>
+					<input asp-for="Input.Password" type="password" class="form-control" id="Password" placeholder="Password">
+					<span asp-validation-for="Input.Password" class="text-danger">@ViewData["error"]</span>
+				</div>
+				@*<div class="form-group">
+					<span asp-validation-for="Input.Password" type="text" class="text-danger">@ViewData["error"]</span>
+				</div>*@
+				<div>
+					<button id="login-submit" type="submit" class="btn btn-outline-warning mt-3">Login</button>				
+                    <a id="forgot-password" asp-page="./ForgotPassword" class="btn btn-outline-warning mt-3 mx-4">Forgot your password?</a>                    
+				</div>
+			</form>
+		</section>
+	</div>
+</div>
+<div class="mb-10">
+	&nbsp;
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}
