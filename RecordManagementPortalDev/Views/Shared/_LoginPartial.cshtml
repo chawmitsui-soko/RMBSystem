@@ -1,0 +1,167 @@
+@using Microsoft.AspNetCore.Identity
+@using RecordManagementPortalDev.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+	var user = await UserManager.GetUserAsync(User);
+}
+@if (SignInManager.IsSignedIn(User))
+{
+	<ul class="navbar-nav me-auto">
+		<li class="nav-item">
+			<a class="nav-link px-2 link-secondary" asp-area="" asp-controller="Customer" asp-action="Index"><i class="bi-house text-warning"></i></a>
+		</li>
+		<li class="nav-item dropdown">
+			@if (user.UserRole == "RMB Super Admin")
+			{
+				<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Customer Management</a>
+			}
+			else
+			{
+				<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account Settings</a>
+			}
+			<div class="dropdown-menu">
+				@if (user.UserRole == "RMB Super Admin")
+				{
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Customer" asp-action="CustomerInfo" asp-route-page="1">Customer List</a>
+				}
+				<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Customer" asp-action="DepartmentInfo" asp-route-page="1">Department List</a>
+				<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Customer" asp-action="UserInfo" asp-route-page="1">User List</a>
+				@if (user.UserRole == "RMB Super Admin" || user.UserRole == "Admin")
+				{
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Customer" asp-action="ApprovalSet" asp-route-page="1">Approval Setup</a>
+				}
+				@if (user.UserRole == "RMB Super Admin")
+				{
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Customer" asp-action="BillRateInfo" asp-route-page="1">Customer Billing Rate</a>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Customer" asp-action="CrtnsInfo" asp-route-page="1">Carton Types</a>
+				}
+			</div>
+		</li>
+		<li class="nav-item dropdown">
+			@if (user.UserRole == "RMB Super Admin")
+			{
+				<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Order Management</a>
+			}
+			else
+			{
+				<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Services</a>
+			}
+			<div class="dropdown-menu">
+				@if (user.UserRole != "RMB Super Admin")
+				{
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Order" asp-action="JobOrderE">Empty Cartons & Supplies</a>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Order" asp-action="JobOrderR">Retrieve Record</a>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Order" asp-action="JobCollectE">Collect New Record</a>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Order" asp-action="JobCollectR">Collect Retrieved Record</a>
+					<div class="dropdown-divider"></div>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Order" asp-action="JobPermanent">Permanent Retrieval</a>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Order" asp-action="JobPermanentNon">Permanent Retrieval and Delivery</a>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Order" asp-action="JobDestruction">Record Destruction</a>					
+				}
+				@if (user.UserRole == "RMB Super Admin")
+				{
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Order" asp-action="JobRegister">Job Registration (Email/Fax)</a>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Order" asp-action="NoRegisJobs" asp-route-page="1">Job Registration (E-Web)</a>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Order" asp-action="JobList" asp-route-page="1">Registered Job List</a>
+					<div class="dropdown-divider"></div>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Order" asp-action="Transaction" asp-route-page="1">Transaction List (E-Web)</a>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Order" asp-action="InventoryList" asp-route-page="1">Inventory</a>
+				}
+				@if (user.UserRole == "RMB Super Admin")
+				{
+					<div class="dropdown-divider"></div>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Order" asp-action="LogScanPack" asp-route-page="1">Scan Pack Log</a>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Order" asp-action="Location" asp-route-page="1">Search Record Details</a>
+				}
+			</div>
+		</li>
+		@if (user.UserRole == "RMB Super Admin")
+		{
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Billing Management</a>
+				<div class="dropdown-menu">
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Billing" asp-action="MonthBilling">Monthly Billing</a>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Billing" asp-action="MonthBillingByDept">Monthly Billing By Dept Code</a>
+
+				</div>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reports</a>
+				<div class="dropdown-menu">
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Reports" asp-action="JobsR">Jobs Report</a>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Reports" asp-action="MonBillSumR">Monthly Billing Summary Report</a>
+					<div class="dropdown-divider"></div>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Reports" asp-action="CustomerInvR">Customer Inventory Report</a>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Reports" asp-action="CustomerFR">Customer Faxed Documents/File Report</a>
+					<div class="dropdown-divider"></div>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Reports" asp-action="StockInvR">Stock Inventory Report</a>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Reports" asp-action="PrintStkR">Print Stock Report</a>
+					<div class="dropdown-divider"></div>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Reports" asp-action="LocationR">Location Report</a>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Reports" asp-action="ScanR">Scan Status Report</a>
+					<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Reports" asp-action="ScannerPLogR">Scanner Pack Log Report</a>
+
+
+				</div>
+			</li>
+		}
+		@if (user.UserRole != "RMB Super Admin")
+		{
+			<li class="nav-item">
+				<a class="nav-link" asp-area="" asp-controller="Order" asp-action="Transaction" asp-route-page="1">Transaction</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" asp-area="" asp-controller="Order" asp-action="InventoryList" asp-route-page="1">Inventory</a>
+			</li>
+		}
+	</ul>
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<a class="nav-link text-warning text-end" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @user.Name!</a>
+		</li>
+		<li class="nav-item">
+			<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+				<button type="submit" class="nav-link btn btn-outline-warning text-end">Logout</button>
+			</form>
+		</li>
+	</ul>
+}
+else
+{
+	<ul class="navbar-nav me-auto">
+		<li class="nav-item">
+			<a class="nav-link px-2 link-secondary" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi-house text-warning"></i></a>
+		</li>
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About Us</a>
+			<div class="dropdown-menu">
+				<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Home" asp-action="Profile">Profile</a>
+				<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Home" asp-action="VisionMission">Vision and Mission</a>
+				<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Home" asp-action="History">History</a>
+				<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Home" asp-action="Location">Location</a>
+				<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Home" asp-action="IntStandard">International Standard</a>
+				@*<div class="dropdown-divider"></div>*@
+			</div>
+		</li>
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Services</a>
+			<div class="dropdown-menu">
+				<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Home" asp-action="DocMgnt">Document Management</a>
+				<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Home" asp-action="AFMgnt">Active-File Management</a>
+				<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Home" asp-action="MedMgnt">Media Management</a>
+				<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Home" asp-action="SDMgnt">Secured Destruction Management</a>
+				<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Home" asp-action="BPOSource">Business Process Outsourcing</a>
+			</div>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link px-2 link-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a>
+		</li>
+	</ul>
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<a class="btn btn-outline-warning text-end" role="button" aria-disabled="true" asp-area="Identity" asp-page="/Account/Login">Login</a>
+		</li>
+	</ul>
+}
+

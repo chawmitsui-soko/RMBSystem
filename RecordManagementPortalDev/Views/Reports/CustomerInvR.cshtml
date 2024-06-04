@@ -1,0 +1,92 @@
+﻿@using RecordManagementPortalDev.Data
+@using Microsoft.AspNetCore.Identity
+@using RecordManagementPortalDev.Models
+@model RecordManagementPortalDev.Controllers.ReportsController.ReportGen
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+	var user = await UserManager.GetUserAsync(User);
+}
+@{
+	ViewData["Title"] = "Customer Report";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4 class="mt-3">Customer Report</h4>
+<div class="border p-3 mt-4">
+	<form method="post" asp-action="CustomerReport">
+		@*<input asp-for="Id" hidden />*@
+		<fieldset>
+			<div class="row">
+				<div class="form-group mt-2">
+					<h6 class="text-warning">Customer Report</h6>
+				</div>
+				<div class="row mb-2 p-2">
+					<div class="col-md-12">
+						<div class="container p-2 border border-primary rounded">
+							<div class="row mb-2 align-items-center">
+								<label for="CustomerCode" class="col-sm-3 col-form-label">Choose Customer Code</label>
+								<div class="col-sm-3">
+									<select class="form-select" id="ULCustomerCode" name="CustomerCode" asp-controller="Customer" asp-action="UserInfo" asp-items="@Model?.CustomerList">
+										<option value="0">--All Customer--</option>
+									</select>
+									<input type="hidden" asp-for="@Model.CustomerCode" name="CustomerCode" />
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group row">
+										<label class="col-form-label col-sm-4 mt-2">Customer Report </label>
+									</div>
+									<div class="form-group row">
+										<label for="BillStartDate" class="col-form-label col-sm-4 mt-2"> From : </label>
+										<div class="col-sm-8 mt-2">
+											<input asp-for="@Model.StartDate" type="date" id="sdate" class="form-control" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="BillEndDate" class="col-form-label col-sm-4 mt-2"> To : </label>
+										<div class="col-sm-8 mt-2">
+											<input asp-for="@Model.EndDate" id="edate" type="date" class="form-control" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-2 mt-2">
+								<button type="submit" class="btn btn-outline-warning mt-3" formaction="CustomerInvReport">Generate</button>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-2 mt-2">
+								<button type="submit" class="btn btn-outline-warning mt-3" formaction="CustomerInvCreate">Create</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+	</form>	
+</div>
+
+<div class="mb-10">
+	&nbsp;
+</div>
+@section Scripts {
+<script>
+	$(function(){
+		const now = new Date();
+		const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+		$('#sdate').attr(firstDay); // 👉️ Sat Oct 01 2022 ...
+
+		const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+		$('#edate').attr(lastDay); // 👉️ Mon Oct 31 2022 ...
+	});
+</script>
+}
+
+
+
+
+
+
+
+
