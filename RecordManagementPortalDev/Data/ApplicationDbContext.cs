@@ -26,7 +26,11 @@ namespace RecordManagementPortalDev.Data
 
         public DbSet<CrtnType> CartonType { get; set; }
 
+        public DbSet<CrtnMonthlyBals> CtnMonthlyClosingBal { get; set; }
+
         public DbSet<OrderDetail> OrderDetail { get; set; }
+
+        public DbSet<CtnStockReceiving> CtnStockReceiving { get; set; }
 
         public DbSet<Job> Job { get; set; }
 

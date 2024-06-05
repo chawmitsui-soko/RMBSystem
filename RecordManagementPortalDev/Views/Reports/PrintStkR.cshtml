@@ -8,63 +8,143 @@
 	var user = await UserManager.GetUserAsync(User);
 }
 @{
-	ViewData["Title"] = "JobsReport";
+	ViewData["Title"] = "Stock Report";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h4 class="mt-3">Jobs Report</h4>
+
+<style>
+	.nth-table {
+	}
+
+		.nth-table tr:nth-child(even) {
+			background: #444;
+		}
+
+		.nth-table tr:nth-child(odd) {
+			background: #375a7f;
+		}
+
+		.nth-table th {
+			padding-top: 13px;
+			padding-bottom: 13px;
+			background-color: #1d3850;
+		}
+
+	.disabled-link {
+		pointer-events: none;
+		cursor: not-allowed;
+	}
+
+	#stocklist-grid{
+		display:grid;
+		grid-template-columns: 30% 68%;
+		grid-column-gap: 2%;
+	}
+
+</style>
+
+<h4 class="mt-3">Stock Report</h4>
 <div class="border p-3 mt-4">
-	<form method="post" asp-action="JobsReport">
+	<form id = "month-selector" method="post" asp-action="PrintStkR">
 		@*<input asp-for="Id" hidden />*@
 		<fieldset>
-			<div class="row">
-				<div class="form-group mt-2">
-					<h6 class="text-warning">Jobs Report</h6>
-				</div>
-				<div class="row mb-2 p-2">
-					<div class="col-md-12">
-						<div class="container p-2 border border-primary rounded">
-							<div class="row mb-2 align-items-center">
-								<label for="CustomerCode" class="col-sm-3 col-form-label">Choose Customer Code</label>
-								<div class="col-sm-3">
-									<select class="form-select" id="ULCustomerCode" name="CustomerCode" asp-controller="Customer" asp-action="UserInfo" asp-items="@Model?.CustomerList">
-										<option value="0">--All Customer--</option>
-									</select>
-									<input type="hidden" asp-for="@Model.CustomerCode" name="CustomerCode" />
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group row">
-										<label class="col-form-label col-sm-4 mt-2">Jobs Report </label>
-									</div>
-									<div class="form-group row">
-										<label for="BillStartDate" class="col-form-label col-sm-4 mt-2"> From : </label>
-										<div class="col-sm-8 mt-2">
-											<input asp-for="@Model.StartDate" type="date" id="sdate" class="form-control" />
-										</div>
-									</div>
-									<div class="form-group row">
-										<label for="BillEndDate" class="col-form-label col-sm-4 mt-2"> To : </label>
-										<div class="col-sm-8 mt-2">
-											<input asp-for="@Model.EndDate" id="edate" type="date" class="form-control" />
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="form-group row">
-							<div class="col-sm-2 mt-2">
-								<button type="submit" class="btn btn-outline-warning mt-3" formaction="JobsReport">Generate</button>
-							</div>
-						</div>
-						<div class="form-group row">
-							<div class="col-sm-2 mt-2">
-								<button type="submit" class="btn btn-outline-warning mt-3" formaction="JobsCreate">Create</button>
-							</div>
-						</div>
+			<div style="display:flex;justify-content:space-between">
+				<div style="display:flex">
+					<h5 class="text-warning col-sm-6 mb-0 align-content-center"><b>Stock Report As At</b></h5>
+
+					<div class="col-sm-6 ms-3">
+						<div class="align-content-center">
+							<input asp-for="@Model.SelectedDate" type="month" min="2024-04" max="@DateTime.Now.ToString("yyyy-MM")" id="asatdate" class="form-control text-center" />
+						</div> 
 					</div>
 				</div>
+				<div>
+					<ul class="navbar-nav me-auto">
+						<li class="nav-item dropdown">
+							<a class="btn btn-outline-warning" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+								<i class="bi bi-gear-fill"></i>
+							</a>
+							<ul class="dropdown-menu">
+								<li class="text-white px-2 py-2" role="button" id="stock-report" aria-disabled="true">Print Stock Balance Report</li>
+								<li class="text-white px-2 py-2" role="button" id="transaction-report" aria-disabled="true">Print Stock Transaction Report</li>
+								<li class="text-white px-2 py-2" role="button" id="add-receiving" aria-disabled="true">Add Receiving (TBD)</li>
+								<li class="text-white px-2 py-2" role="button" id="update-mss-job-no" aria-disabled="true">Update MSS Job Number (TBD)</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+
+		
 			</div>
 		</fieldset>
 	</form>
+</div>
+
+<div id="stocklist-grid">
+	<div>
+
+		<table class="nth-table table table-hover pt-3 text-center align-content-center">
+			<thead>
+				<tr>
+					<th scope="col">No.</th>
+					<th scope="col">Item</th>
+					<th scope="col">Closing Balance</th>
+					@*
+					@if (user.UserRole == "Admin" || user.UserRole == "Approver")
+					{
+						<th style="width:5%"></th>
+					}
+					<th style="width:5%"></th>*@
+				</tr>
+			</thead>
+			<tbody class="align-content-center">
+		
+				@{
+					long rowCount = 0;
+				}
+
+				@foreach (var obj in Model?.StockList)
+				{
+					rowCount = rowCount + 1;
+					<tr class="align-content-center">
+						<td scope="row">@rowCount</td>
+						<td id="carton-type-@rowCount">@obj.CartonType</td>
+						<td>@obj.ClosingBalance</td>
+						<td>
+							<a id="trans-btn-@rowCount" class="btn btn-outline-info" role="button" aria-disabled="true">
+							<i class="bi bi-ticket-detailed-fill"></i>
+							</a>
+						</td>
+					</tr>
+				}
+		
+			</tbody>
+		</table>
+	</div>
+	<div class="justify-content-center align-content-center" id="divPartial">
+		@Html.Partial("CtnTypeTransEmpty")
+	</div>
+
+	@*<table class="nth-table table table-hover pt-3 text-center">
+		<thead>
+			<tr>
+				<th scope="col">No.</th>
+				<th scope="col">Item</th>
+				<th scope="col">Closing Balance</th>
+				
+				@if (user.UserRole == "Admin" || user.UserRole == "Approver")
+				{
+				<th style="width:5%"></th>
+				}
+				<th style="width:5%"></th>
+			</tr>
+		</thead>
+		<tbody id="order">
+
+			
+
+		</tbody>
+	</table>*@
 </div>
 
 <div class="mb-10">
@@ -72,14 +152,49 @@
 </div>
 @section Scripts {
 <script>
+
 	$(function(){
 		const now = new Date();
 		const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
 		$('#sdate').attr(firstDay); // 👉️ Sat Oct 01 2022 ...
 
 		const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-		$('#edate').attr(lastDay); // 👉️ Mon Oct 31 2022 ...		
+		$('#edate').attr(lastDay); // 👉️ Mon Oct 31 2022 ...
+
+		$('#asatdate').change(function () { 
+			$('#month-selector').submit(); 
+		});
 	});
+
+		// Get all the buttons in the table
+		var buttons = document.querySelectorAll('[id^="trans-btn-"]');
+
+		// Add click event listener to each button
+		buttons.forEach(function (button) {
+			button.addEventListener('click', function (event) {
+				event.preventDefault();
+
+				// Get the selected date
+				var arr = button.id.split("-");
+				var selectedtype = document.getElementById("carton-type-" + arr[arr.length - 1]).innerHTML;
+				var selecteddate = document.getElementById("asatdate").value;
+
+				// Build the URL with the selected date as a query parameter
+				var url = `CtnTypeTrans?ctntype=${encodeURIComponent(selectedtype)}&date=${encodeURIComponent(selecteddate)}`;
+
+				// Load the content into the divPartial element
+				$('#divPartial').load(url);
+			});
+		});
+
+		document.getElementById('stock-report').addEventListener('click', function () {
+			window.location.href = '@Url.Action("GenerateStockReport", "Reports")' + '?selectedDate=' + document.getElementById('asatdate').value;
+		});
+		document.getElementById('transaction-report').addEventListener('click', function () {
+			window.location.href = '@Url.Action("GenerateTransReport", "Reports")' + '?selectedDate=' + document.getElementById('asatdate').value;
+		});
+
+
 </script>
 }
 

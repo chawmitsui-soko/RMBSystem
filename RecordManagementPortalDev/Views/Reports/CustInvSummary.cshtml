@@ -1,0 +1,63 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using RecordManagementPortalDev.Models
+@model RecordManagementPortalDev.Controllers.ReportsController.ReportGen
+
+<style>
+    #inventory-summary-grid{
+        margin-top: 0.25rem;
+        display: grid;
+        grid-template-columns: 25% 74%;
+        grid-column-gap: 0.5rem;
+        min-height: 65vh
+    }
+
+    #inventory-summary{
+        border: solid 1px white;
+        padding: 1.5rem;
+        align-content:center
+    }
+
+    label{
+        text-align:center;
+        width:100%;
+        margin-top: 0.25rem;
+        margin-bottom: 0.5rem;
+        font-weight:bold;
+        font-size: 1.25rem;
+        padding: 0.5rem
+    }
+
+    h5{
+        font-weight:bold
+    }
+
+
+
+</style>
+
+<div id ="inventory-summary-grid">
+    <div id="inventory-summary">
+        <h5>Total Additional Cartons</h5>
+        <label style="background-color:lightgreen;border:forestgreen solid 3px;color:forestgreen">@Model.CustAdditionalCtn</label>
+        <h4 class="text-center">-</h4>
+        <h5>Total Destruction</h5>
+        <label style="background-color:mistyrose;border:tomato solid 3px;color:tomato">@Model.CustDestruction</label>
+        <h4 class="text-center">-</h4>
+        <h5>Total Permanent Retrieval</h5>
+        <label style="background-color:lightyellow;border:darkorange solid 3px;color:darkorange">@Model.CustPermRetrieval</label>
+        <h4 class="text-center">=</h4>
+        <h5>Current Stored Cartons</h5>
+        @{
+            var currentStored = @Model.CustAdditionalCtn - @Model.CustDestruction - @Model.CustPermRetrieval;
+            <label style ="background-color:lightblue;border:darkslateblue solid 3px;color:darkslateblue">@currentStored</label>
+        }
+    </div>
+    <div style="background-color:white" class="align-content-center">
+        <h5 class="text-warning text-center fw-bold">@Model.CustName</h5>
+        <h5 class="text-warning text-center fw-bold">Cartons Inventory Visualisation (TBD)</h5>
+    </div>
+</div>

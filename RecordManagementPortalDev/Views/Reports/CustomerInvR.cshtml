@@ -13,21 +13,41 @@
 }
 <h4 class="mt-3">Customer Report</h4>
 <div class="border p-3 mt-4">
-	<form method="post" asp-action="CustomerReport">
+	<form method="post" asp-action="GenerateCustInventory">
+
 		@*<input asp-for="Id" hidden />*@
 		<fieldset>
+			<div style="display:flex;justify-content:space-between">
+				<div style="display:flex">
+					<h5 class="text-warning col-sm-8 mb-0 align-content-center"><b>Inventory Report for Customer</b></h5>
+					<div class="align-content-center col-sm-6 ms-1">
+						<select class="form-select text-center" id="ULCustomerCode" name="CustomerCode" asp-controller="Customer" asp-action="UserInfo" asp-items="@Model?.CustomerList">
+							<option value="0" disabled selected>- Select Customer -</option>
+						</select>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-outline-warning" id = 'generate-customer-inventory'>Generate</button>
+			</div>
+		</fieldset>
+
+		@*<input asp-for="Id" hidden />*@
+		@*<fieldset>
 			<div class="row">
-				<div class="form-group mt-2">
-					<h6 class="text-warning">Customer Report</h6>
+				<div class="form-group mt-2 display:flex">
+					<h5 class="text-warning col-sm-3 mb-0 align-content-center"><b>Inventory Report for Customer </b></h5>
+					<select class="form-select w-25 text-center" id="ULCustomerCode" name="CustomerCode" asp-controller="Customer" asp-action="UserInfo" asp-items="@Model?.CustomerList">
+						<option value="0" disabled>- Select Customer -</option>
+					</select>
+					<input type="hidden" asp-for="@Model.CustomerCode" name="CustomerCode" />
 				</div>
 				<div class="row mb-2 p-2">
 					<div class="col-md-12">
 						<div class="container p-2 border border-primary rounded">
 							<div class="row mb-2 align-items-center">
-								<label for="CustomerCode" class="col-sm-3 col-form-label">Choose Customer Code</label>
-								<div class="col-sm-3">
-									<select class="form-select" id="ULCustomerCode" name="CustomerCode" asp-controller="Customer" asp-action="UserInfo" asp-items="@Model?.CustomerList">
-										<option value="0">--All Customer--</option>
+								<label for="CustomerCode" class="col-sm-2 col-form-label">Customer Code</label>
+								<div class="align-content-center col-sm-2">
+									<select class="form-select text-center" id="ULCustomerCode" name="CustomerCode" asp-controller="Customer" asp-action="UserInfo" asp-items="@Model?.CustomerList">
+										<option value="0" disabled>- Select Customer -</option>
 									</select>
 									<input type="hidden" asp-for="@Model.CustomerCode" name="CustomerCode" />
 								</div>
@@ -63,13 +83,15 @@
 					</div>
 				</div>
 			</div>
-		</fieldset>
+		</fieldset>*@
 	</form>	
 </div>
 
-<div class="mb-10">
-	&nbsp;
+<div class="justify-content-center align-content-center" style="min-height:70vh" id="divPartial">
+	@Html.Partial("CustInvEmpty")
 </div>
+
+
 @section Scripts {
 <script>
 	$(function(){
@@ -79,7 +101,24 @@
 
 		const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 		$('#edate').attr(lastDay); // 👉️ Mon Oct 31 2022 ...
+
+			$('#ULCustomerCode').change(function () {
+				event.preventDefault();
+
+				// Get the selected date
+				var selectedcust = document.getElementById("ULCustomerCode").value;
+
+				// Build the URL with the selected date as a query parameter
+				var url = `CustInvSummary?CustomerCode=${encodeURIComponent(selectedcust)}`;
+
+				// Load the content into the divPartial element
+				$('#divPartial').load(url);
+			});
 	});
+
+		document.getElementById('generate-customer-inventory').addEventListener('click', function () {
+			window.location.href = '@Url.Action("GenerateCustInventory", "Reports")' + '?custcode=' + document.getElementById('ULCustomerCode').value;
+		});
 </script>
 }
 

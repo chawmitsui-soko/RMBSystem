@@ -1,0 +1,77 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using RecordManagementPortalDev.Models
+@model RecordManagementPortalDev.Controllers.ReportsController.ReportGen
+
+@{
+	var jobList = ViewBag.JobList;
+}
+
+<div class="h-100 mt-3">
+	<h5 class="text-warning p-3 m-0 text-center" ><b>Transaction List ( Type @Model.CartonType ) As At @Model.SelectedDate.ToShortDateString()</b></h5>
+	<table class="nth-table table table-hover pt-3 text-center">
+		<thead>
+			<tr>
+				<th scope="col">Date</th>
+				<th scope="col">Description</th>
+				<th scope="col">Customer</th>
+				<th scope="col">In/Out</th>
+				<th scope="col">Balance</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr style="background-color:dimgrey;font-weight:bold;border: 2px solid white">
+				<td>@Model.OpeningDate.ToShortDateString()</td>
+				<td>Opening Balance</td>
+				<td></td>
+				<td></td>
+				<td>@Model.OpeningBalance</td>
+			</tr>
+
+			@{
+				var runningBalance = Model.OpeningBalance;
+			}
+
+			@if (jobList.Count == 0)
+			{
+				<tr>
+					<td colspan = "5">- No Transaction -</td>
+				</tr>
+			}else{
+				foreach (var job in jobList)
+				{
+					<tr>
+						@if (job.Desc == "JOB")
+						{
+							runningBalance -= job.TotalCtn;
+							<td>@job.RequestDate.ToShortDateString()</td>
+							<td>@job.OldJobNo</td>
+							<td>@job.CustCode</td>
+							<td style="@(job.TotalCtn > 0 ? "background-color:tomato" : "")"><b>@job.TotalCtn</b></td>
+							<td>@runningBalance</td>
+						}else if (job.Desc == "RECEIVING"){
+							runningBalance += job.TotalCtn;
+							<td>@job.RequestDate.ToShortDateString()</td>
+							<td>@job.Desc (@job.Remarks)</td>
+							<td></td>
+							<td style="@(job.TotalCtn > 0 ? "background-color:yellowgreen" : "")"><b>@job.TotalCtn</b></td>
+							<td>@runningBalance</td>
+
+						}
+					</tr>
+				}
+			}
+
+			<tr style="background-color:dimgray;font-weight:bold;border: 2px solid white">
+				<td>@Model.SelectedDate.ToShortDateString()</td>
+				<td>Closing Balance</td>
+				<td></td>
+				<td></td>
+				<td>@Model.ClosingBalance</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

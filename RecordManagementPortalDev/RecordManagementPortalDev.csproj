@@ -18,12 +18,14 @@
   <ItemGroup>
     <None Remove="Views\Shared\_BeforeLoginLayout.cshtml.css" />
     <None Remove="Views\Shared\_DLM.cshtml.css" />
-    <None Remove="Views\Shared\_Layout.cshtml.css" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BouncyCastle" Version="1.8.9" />
     <PackageReference Include="EPPlus" Version="6.0.7" />
     <PackageReference Include="IdentityModel" Version="6.1.0" />
+    <PackageReference Include="itext7" Version="8.0.4" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.4" />
