@@ -11,7 +11,7 @@
 }
 
 <div class="h-100 mt-3">
-	<h5 class="text-warning p-3 m-0 text-center" ><b>Transaction List ( Type @Model.CartonType ) As At @Model.SelectedDate.ToShortDateString()</b></h5>
+	<h5 class="text-warning p-3 m-0 text-center"><b>Transaction List ( Type @Model.CartonType ) As At @Model.SelectedDate.ToString("dd/MM/yyyy")</b></h5>
 	<table class="nth-table table table-hover pt-3 text-center">
 		<thead>
 			<tr>
@@ -24,7 +24,7 @@
 		</thead>
 		<tbody>
 			<tr style="background-color:dimgrey;font-weight:bold;border: 2px solid white">
-				<td>@Model.OpeningDate.ToShortDateString()</td>
+				<td>@Model.OpeningDate.ToString("dd/MM/yyyy")</td>
 				<td>Opening Balance</td>
 				<td></td>
 				<td></td>
@@ -38,35 +38,42 @@
 			@if (jobList.Count == 0)
 			{
 				<tr>
-					<td colspan = "5">- No Transaction -</td>
+					<td colspan="5">- No Transaction -</td>
 				</tr>
-			}else{
+			}
+			else
+			{
 				foreach (var job in jobList)
 				{
 					<tr>
-						@if (job.Desc == "JOB")
+						@if (job.TotalCtn != 0)
 						{
-							runningBalance -= job.TotalCtn;
-							<td>@job.RequestDate.ToShortDateString()</td>
-							<td>@job.OldJobNo</td>
-							<td>@job.CustCode</td>
-							<td style="@(job.TotalCtn > 0 ? "background-color:tomato" : "")"><b>@job.TotalCtn</b></td>
-							<td>@runningBalance</td>
-						}else if (job.Desc == "RECEIVING"){
-							runningBalance += job.TotalCtn;
-							<td>@job.RequestDate.ToShortDateString()</td>
-							<td>@job.Desc (@job.Remarks)</td>
-							<td></td>
-							<td style="@(job.TotalCtn > 0 ? "background-color:yellowgreen" : "")"><b>@job.TotalCtn</b></td>
-							<td>@runningBalance</td>
+							if (job.Desc == "JOB")
+							{
+								runningBalance -= job.TotalCtn;
+								<td>@job.RequestDate.ToString("dd/MM/yyyy")</td>
+								<td>@job.OldJobNo</td>
+								<td>@job.CustCode</td>
+								<td style="@(job.TotalCtn > 0 ? "background-color:tomato" : "")"><b>@job.TotalCtn</b></td>
+								<td>@runningBalance</td>
+							}
+							else if (job.Desc == "RECEIVING")
+							{
+								runningBalance += job.TotalCtn;
+								<td>@job.RequestDate.ToString("dd/MM/yyyy")</td>
+								<td>@job.Desc (@job.Remarks)</td>
+								<td></td>
+								<td style="@(job.TotalCtn > 0 ? "background-color:yellowgreen" : "")"><b>@job.TotalCtn</b></td>
+								<td>@runningBalance</td>
 
+							}
 						}
 					</tr>
 				}
 			}
 
 			<tr style="background-color:dimgray;font-weight:bold;border: 2px solid white">
-				<td>@Model.SelectedDate.ToShortDateString()</td>
+				<td>@Model.SelectedDate.ToString("dd/MM/yyyy")</td>
 				<td>Closing Balance</td>
 				<td></td>
 				<td></td>
