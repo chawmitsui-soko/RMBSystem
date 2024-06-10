@@ -223,7 +223,8 @@
 								</tr>
 								<tr>
 									<td>Request Date: </td>
-									<td id='orderDate'>@Model.OrderRequests.OrderDate.ToString("dd/MM/yyyy")</td>
+									@* <td><input id="orderDate" type="date" value="@Model.OrderRequests.OrderDate" class="form-control"></td> *@
+									<td><input id='orderDate' value="@Model.OrderRequests.OrderDate.ToString("dd/MM/yyyy")" /></td>
 								</tr>
 								<tr id="dept">
 									<td>Department: </td>

@@ -147,6 +147,9 @@ namespace RecordManagementPortalDev.Areas.Identity.Pages.Account
             //[Required]
             //public string ControlId { get; set; }
             public DateTime LastLogin { get; set; } = DateTime.Now;
+
+            public DateTime LastPasswordChangedDate { get; set; }
+
             public string CreatedBy { get; set; }
 
             public string UpdatedBy { get; set; }
@@ -206,6 +209,7 @@ namespace RecordManagementPortalDev.Areas.Identity.Pages.Account
                 user.Name = Input.Name;
                 user.UserRole = Input.UserRole;
                 user.UserLevel = Input.UserLevel;
+                user.LastPasswordChangedDate = DateTime.Now;
                 user.CreatedDate = DateTime.Now;
                 user.UpdatedDate = DateTime.Now;
                 user.CreatedBy = loginuser.UserName;

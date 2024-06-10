@@ -118,6 +118,9 @@ namespace RecordManagementPortalDev.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
+            user.LastPasswordChangedDate = DateTime.Now;
+            await _userManager.UpdateAsync(user);
+
             await _signInManager.RefreshSignInAsync(user);
             _logger.LogInformation("User changed their password successfully.");
             StatusMessage = "Your password has been changed.";

@@ -57,6 +57,9 @@ public class ApplicationUser : IdentityUser
 	//[Required]
 	//public string ControlId { get; set; }
 	public DateTime LastLogin { get; set; } = DateTime.Now;
+
+	public DateTime LastPasswordChangedDate { get; set; }
+
 	public string CreatedBy { get; set; }
 
 	public string UpdatedBy { get; set; }

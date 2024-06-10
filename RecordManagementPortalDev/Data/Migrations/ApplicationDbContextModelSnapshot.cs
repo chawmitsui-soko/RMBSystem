@@ -208,6 +208,9 @@ namespace RecordManagementPortalDev.Data.Migrations
                     b.Property<DateTime>("LastLogin")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("LastPasswordChangedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -590,6 +593,33 @@ namespace RecordManagementPortalDev.Data.Migrations
                     b.ToTable("Contact");
                 });
 
+            modelBuilder.Entity("RecordManagementPortalDev.Models.CrtnMonthlyBals", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("AsatDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CartonType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ClosingBalance")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Remarks")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CtnMonthlyClosingBal");
+                });
+
             modelBuilder.Entity("RecordManagementPortalDev.Models.CrtnType", b =>
                 {
                     b.Property<int>("Id")
@@ -639,6 +669,33 @@ namespace RecordManagementPortalDev.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CartonType");
+                });
+
+            modelBuilder.Entity("RecordManagementPortalDev.Models.CtnStockReceiving", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CartonType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Qty")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ReceivingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Remarks")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CtnStockReceiving");
                 });
 
             modelBuilder.Entity("RecordManagementPortalDev.Models.Customer", b =>
@@ -758,83 +815,6 @@ namespace RecordManagementPortalDev.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Departments");
-                });
-
-            modelBuilder.Entity("RecordManagementPortalDev.Models.Files", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Cartons")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Chopandsign")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Control")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CtnType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeptCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DestructDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("FirstReceivedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("JobNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastJobNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OldCust")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("OutDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PalletBay")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Permanentstored")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ReceivedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SealNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("SubFiles")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("TransDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Files");
                 });
 
             modelBuilder.Entity("RecordManagementPortalDev.Models.Job", b =>
