@@ -339,8 +339,8 @@
 			return;
 		}
 		else {
-		const date = document.getElementById('orderDate').innerHTML.split(' ')
-		const dateStr = date[0];
+		//const date = document.getElementById('orderDate').innerHTML.split(' ')
+		const dateStr = document.getElementById('orderDate').value;//date[0];
 		const [day, month, year] = dateStr.split('/');
 		const isoStr = `${year}-${padTo2Digits(month)}-${padTo2Digits(day,)}T00:00:00.000Z`;
 		Job.RequestDate = isoStr;
