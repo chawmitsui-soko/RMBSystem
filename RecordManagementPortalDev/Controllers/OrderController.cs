@@ -376,14 +376,7 @@ namespace RecordManagementPortalDev.Controllers
                 Job? jobdetail = (Job?)JsonSerializer.Deserialize<Job>(joblist);
                 DateTime now = DateTime.Now;
                 var year = now.Year;
-                var month = now.ToString("MM");
-                //int JobID = _db.Job.Max(x => x.Id);
-                //string? OldJobNo = _db.Job.Where(i => i.Id == JobID).Select(i => i.OldJobNo).FirstOrDefault();
-                //string? OldJobNo = (from x in _db.Job
-                //                    group x by x.OldJobNo into g
-                //                    select new { id = g.Max(x => x.OldJobNo) }).ToString();
-
-                //string? OldJobNo = _db.Job.AsEnumerable().Max(x => x.OldJobNo).ToString();                
+                var month = now.ToString("MM");                
                 string? OldJobNo = _db.Job.Where(i => i.OldJobNo.StartsWith("2024/" + month)).Select(i => i.OldJobNo).Max();
                 string? No = OldJobNo?.Substring(8);
                 string? RunningMonth = OldJobNo?.Substring(5, 2);
@@ -446,13 +439,9 @@ namespace RecordManagementPortalDev.Controllers
                     {
                         model.Job.RMBRemark = "";
                     }
-                    //int count = _db.JobsDetLoc.Count();
-                    //int latestid = 0;
-                    //if (count > 0)
-                    //{
+                    
                     int latestid = _db.JobsDetLoc.Max(x => x.JDId);
-                    //}
-                    //int length = model.Job.TotalCtn;
+                    
                     if (orderlist != "")
                     {
                         List<RecordModel>? OrderDetailList = (List<RecordModel>?)JsonSerializer.Deserialize<IList<RecordModel>>(orderlist);
@@ -571,8 +560,6 @@ namespace RecordManagementPortalDev.Controllers
                 DateTime now = DateTime.Now;
                 var year = now.Year;
                 var month = now.ToString("MM");
-                //int JobID = _db.Job.Max(x => x.Id);
-                //string? OldJobNo = _db.Job.Where(i => i.Id == JobID).Select(i => i.OldJobNo).FirstOrDefault();
                 string? OldJobNo = _db.Job.Where(i => i.OldJobNo.StartsWith("2024/" + month)).Select(i => i.OldJobNo).Max(); 
                 string? No = OldJobNo?.Substring(8);                
                 string? RunningMonth = OldJobNo?.Substring(5, 2);
@@ -620,98 +607,103 @@ namespace RecordManagementPortalDev.Controllers
                     {
                         model.Job.RMBRemark = "";
                     }
-
-                    var orderdetail = _db.OrderDetail.Where(x => x.OrderId == int.Parse(model.Job.JobOrderNo)).ToList();
-                    int length = orderdetail.Count();
-                    int latestid = _db.JobsDetLoc.Max(x => x.JDId);
-
-                    for (int i = 0; i < length; i++)
+                    if (orderlist != "")
                     {
-                        jd.JDId = latestid + (i + 1);
-                        jd.Cartons = orderdetail[i].RecordNo;
-                        jd.JobNo = UpdJobNo;
-                        jd.DeptCode = orderdetail[i].DepartmentCode;
-                        jd.CustCode = jobdetail.CustCode;
-                        jd.JobLevel = model.Job.JobType;
-                        if (model.Job.JobType == "D1")
-                        {
-                            jd.Status = "Deliver";
-                            model.Job.TotalCtn = jobdetail.TotalCtn;
-                        }
-                        else if (model.Job.JobType == "D2")
-                        {
-                            jd.Status = "Pulled";
-                            model.Job.TotalCtn = length;
-                        }
-                        else if (model.Job.JobType == "C1")
-                        {
-                            jd.Status = "Collected";
-                            model.Job.TotalCtn = length;
-                        }
-                        else if (model.Job.JobType == "C2")
-                        {
-                            jd.Status = "Collected";
-                            model.Job.TotalCtn = length;
-                        }
-                        jd.Location = "";
-                        jd.SealNo = "";
-                        jd.FileNo = "";
-                        jd.ProductCode = "";
-                        jd.CreatedDate = DateTime.Now;
-                        jd.UpdatedDate = DateTime.Now;
-                        jd.Control = "";
-                        jd.Description = jobdetail.Remark;
-                        jd.Staff = loginuser.UserCode;
-                        _db.JobsDetLoc.Add(jd);
-                        _db.SaveChanges();
+                        List<RecordModel>? OrderDetailList = (List<RecordModel>?)JsonSerializer.Deserialize<IList<RecordModel>>(orderlist);
+                        var orderdetail = OrderDetailList;
+                        int length = orderdetail.Count;
+                        //var orderdetail = _db.OrderDetail.Where(x => x.OrderId == int.Parse(model.Job.JobOrderNo)).ToList();
+                        //int length = orderdetail.Count();
+                        int latestid = _db.JobsDetLoc.Max(x => x.JDId);
 
-                        CartonDetails? cd = new CartonDetails();
-                        CartonDetails? cdorg = _db.CartonDetails.Where(x => x.DeptCode == orderdetail[i].DepartmentCode
-                                               && x.Cartons == orderdetail[i].RecordNo && x.CustCode == jobdetail.CustCode).FirstOrDefault();
-                        if (cdorg == null)
+                        for (int i = 0; i < length; i++)
                         {
-                            cd.CustCode = jobdetail.CustCode;
-                            cd.DeptCode = orderdetail[i].DepartmentCode;
-                            cd.Cartons = orderdetail[i].RecordNo;
-                            cd.CtnType = jobdetail.CtnType;
-                            cd.TransDate = DateTime.Now;
-                            cd.ReceivedDate = DateTime.Now;
-                            cd.Status = "NEW";
-                            cd.JobNo = UpdJobNo;
-                            if (jobdetail.ServLevel == "8" || jobdetail.ServLevel == "9")
-                                cd.Permanentstored = true;
-                            else
-                                cd.Permanentstored = false;
-                            DateTime baseDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-                            var millisecondsTimestamp = (long)(DateTime.Now.ToUniversalTime() - baseDate).TotalMilliseconds;
-                            cd.msrepl_synctran_ts = millisecondsTimestamp;
-                            _db.CartonDetails.Add(cd);
-                            _db.SaveChanges();
-                        }
-                        else
-                        {
-                            cdorg.TransDate = DateTime.Now;
-                            //cdorg.ReceivedDate = DateTime.Now;
-                            cdorg.LastJobNo = cdorg.JobNo;
-                            cdorg.JobNo = UpdJobNo;
-                            if (jobdetail.ServLevel == "8")
-                                cdorg.Permanentstored = true;
-                            else
-                                cdorg.Permanentstored = false;
-                            if (model.Job.JobType == "D2")
+                            jd.JDId = latestid + (i + 1);
+                            jd.Cartons = orderdetail[i].RecordNo;
+                            jd.JobNo = UpdJobNo;
+                            jd.DeptCode = orderdetail[i].DepartmentCode;
+                            jd.CustCode = jobdetail.CustCode;
+                            jd.JobLevel = model.Job.JobType;
+                            if (model.Job.JobType == "D1")
                             {
-                                cdorg.Status = "PULLED";
+                                jd.Status = "Deliver";
+                                model.Job.TotalCtn = jobdetail.TotalCtn;
+                            }
+                            else if (model.Job.JobType == "D2")
+                            {
+                                jd.Status = "Pulled";
+                                model.Job.TotalCtn = length;
                             }
                             else if (model.Job.JobType == "C1")
                             {
-                                cdorg.Status = "COLLECT";
+                                jd.Status = "Collected";
+                                model.Job.TotalCtn = length;
                             }
                             else if (model.Job.JobType == "C2")
                             {
-                                cdorg.Status = "COLLECT";
+                                jd.Status = "Collected";
+                                model.Job.TotalCtn = length;
                             }
-                            _db.CartonDetails.Update(cdorg);
+                            jd.Location = "";
+                            jd.SealNo = "";
+                            jd.FileNo = "";
+                            jd.ProductCode = "";
+                            jd.CreatedDate = DateTime.Now;
+                            jd.UpdatedDate = DateTime.Now;
+                            jd.Control = "";
+                            jd.Description = jobdetail.Remark;
+                            jd.Staff = loginuser.UserCode;
+                            _db.JobsDetLoc.Add(jd);
                             _db.SaveChanges();
+
+                            CartonDetails? cd = new CartonDetails();
+                            CartonDetails? cdorg = _db.CartonDetails.Where(x => x.DeptCode == orderdetail[i].DepartmentCode
+                                                   && x.Cartons == orderdetail[i].RecordNo && x.CustCode == jobdetail.CustCode).FirstOrDefault();
+                            if (cdorg == null)
+                            {
+                                cd.CustCode = jobdetail.CustCode;
+                                cd.DeptCode = orderdetail[i].DepartmentCode;
+                                cd.Cartons = orderdetail[i].RecordNo;
+                                cd.CtnType = jobdetail.CtnType;
+                                cd.TransDate = DateTime.Now;
+                                cd.ReceivedDate = DateTime.Now;
+                                cd.Status = "NEW";
+                                cd.JobNo = UpdJobNo;
+                                if (jobdetail.ServLevel == "8" || jobdetail.ServLevel == "9")
+                                    cd.Permanentstored = true;
+                                else
+                                    cd.Permanentstored = false;
+                                DateTime baseDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                                var millisecondsTimestamp = (long)(DateTime.Now.ToUniversalTime() - baseDate).TotalMilliseconds;
+                                cd.msrepl_synctran_ts = millisecondsTimestamp;
+                                _db.CartonDetails.Add(cd);
+                                _db.SaveChanges();
+                            }
+                            else
+                            {
+                                cdorg.TransDate = DateTime.Now;
+                                //cdorg.ReceivedDate = DateTime.Now;
+                                cdorg.LastJobNo = cdorg.JobNo;
+                                cdorg.JobNo = UpdJobNo;
+                                if (jobdetail.ServLevel == "8")
+                                    cdorg.Permanentstored = true;
+                                else
+                                    cdorg.Permanentstored = false;
+                                if (model.Job.JobType == "D2")
+                                {
+                                    cdorg.Status = "PULLED";
+                                }
+                                else if (model.Job.JobType == "C1")
+                                {
+                                    cdorg.Status = "COLLECT";
+                                }
+                                else if (model.Job.JobType == "C2")
+                                {
+                                    cdorg.Status = "COLLECT";
+                                }
+                                _db.CartonDetails.Update(cdorg);
+                                _db.SaveChanges();
+                            }
                         }
                     }
                 }
@@ -2927,15 +2919,29 @@ namespace RecordManagementPortalDev.Controllers
                     aLine = strReader.ReadLine();
                     if (aLine != null && aLine != "")
                     {
-                        int startIndex = aLine.Length - 18;
-                        string locanddate = aLine.Substring(startIndex);
-                        string[] result = Regex.Split(aLine.TrimStart(), @" +");  
-                        string location = locanddate.Remove(locanddate.Length - 10);
-                        string scanstaff = result[0];
-                        string custcode = result[1].Substring(0, 4);
-                        string deptcode = result[1].Substring(4);
-                        string carton = "";
-                        
+                        int startIndex = aLine.Length - 10;
+                        string scandate = aLine.Substring(startIndex).Trim();
+                        string remain = aLine.Remove(startIndex);
+                        string location = remain.Substring(remain.Length - 8).Trim();
+                        string remain1 = remain.Remove(startIndex - 8);
+                        string carton = remain1.Substring(remain1.Length - 10).Trim();
+                        string remain2 = remain1.Remove(startIndex - 18).Trim();
+                        string scanstaff = "";
+                        string custcode = "";
+                        string deptcode = "";
+						string[] result = Regex.Split(remain2.TrimStart(), @" +");
+                        if (result.Length == 3)
+                        {
+                            scanstaff = result[0] + " " + result[1];
+                            custcode = result[2].Substring(0, 4);
+                            deptcode = result[2].Substring(4);
+                        }
+                        else
+                        {
+                            scanstaff = result[0];
+                            custcode = result[1].Substring(0, 4);
+                            deptcode = result[1].Substring(4);
+                        }                        
                         if (custcode == "I018" || custcode == "I004" || custcode == "I022" || custcode == "I038" || custcode == "I042")
                         {
                             custcode = "I077";
@@ -2943,15 +2949,7 @@ namespace RecordManagementPortalDev.Controllers
                         if (custcode == "I020" || custcode == "I023" || custcode == "I024" || custcode == "I027")
                         {
                             custcode = "I066";
-                        }
-                        if (result.Length == 3)
-                        {
-                            carton = result[2].Remove(result[2].Length - 18);
-                        }
-                        else if (result.Length >= 4)
-                        {
-                            carton = result[2];
-                        }                       
+                        }                                            
                         var jobsdetail = UpdateJobsDetLoc(carton, deptcode, custcode, location, scanstaff, model.LogScanPack.FileName, aLine);
                         var job = jobsdetail.Result;
                         if (job < 0)

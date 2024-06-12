@@ -373,6 +373,11 @@
 	}
 
 	$(document).ready(function () {
+		if ($("#D1").is(':checked')) {
+			$("#ctnqty").show();
+			$("#sevlvl").hide();
+			$("#RRange").hide();
+		};
 		if ($("#D2").is(':checked'))
 		{
 			$("#ctnqty").hide();
