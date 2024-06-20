@@ -80,12 +80,24 @@
 									<option>Material Supply Only</option>
 								</select>
 							</div>
+							@if (@Model.OrderRequests.OrderType == "3" || @Model.OrderRequests.OrderType == "6" || @Model.OrderRequests.OrderType == "7" || @Model.OrderRequests.OrderType == "5")
+							{
+								<div class="form-check">
+									<input asp-for="Job.JobType" class="form-check-input" type="radio" name="optionsRad" id="D2" value="D2" checked="checked">
+									<label class="form-check-label" for="D2">
+										Delivery Old Cartons Records/Files/Tapes
+									</label>
+								</div>
+							}
+							else 
+							{
 							<div class="form-check">
-								<input asp-for="Job.JobType" class="form-check-input" type="radio" name="optionsRad" id="D2" value="D2" checked="@Model.OrderRequests.OrderType.Contains('3')">
+								<input asp-for="Job.JobType" class="form-check-input" type="radio" name="optionsRad" id="D2" value="D2">
 								<label class="form-check-label" for="D2">
 									Delivery Old Cartons Records/Files/Tapes
 								</label>
 							</div>
+							}
 							<div class="form-check">
 								<input asp-for="Job.JobType" class="form-check-input" type="radio" name="optionsRad" id="C1" value="C1" checked="@Model.OrderRequests.OrderType.Contains('2')">
 								<label class="form-check-label" for="C1">
@@ -138,13 +150,13 @@
 								</label>
 							</div>
 							<div class="form-check disabled">
-								<input asp-for="Job.ServLevel" class="form-check-input oRequest1" type="radio" name="optionsRadios" id="optionsRadios8" value="8" disabled="">
+								<input asp-for="Job.ServLevel" class="form-check-input oRequest1" type="radio" name="optionsRadios" id="optionsRadios8" value="8" disabled="" checked="@Model.OrderRequests.OrderType.Contains('6')">
 								<label class="form-check-label" for="optionsRadios8">
 									Permanent
 								</label>
 							</div>
 							<div class="form-check disabled">
-								<input asp-for="Job.ServLevel" class="form-check-input oRequest1" type="radio" name="optionsRadios" id="optionsRadios9" value="9" disabled="">
+								<input asp-for="Job.ServLevel" class="form-check-input oRequest1" type="radio" name="optionsRadios" id="optionsRadios9" value="9" disabled="" checked="@Model.OrderRequests.OrderType.Contains('7')">
 								<label class="form-check-label" for="optionsRadios9">
 									Destruction
 								</label>
@@ -232,7 +244,7 @@
 								</tr>
 								<tr id="ctnqty">
 									<td>Carton Qty: </td>
-									<td id='ctnQty'> @Model.OrderRequests.CartonQty </td>
+									<td><input id='ctnQty' value="@Model.OrderRequests.CartonQty" /></td>
 								</tr>
 								<tr>
 									<td>Remark: </td>
@@ -329,9 +341,9 @@
 		Job.Address4 = document.getElementById('custAdd4').value;
 		Job.DepartmentCode = document.getElementById("deptCode").value;
 		Job.Remark = document.getElementById('remark').innerHTML;
-		if (document.getElementById('ctnQty').innerHTML != "")
+		if (document.getElementById('ctnQty').value != "")
 		{
-		Job.TotalCtn = parseInt(document.getElementById('ctnQty').innerHTML);
+		Job.TotalCtn = parseInt(document.getElementById('ctnQty').value);
 		}
 		if (document.getElementById('orderDate').value == "")
 		{
@@ -373,29 +385,34 @@
 	}
 
 	$(document).ready(function () {
-		if ($("#D1").is(':checked')) {
+		if (document.getElementById("D1").checked == true) {
+			var arraySelects = document.getElementsByClassName('oRequest1');
+			for (var i = 0; i < arraySelects.length; i++) {
+				arraySelects[i].disabled = true;
+			}
 			$("#ctnqty").show();
-			$("#sevlvl").hide();
+			$("#sevlvl").show();
 			$("#RRange").hide();
 		};
-		if ($("#D2").is(':checked'))
-		{
+		if (document.getElementById("D2").checked == true) {
+			var arraySelects = document.getElementsByClassName('oRequest1');
+			for (var i = 0; i < arraySelects.length; i++) {
+				arraySelects[i].disabled = false;
+			}
 			$("#ctnqty").hide();
 			$("#sevlvl").show();
 			$("#RRange").show();
 		};
-		if ($("#C1").is(':checked'))
-		{
+		if (document.getElementById("C1").checked == true) {
 			$("#ctnqty").hide();
 			$("#sevlvl").hide();
 			$("#RRange").show();
 		};
-		if ($("#C2").is(':checked'))
-		{
+		if (document.getElementById("C2").checked == true) {
 			$("#ctnqty").hide();
 			$("#sevlvl").hide();
 			$("#RRange").show();
-		};
+		};		
 	$("#D1").change(function () {
 		var arraySelects = document.getElementsByClassName('oRequest1');
 		for (var i = 0; i < arraySelects.length; i++) {

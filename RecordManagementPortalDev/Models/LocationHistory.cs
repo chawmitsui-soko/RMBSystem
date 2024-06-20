@@ -36,5 +36,7 @@ namespace RecordManagementPortalDev.Models
 		[DisplayName("Updated Date")]
 		[Required]
 		public DateTime UpdatedDate { get; set; }
+		[DisplayName("JobNo")]		
+		public string? JobNo { get; set; }
 	}
 }

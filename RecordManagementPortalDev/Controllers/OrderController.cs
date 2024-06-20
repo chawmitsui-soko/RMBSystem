@@ -325,7 +325,14 @@ namespace RecordManagementPortalDev.Controllers
                     {
                         fromDb.JobOrderNo = "";
                     }
-                    fromDb.Person = model.Job.Person;
+                    if (!string.IsNullOrEmpty(model.Job.Person))
+                    {
+						fromDb.Person = model.Job.Person;
+					}
+                    else
+                    {
+                        fromDb.Person = "";
+                    }
                     fromDb.RequestDate = model.Job.RequestDate;
                     fromDb.Remark = model.Job.Remark;
                     fromDb.Contact = model.Job.Contact;
@@ -396,7 +403,14 @@ namespace RecordManagementPortalDev.Controllers
                 if (jobdetail != null)
                 {
                     model.Job.OldJobNo = UpdJobNo;
-                    model.Job.Person = jobdetail.Person;
+					if (!string.IsNullOrEmpty(jobdetail.Person))
+					{
+						model.Job.Person = jobdetail.Person;
+					}
+					else
+					{
+						model.Job.Person = "";
+					}					
                     model.Job.JobOrderNo = jobdetail.JobOrderNo;
                     model.Job.Contact = jobdetail.Contact;
                     model.Job.Fax = jobdetail.Fax;
@@ -579,7 +593,14 @@ namespace RecordManagementPortalDev.Controllers
                 if (jobdetail != null)
                 {
                     model.Job.OldJobNo = UpdJobNo;
-                    model.Job.Person = jobdetail.Person;
+					if (!string.IsNullOrEmpty(jobdetail.Person))
+					{
+						model.Job.Person = jobdetail.Person;
+					}
+					else
+					{
+						model.Job.Person = "";
+					}					
                     model.Job.Contact = jobdetail.Contact;
                     model.Job.Fax = jobdetail.Fax;
                     model.Job.DeptCode = jobdetail.DeptCode;
@@ -1088,7 +1109,7 @@ namespace RecordManagementPortalDev.Controllers
                 {
                     for (int i = 0; i < length; i++)
                     {
-                        var record = _db.CartonDetails.Where(x => x.DeptCode == recordslist[i].DeptCode && x.CustCode == customer && x.Cartons == recordslist[i].RecordNo && x.Status == "STORED").FirstOrDefault();
+                        var record = _db.CartonDetails.Where(x => x.DeptCode == recordslist[i].DeptCode && x.CustCode == customer && x.Cartons == recordslist[i].RecordNo.ToString() && x.Status == "STORED").FirstOrDefault();
                         if (record == null)
                         {
                             result = 0;
@@ -1104,7 +1125,7 @@ namespace RecordManagementPortalDev.Controllers
                 {
                     for (int i = 0; i < length; i++)
                     {
-                        var record = _db.CartonDetails.Where(x => x.DeptCode == recordslist[i].DeptCode && x.CustCode == customer && x.Cartons == recordslist[i].RecordNo).FirstOrDefault();
+                        var record = _db.CartonDetails.Where(x => x.DeptCode == recordslist[i].DeptCode && x.CustCode == customer && x.Cartons == recordslist[i].RecordNo.ToString()).FirstOrDefault();
                         if (record == null)
                         {
                             result = 0;
@@ -1120,7 +1141,7 @@ namespace RecordManagementPortalDev.Controllers
                 {
                     for (int i = 0; i < length; i++)
                     {
-                        var record = _db.CartonDetails.Where(x => x.DeptCode == recordslist[i].DeptCode && x.CustCode == customer && x.Cartons == recordslist[i].RecordNo && x.Status == "PULLED").FirstOrDefault();
+                        var record = _db.CartonDetails.Where(x => x.DeptCode == recordslist[i].DeptCode && x.CustCode == customer && x.Cartons == recordslist[i].RecordNo.ToString() && x.Status == "PULLED").FirstOrDefault();
                         if (record == null)
                         {
                             result = 0;
@@ -2991,7 +3012,7 @@ namespace RecordManagementPortalDev.Controllers
 
         public async Task<int> UpdateJobsDetLoc(string carton, string deptcode, string custcode, string location, string scanstaff, string fileno, string aLine)
         {
-            using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+            using var connection = new SqlConnection(_config.GetConnectionString("MyConnection"));
             var query = "SP_Update_JobsDetLoc";
             using var command = new SqlCommand(query, connection);
             command.CommandType = CommandType.StoredProcedure;

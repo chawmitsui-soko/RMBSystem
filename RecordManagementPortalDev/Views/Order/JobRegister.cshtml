@@ -427,7 +427,7 @@
 								for (var a =0; a < jsonResult.Sheet1.length; a++)
 								{
 									var department = jsonResult.Sheet1[a].DeptCode;
-									var recordno = jsonResult.Sheet1[a].RecordNo;
+									var recordno = jsonResult.Sheet1[a].RecordNo.toString();
 									RetrieveFTCartons(department, recordno);
 									array.push(department+recordno);
 								}
@@ -440,7 +440,7 @@
 								for (var a =0; a < jsonResult.Sheet1.length; a++)
 								{
 									var department = jsonResult.Sheet1[a].DeptCode;
-									var recordno = jsonResult.Sheet1[a].RecordNo;
+									var recordno = jsonResult.Sheet1[a].RecordNo.toString();
 									RetrieveFTCartons(department, recordno);
 									array.push(department+recordno);
 								}
@@ -461,7 +461,7 @@
 								for (var a =0; a < jsonResult.Sheet1.length; a++)
 								{
 									var department = jsonResult.Sheet1[a].DeptCode;
-									var recordno = jsonResult.Sheet1[a].RecordNo;
+									var recordno = jsonResult.Sheet1[a].RecordNo.toString();
 									RetrieveFTCartons(department, recordno);
 									array.push(department+recordno);
 								}

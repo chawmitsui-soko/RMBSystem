@@ -1225,7 +1225,7 @@ namespace RecordManagementPortalDev.Controllers
                         }
                     }
                     //Insert the Data read from the Excel file to Database Table.
-                    conString = _config.GetConnectionString("DefaultConnection");
+                    conString = _config.GetConnectionString("MyConnection");
 
                     using (SqlConnection con = new SqlConnection(conString))
                     {
