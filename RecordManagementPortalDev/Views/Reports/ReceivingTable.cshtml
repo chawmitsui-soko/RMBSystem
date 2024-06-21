@@ -1,0 +1,63 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using RecordManagementPortalDev.Models
+@model RecordManagementPortalDev.Controllers.ReportsController.ReportGen
+
+	<table class="nth-table table table-hover pt-3 text-center align-content-center">
+		<thead>
+			<tr>
+				<th scope="col">No.</th>
+				<th scope="col">Receiving ID</th>
+				<th scope="col">Carton Type</th>
+				<th scope="col">Receiving Date</th>
+				<th scope="col">Qty</th>
+				<th scope="col">Remarks</th>
+
+				@*
+				@if (user.UserRole == "Admin" || user.UserRole == "Approver")
+				{
+				<th style="width:5%"></th>
+				}
+				<th style="width:5%"></th>*@
+			</tr>
+		</thead>
+		<tbody class="align-content-center">
+
+			@{
+				long row = 0;
+			}
+
+
+			@foreach (var obj in Model.ReceivingList)
+			{
+				row = row + 1;
+				<tr id="receiving-entry-@row" class="align-content-center">
+					<td scope="row">@row</td>
+					<td id="receiving-no-@row">@obj.ReceivingId</td>
+					<td id="carton-type-@row">@obj.CartonType</td>
+					<td>@obj.ReceivingDate.ToString("dd-MM-yyyy")</td>
+					<td style="background-color:yellowgreen"><b>@obj.Qty</b></td>
+					<td>@obj.Remarks</td>
+					<td>
+						<a id="edit-ctn-receiving-@row" class="btn btn-outline-warning" role="button" aria-disabled="true">
+							<i class="bi bi-pencil-square"></i>
+						</a>
+						<a id="del-ctn-receiving-@row" class="ms-1 btn btn-outline-danger" role="button" aria-disabled="true">
+							<i class="bi bi-trash3-fill"></i>
+						</a>
+					</td>
+
+				</tr>
+			}
+
+		</tbody>
+	</table>
+
+
+<script>
+	editClickEvent();
+	delClickEvent();
+</script>

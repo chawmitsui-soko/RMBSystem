@@ -7,6 +7,7 @@ namespace RecordManagementPortalDev.Models
     {
         [Key]
         public int Id { get; set; }
+        public string ReceivingId { get; set; }
         public string CartonType { get; set; }        
         [DisplayName("Carton Type")]
         [Required]

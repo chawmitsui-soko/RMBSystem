@@ -46,9 +46,8 @@
 				foreach (var job in jobList)
 				{
 					<tr>
-						@if (job.TotalCtn != 0)
-						{
-							if (job.Desc == "JOB")
+
+							@if (job.Desc == "JOB")
 							{
 								runningBalance -= job.TotalCtn;
 								<td>@job.RequestDate.ToString("dd/MM/yyyy")</td>
@@ -67,7 +66,6 @@
 								<td>@runningBalance</td>
 
 							}
-						}
 					</tr>
 				}
 			}

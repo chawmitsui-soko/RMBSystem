@@ -30,6 +30,10 @@
 			background-color: #1d3850;
 		}
 
+		.nth-table td {
+			align-content: center;
+		}
+
 	.disabled-link {
 		pointer-events: none;
 		cursor: not-allowed;
@@ -40,6 +44,84 @@
 		grid-template-columns: 30% 68%;
 		grid-column-gap: 2%;
 	}
+
+	.overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.75);
+		color: white;
+		display: none;
+		justify-content: center;
+		align-items: center;
+		z-index: 1000;
+	}
+
+	.overlay-content {
+		width:80%;
+		min-height:80%;
+		max-height:80%;
+		color:white;
+		background-color: #1d3850;
+		border-radius: 0.25rem;
+		display: grid;
+		padding:1rem 2rem;
+		grid-column-gap: 2%;
+		grid-template-columns:60% 38%;
+		grid-template-rows:100%;
+		overflow: hidden;
+	}
+
+	.close-btn {
+		background-color: #f44336;
+		color: white;
+		border: none;
+		padding: 10px 20px;
+		cursor: pointer;
+		font-size: 16px;
+	}
+
+		.close-btn:hover {
+			background-color: #d32f2f;
+		}
+
+	.add-btn {
+		border: none;
+		background-color: yellowgreen;
+		color: white;
+		padding: 10px 20px;
+		cursor: pointer;
+		font-size: 16px;
+		font-weight: bold;
+	}
+
+		.add-btn:hover {
+			background-color: #8bb92d;
+		}
+
+	label {
+		margin: 0.5rem 0rem;
+		font-size: 14px;
+		align-content: center;
+	}
+
+	.input-field {
+		padding:0.5rem 1rem;
+	}
+
+	.add-edit-grid{
+		display: grid;
+		height: 65%;
+		grid-template-columns: 40% 60%;
+		grid-row-gap:8%;
+	}
+
+	.swal-modal .swal-text {
+		text-align: center;
+	}
+
 
 </style>
 
@@ -67,7 +149,7 @@
 							<ul class="dropdown-menu">
 								<li class="text-white px-2 py-2" role="button" id="stock-report" aria-disabled="true">Print Stock Balance Report</li>
 								<li class="text-white px-2 py-2" role="button" id="transaction-report" aria-disabled="true">Print Stock Transaction Report</li>
-								<li class="text-white px-2 py-2" role="button" id="add-receiving" aria-disabled="true">Add Receiving (TBD)</li>
+								<li class="text-white px-2 py-2" role="button" id="add-receiving" aria-disabled="true">Add Receiving</li>
 								<li class="text-white px-2 py-2" role="button" id="update-mss-job-no" aria-disabled="true">Update MSS Job Number (TBD)</li>
 							</ul>
 						</li>
@@ -150,8 +232,181 @@
 <div class="mb-10">
 	&nbsp;
 </div>
+
+<!-- Overlay div -->
+<div class="overlay" id="overlay">
+	<div class="overlay-content">
+		<div>
+			<div style="display:flex;justify-content:space-between" class="border p-3 mt-4">
+				<h5 class="text-warning col-sm-3 mb-0 align-content-center"><b>Receiving Month</b></h5>
+				<input type="month" min="2024-04" max="@DateTime.Now.ToString("yyyy-MM")" id="rec-date-selector" class="form-control text-center" />
+				<h5 class="text-warning col-sm-2 ms-5 mb-0 align-content-center"><b>Carton Type</b></h5>
+				<select class="form-select text-center" id="CartonType" name="CartonType" asp-items="@Model?.CtnTypeList">
+					<option value="0" selected>- Select Type -</option>
+				</select>
+			</div>
+			@if (Model.ReceivingList.Count == 0)
+			{
+				<div class="align-content-center h-75">
+					<h5 class="text-warning p-3 m-0 text-center"><b>[ No Receiving Data For Current Criteria ]</b></h5>
+				</div>
+
+			}else{
+				<div style="margin-top:2%;height:80%;overflow-y:auto"  id="table-container">
+					@Html.Partial("ReceivingTable")
+				</div>
+			}
+		</div>
+		@*<div class="bg-gradient p-3 mt-4">
+			<h5 style="display:flex;justify-content:space-between" class="text-warning px-3 pt-2">
+				<b class="align-content-center">Add Receiving</b>
+				<button class="btn btn-outline-warning" id="add-overlay">Add</button>
+			</h5>
+
+			<form class="p-3 add-edit-grid">
+				<label>Carton Type</label>
+				<select class="form-select text-center input-field" id="add-receiving-type-dd" name="CartonType" asp-items="@Model?.CtnTypeList">
+					<option value="0" disabled selected>- Select Type -</option>
+				</select>
+				<label>Receiving Date</label>
+				<input asp-for="@DateTime.Now" type="date" id="add-receiving-date" min="2024-04-01" class="input-field form-control text-center" />
+				<label>Quantity</label>
+				<input type="number" id="add-receiving-qty" min=1 class="input-field form-control text-center" />
+				<label>Remarks</label>
+				<input type="text" id="add-receiving-remarks" class="input-field form-control text-center" />
+@*
+				<div style="grid-column:span 2;text-align:center" class="mt-2">
+					<button class="btn btn-outline-warning" id="add-overlay">Add</button>
+				</div>
+			</form>
+		</div>*@
+
+		<div class="height:100%; bg-gradient p-3 mt-4">
+			<h5 style="display:flex;justify-content:space-between" class="text-warning px-3 pt-2">
+				<b class="align-content-center" id="edit-panel-title">Add Receiving</b>
+				<button class="btn btn-outline-warning" id="add-overlay">Add New Receiving</button>
+			</h5>
+			<form class="p-3 add-edit-grid mt-5">
+				<label>Receiving ID</label>
+				<input type="text" id="receiving-id" class="input-field form-control text-center" value="- System Generated -" disabled />
+				<label>Carton Type</label>
+				<select class="form-select text-center input-field" id="receiving-type-dd" name="CartonType" asp-items="@Model?.CtnTypeList">
+					<option value="0" disabled selected>- Select Type -</option>
+				</select>
+				<label>Receiving Date</label>
+				<input type="date" id="receiving-date" min="2024-04-01" class="input-field form-control text-center" />
+				<label>Quantity</label>
+				<input type="number" id="receiving-qty" min=1 class="input-field form-control text-center" />
+				<label>Remarks</label>
+				<input type="text" id="receiving-remarks" class="input-field form-control text-center" />
+
+@*				<div style="grid-column:span 2;text-align:center" class="mt-2">
+					<button class="btn btn-outline-warning" id="add-overlay">Add</button>
+				</div>*@
+			</form>
+			<div class="mt-4" style="text-align:center">
+			<button class="btn btn-outline-warning" id="save-add-button">Add</button>
+			<button class="btn btn-outline-warning" id="cancel-button">Cancel</button>
+				</div>
+		</div>
+		@*<div style="text-align:center;grid-column:span 2">
+			<button class="close-btn" id="close-overlay">Close</button>
+		</div>*@
+	</div>
+</div>
 @section Scripts {
 <script>
+	function editClickEvent(){
+		// Get all the buttons in the table
+		var editbuttons = document.querySelectorAll('[id^="edit-ctn-receiving-"]');
+
+		// Add click event listener to each button
+		editbuttons.forEach(function (button) {
+			button.addEventListener('click', function (event) {
+				event.preventDefault();
+
+				// Get the selected date
+				document.getElementById("edit-panel-title").innerHTML = 'Edit Receiving';
+				document.getElementById("save-add-button").innerHTML = 'Save Changes';
+
+				var arr = button.id.split("-");
+				document.getElementById("receiving-id").value = document.getElementById('receiving-entry-' + arr[arr.length - 1]).cells[1].innerHTML.trim();
+				document.getElementById("receiving-type-dd").value = document.getElementById('receiving-entry-' + arr[arr.length - 1]).cells[2].innerHTML.trim();
+
+				var datestr = document.getElementById('receiving-entry-' + arr[arr.length - 1]).cells[3].innerHTML.split("-");
+				document.getElementById("receiving-date").value = datestr[2] + "-" + datestr[1] + "-" + datestr[0];
+
+				var recqty = document.getElementById('receiving-entry-' + arr[arr.length - 1]).cells[4].innerHTML.replace("<b>", "");
+				recqty = recqty.replace("</b>", "");
+
+				document.getElementById("receiving-qty").value = parseInt(recqty);
+				document.getElementById("receiving-remarks").value = document.getElementById('receiving-entry-' + arr[arr.length - 1]).cells[5].innerHTML.trim();
+			});
+		});
+	}
+
+		function delClickEvent() {
+			// Get all the buttons in the table
+			var delbuttons = document.querySelectorAll('[id^="del-ctn-receiving-"]');
+
+			// Add click event listener to each button
+			delbuttons.forEach(function (button) {
+				button.addEventListener('click', function (event) {
+					event.preventDefault();
+
+					var arr = button.id.split("-");
+					var receivingId = document.getElementById('receiving-entry-' + arr[arr.length - 1]).cells[1].innerHTML.trim();
+					swal({
+						title: "Are you sure?",
+						text: "You are going to delete " + receivingId + "!",
+						icon: "warning",
+						buttons: true,
+						dangerMode: true,
+					}).then((willDelete) => {
+						if (willDelete) {
+							$.ajax({
+								url: '@Url.Action("DeleteReceiving","Reports")',
+								type: 'POST',
+								data: {
+									receivingId: document.getElementById('receiving-entry-' + arr[arr.length - 1]).cells[1].innerHTML.trim()
+								},
+								success: function (response) {
+									console.log('Success:', response);
+									swal({
+										title: "Receiving Entry Deleted",
+										text: receivingId + " Deleted!",
+										icon: "success",
+									}).then(() => {
+										refreshTable();
+									})
+								},
+								error: function (xhr, status, error) {
+									console.log('Error', error);
+								}
+							});
+	
+						}
+					})
+				});
+			});
+		}
+	function refreshTable(){
+			// Build the URL with the selected date as a query parameter
+			var cartonType = document.getElementById("CartonType").value;
+			var receivingMonth = document.getElementById("rec-date-selector").value;
+			var url = `ReceivingTable?cartonType=${encodeURIComponent(cartonType)}&receivingMonth=${encodeURIComponent(receivingMonth)}`;
+			// Load the content into the divPartial element
+			$('#table-container').load(url);
+	}
+
+	function resetForm(){
+			document.getElementById("receiving-id").value = document.getElementById("edit-panel-title").innerHTML == 'Add Receiving' ? "- System Generated -" : "- Select Receiving To Edit -";
+			document.getElementById("receiving-type-dd").selectedIndex = '0';
+			document.getElementById("receiving-date").value = '';
+			document.getElementById("receiving-qty").value = '';
+			document.getElementById("receiving-remarks").value = '';
+	}
+
 
 	$(function(){
 		const now = new Date();
@@ -164,7 +419,19 @@
 		$('#asatdate').change(function () { 
 			$('#month-selector').submit(); 
 		});
+
+			$('#rec-date-selector').change(function () {
+				refreshTable();
+			});
+
+			$('#CartonType').change(function () {
+				refreshTable();
+			});
 	});
+
+		editClickEvent();
+		delClickEvent();
+		
 
 		// Get all the buttons in the table
 		var buttons = document.querySelectorAll('[id^="trans-btn-"]');
@@ -190,9 +457,143 @@
 		document.getElementById('stock-report').addEventListener('click', function () {
 			window.location.href = '@Url.Action("GenerateStockReport", "Reports")' + '?selectedDate=' + document.getElementById('asatdate').value;
 		});
+
 		document.getElementById('transaction-report').addEventListener('click', function () {
 			window.location.href = '@Url.Action("GenerateTransReport", "Reports")' + '?selectedDate=' + document.getElementById('asatdate').value;
 		});
+
+		document.getElementById('add-receiving').addEventListener('click', function () {
+			document.getElementById('overlay').style.display = 'flex';
+		});
+
+		document.getElementById('cancel-button').addEventListener('click', function () {
+			document.getElementById('overlay').style.display = 'none';
+		});
+
+		document.getElementById('add-overlay').addEventListener('click',
+			function (event) {
+
+				// Handle the form data
+				event.preventDefault();
+				document.getElementById("edit-panel-title").innerHTML = 'Add Receiving';
+				resetForm();
+				document.getElementById("save-add-button").innerHTML = 'Add';
+
+
+			});
+
+		document.getElementById('save-add-button').addEventListener('click',
+			function (event) {
+				event.preventDefault();
+
+				var error_items = [];
+
+				if (document.getElementById("receiving-type-dd").value == 0) {
+					error_items.push("Carton Type");
+				}
+
+				if (document.getElementById("receiving-date").value == "") {
+					error_items.push("Receiving Date");
+				}
+
+				if (document.getElementById("receiving-qty").value == 0) {
+					error_items.push("Quantity");
+				}
+
+				switch(document.getElementById('save-add-button').innerHTML){
+					case "Add":
+						if (error_items.length > 0){
+
+							var verb = error_items.length == 1 ? " is" : " are";
+
+							swal({
+								title: "Invalid Input",
+								text: "Please check if " + error_items.join(", ") + verb + " entered correctly.", 
+								icon: "error",
+							})
+						}else{
+							$.ajax({
+								url: '@Url.Action("AddNewReceiving","Reports")',
+								type: 'POST',
+								data: {
+									cartonType: document.getElementById("receiving-type-dd").value,
+									receivingDate: document.getElementById("receiving-date").value,
+									receivingQty: document.getElementById("receiving-qty").value,
+									receivingRemarks: document.getElementById("receiving-remarks").value
+								},
+								success: function (data, response) {
+									console.log('Success:', response);
+									swal({
+										title: "Receiving Entry Added",
+										text: data + " Added!",
+										icon: "success",
+									}).then(() => {
+										refreshTable();
+										resetForm();
+									})
+								},
+								error: function (xhr, status, error) {
+									console.log('Error', error);
+								}
+							});
+
+						}
+						break;
+					case "Save Changes":
+
+						if (document.getElementById("receiving-id").value == "- Select Receiving To Edit -"){
+							swal({
+								title: "No Selected Receiving Entry",
+								text: "Please Select A Receiving Entry To Edit.",
+								icon: "warning",
+							})
+						}else{
+							if (error_items.length > 0) {
+
+								var verb = error_items.length == 1 ? " is" : " are";
+
+								swal({
+									title: "Invalid Input",
+									text: "Please check if " + error_items.join(", ") + verb + " entered correctly.",
+									icon: "error",
+								})
+							} else {
+								$.ajax({
+									url: '@Url.Action("UpdateReceiving","Reports")',
+									type: 'POST',
+									data: {
+										receivingId: document.getElementById("receiving-id").value,
+										cartonType: document.getElementById("receiving-type-dd").value,
+										receivingDate: document.getElementById("receiving-date").value,
+										receivingQty: document.getElementById("receiving-qty").value,
+										receivingRemarks: document.getElementById("receiving-remarks").value
+									},
+									success: function (data,response) {
+										console.log('Success:', response);
+										swal({
+											title: "Receiving Entry Updated",
+											text: data + " Updated!",
+											icon: "success",
+										}).then(() => {
+											refreshTable();
+											resetForm();
+										})
+									},
+									error: function (xhr, status, error) {
+										console.log('Error', error);
+									}
+								});
+							}
+						}
+						break;
+					default:
+
+				}
+				
+
+			}
+		
+		);
 
 
 </script>
