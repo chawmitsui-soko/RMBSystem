@@ -107,7 +107,11 @@
 							</tbody>
 						</table>
 					</div>
-					<a class="btn btn-outline-light mt-3" href="javascript: history.go(-1)">Back To Inventory List</a>	
+					<div class="form-group row">
+						<div class="col-sm-2 mt-2">
+							<a class="btn btn-outline-light mt-3" type="button" asp-controller="Order" asp-action="RecordContent" asp-route-recordno="1">Back To Inventory List</a>
+						</div>
+					</div>					
 				</div>
 			</fieldset>
 		</form>
