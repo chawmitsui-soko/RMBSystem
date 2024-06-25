@@ -22,6 +22,8 @@ using static iTextSharp.text.pdf.PRTokeniser;
 using Stimulsoft.Report.Dictionary;
 using OfficeOpenXml.ConditionalFormatting;
 using System.Reflection.PortableExecutable;
+using IdentityModel.Jwk;
+using System.Reflection;
 
 namespace RecordManagementPortalDev.Controllers
 {
@@ -38,9 +40,11 @@ namespace RecordManagementPortalDev.Controllers
         {
             public string CustomerCode { get; set; }
             public string Location { get; set; }
+            public SelectList CtnTypeList { get; set; }
             public SelectList CustomerList { get; set; }
             public SelectList DepartmentList { get; set; }
             public List<CrtnMonthlyBals> StockList { get; set; }
+            public List<CtnStockReceiving> ReceivingList { get; set; }
             public DateTime StartDate { get; set; }
             public DateTime EndDate { get; set; }
             public DateTime SelectedDate { get; set; }
@@ -87,15 +91,23 @@ namespace RecordManagementPortalDev.Controllers
 
         public IActionResult CustomerInvR()
         {
-            ReportGen model = new ReportGen();
-            var today = DateTime.Now;
-            var firstOfCurrentMonth = new DateTime(today.Year, today.Month, 1);
-            model.StartDate = firstOfCurrentMonth.AddMonths(defaultRange);
-            model.EndDate = firstOfCurrentMonth.AddMonths(1).AddDays(-1);
-            var sortedCustomers = _db.Customers.OrderBy(c => c.CustomerCode).ToList();
-            model.CustomerList = new SelectList(sortedCustomers, "CustomerCode", "CustomerCode");
-            return View(model);
-        }
+			checkUser();
+            if (loginflag == true)
+            {
+                ReportGen model = new ReportGen();
+                var today = DateTime.Now;
+                var firstOfCurrentMonth = new DateTime(today.Year, today.Month, 1);
+                model.StartDate = firstOfCurrentMonth.AddMonths(defaultRange);
+                model.EndDate = firstOfCurrentMonth.AddMonths(1).AddDays(-1);
+                var sortedCustomers = _db.Customers.OrderBy(c => c.CustomerCode).ToList();
+                model.CustomerList = new SelectList(sortedCustomers, "CustomerCode", "CustomerCode");
+                return View(model);
+            }
+			else
+			{
+				return Redirect("~/Identity/Account/Login/");
+			}
+		}
 
         public IActionResult LocationR()
         {
@@ -231,8 +243,32 @@ namespace RecordManagementPortalDev.Controllers
                 return Redirect("~/Identity/Account/Login/");
             }
         }
+		private DataTable LINQToDataTable<T>(IEnumerable<T> query)
+		{
+			DataTable dataTable = new DataTable();
+			PropertyInfo[] properties = typeof(T).GetProperties();
 
-        public IActionResult GenerateCustInventory(string CustomerCode)
+			// Define the columns of the DataTable
+			foreach (var property in properties)
+			{
+				dataTable.Columns.Add(property.Name, Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType);
+			}
+
+			// Populate the rows of the DataTable
+			foreach (var item in query)
+			{
+				DataRow row = dataTable.NewRow();
+				foreach (var property in properties)
+				{
+					row[property.Name] = property.GetValue(item) ?? DBNull.Value;
+				}
+				dataTable.Rows.Add(row);
+			}
+
+			return dataTable;
+		}
+
+		public IActionResult GenerateCustInventory(string CustomerCode)
         {
             checkUser();
             if (loginflag == true)
@@ -242,6 +278,49 @@ namespace RecordManagementPortalDev.Controllers
                 var report = new StiReport();
                 report.Load(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Reports", "CustomerInventory.mrt"));
                 report.Dictionary.Variables["customerCode"].Value = CustomerCode;
+
+                var carton = from x in _db.CartonDetails
+                             where x.CustCode == CustomerCode
+                             select x;
+
+                var jobdet = from x in _db.JobsDetLoc
+                             where x.CustCode == CustomerCode && x.JobLevel == "1"
+                             select x;
+
+                var job = from x in _db.Job
+                          where x.CustCode == CustomerCode
+                          && ((x.JobLevel == "1" && x.JobType == "C")
+                            || (x.JobLevel == "Empty Cartons Only" && x.JobType == "C1"))
+                          select x;
+
+				// Perform the join using the results of the above queries
+				var query = from c in carton
+							join jd in jobdet
+							on new { c.Cartons, c.DeptCode } equals new { jd.Cartons, jd.DeptCode } into jdGroup
+							from jd in jdGroup.DefaultIfEmpty()
+							join j in job
+							on jd.JobNo equals j.OldJobNo into jGroup
+							from j in jGroup.DefaultIfEmpty()
+							select new
+								  {
+									  c.DeptCode,
+                                      c.Cartons,
+                                      j.Person,
+                                      j.RequestDate,
+                                      j.OldJobNo,
+                                      c.Location,
+                                      c.Status,
+                                      c.Permanentstored,
+                                      c.ReceivedDate,
+                                      c.DestructDate
+								  };
+
+
+				DataTable inventory_dt = LINQToDataTable(query);
+
+                Debug.WriteLine(inventory_dt.Rows.Count);
+
+                report.RegData("InventoryInfo", inventory_dt);
 
                 // Synchronize the report dictionary with the registered data
                 report.Dictionary.Synchronize();
@@ -511,7 +590,6 @@ namespace RecordManagementPortalDev.Controllers
                                                               where x.AsatDate == last_day_of_selected
                                                               orderby x.CartonType
                                                               select x).ToList();
-                Debug.WriteLine(tempStockList.Count);
                 if (tempStockList.Count == 0)
                 {
                     var last_stock_date = new DateTime(model.SelectedDate.Year, model.SelectedDate.Month, 1).AddDays(-1);
@@ -549,8 +627,16 @@ namespace RecordManagementPortalDev.Controllers
                     tempStockList.AddRange(copiedStockList);
                 }
 
+				model.ReceivingList = new List<CtnStockReceiving>(from x in _db.CtnStockReceiving
+																  orderby x.ReceivingDate descending
+																  select x).ToList();
 
-                if (last_day_of_selected.Month != DateTime.Now.Month || last_day_of_selected.Year != DateTime.Now.Year)
+                Debug.WriteLine(model.ReceivingList.Count);
+
+				var sortedCtnType = _db.CartonType.OrderBy(c => c.CtnType).ToList();
+				model.CtnTypeList = new SelectList(sortedCtnType, "CtnType", "CtnType");
+
+				if (last_day_of_selected.Month != DateTime.Now.Month || last_day_of_selected.Year != DateTime.Now.Year)
                 {
                     model.StockList = tempStockList;
                 }
@@ -566,7 +652,7 @@ namespace RecordManagementPortalDev.Controllers
                                                    && x.JobLevel == "Empty Cartons Only"
                                                orderby x.RequestDate
                                                select x.TotalCtn
-                                        ).Sum();
+                                            ).Sum();
 
 
                         var monthlyReceiving = (from x in _db.CtnStockReceiving
@@ -609,7 +695,121 @@ namespace RecordManagementPortalDev.Controllers
 
         }
 
-        public IActionResult MonBillSumR()
+        public IActionResult AddNewReceiving(string cartonType, string receivingDate,int receivingQty, string receivingRemarks)
+        {
+            ReportGen model = new ReportGen();
+            Debug.WriteLine($"Adding Carton {cartonType} Dated on {receivingDate} Receiving {receivingQty} to DB...{receivingRemarks}");
+			// Create a new instance of the CtnStockReceiving entity with the provided parameters
+			var lastReceivingId = (from x in _db.CtnStockReceiving
+                                   orderby x.ReceivingId descending
+									select x.ReceivingId).FirstOrDefault();
+
+            var receiving = new CtnStockReceiving
+            {
+                ReceivingId = string.Format("{0:RC-00000}", Int32.Parse(lastReceivingId.Split('-')[1]) + 1),
+			    CartonType = cartonType,
+                ReceivingDate = DateTime.Parse(receivingDate), // Ensure your date string is in a parseable format
+                Qty = receivingQty,
+                Remarks = receivingRemarks ?? "-"
+            };
+
+            _db.CtnStockReceiving.Add(receiving);
+            _db.SaveChanges();
+
+            return Ok(receiving.ReceivingId);
+        }
+
+
+		public IActionResult UpdateReceiving(string receivingId, string cartonType, string receivingDate, int receivingQty, string receivingRemarks)
+		{
+			ReportGen model = new ReportGen();
+			Debug.WriteLine($"Updating Carton {cartonType} Dated on {receivingDate} Receiving {receivingQty} to DB...{receivingRemarks}");
+			// Create a new instance of the CtnStockReceiving entity with the provided parameters
+			var receivingEntry = (from x in _db.CtnStockReceiving
+                                    where x.ReceivingId == receivingId
+								   select x).FirstOrDefault();
+
+            receivingEntry.CartonType = cartonType;
+            receivingEntry.ReceivingDate = DateTime.Parse(receivingDate);
+            receivingEntry.Qty = receivingQty;
+            receivingEntry.Remarks = receivingRemarks;
+
+			_db.SaveChanges();
+
+			return Ok(receivingEntry.ReceivingId);
+		}
+
+		public IActionResult DeleteReceiving(string receivingId)
+		{
+			ReportGen model = new ReportGen();
+			
+			// Create a new instance of the CtnStockReceiving entity with the provided parameters
+			var receivingEntry = (from x in _db.CtnStockReceiving
+								  where x.ReceivingId == receivingId
+								  select x).FirstOrDefault();
+
+			if (receivingEntry == null)
+			{
+				return NotFound("Entry not found.");
+			}
+
+			// Remove the entry from the database context
+			_db.CtnStockReceiving.Remove(receivingEntry);
+
+			// Save changes to the database
+			_db.SaveChanges();
+
+			return Ok("Deleted Successfully from DB!");
+		}
+
+		public IActionResult ReceivingTable(string cartonType, string receivingMonth)
+		{
+            Debug.WriteLine($"{cartonType}&&&&&&&{receivingMonth}");
+            ReportGen model = new ReportGen();
+            
+            if (cartonType == "0" && receivingMonth is null)
+            {
+				model.ReceivingList = new List<CtnStockReceiving>(from x in _db.CtnStockReceiving
+																  orderby x.ReceivingDate descending
+																  select x).ToList();
+			}else if (cartonType == "0")
+            {
+
+                var month = Int32.Parse(receivingMonth.Split('-')[1]);
+                var year = Int32.Parse(receivingMonth.Split('-')[0]);
+				model.ReceivingList = new List<CtnStockReceiving>(from x in _db.CtnStockReceiving
+																  where x.ReceivingDate.Month == month
+																  && x.ReceivingDate.Year == year
+                                                                  orderby x.ReceivingDate descending
+																  select x).ToList();
+			}else if (receivingMonth is null){
+				model.ReceivingList = new List<CtnStockReceiving>(from x in _db.CtnStockReceiving
+																  where x.CartonType == cartonType
+																  orderby x.ReceivingDate descending
+																  select x).ToList();
+            }
+            else{
+				var month = Int32.Parse(receivingMonth.Split('-')[1]);
+				var year = Int32.Parse(receivingMonth.Split('-')[0]);
+				model.ReceivingList = new List<CtnStockReceiving>(from x in _db.CtnStockReceiving
+																  where x.ReceivingDate.Month == month
+																  && x.ReceivingDate.Year == year
+                                                                  && x.CartonType == cartonType
+																  orderby x.ReceivingDate descending
+																  select x).ToList();
+			}
+
+            if (model.ReceivingList.Count == 0)
+            {
+                return PartialView("ReceivingTableEmpty",model);
+            }
+            else {
+				return PartialView("ReceivingTable", model);
+			}
+
+		}
+
+		public IActionResult MonBillSumR()
         {
             ReportGen model = new ReportGen();
             var today = DateTime.Now;
@@ -659,6 +859,7 @@ namespace RecordManagementPortalDev.Controllers
                                   && x.CtnType == model.CartonType
                                   && x.JobType == "D1"
                                   && x.JobLevel == "Empty Cartons Only"
+                                  && x.TotalCtn != 0
                                orderby x.RequestDate
                                select new
                                {
